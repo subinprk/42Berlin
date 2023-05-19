@@ -16,13 +16,19 @@
 void	ft_putendl_fd(char *s, int fd)
 {
 	int	index;
+	char	*tmp;
 
+	tmp = (char *)malloc((ft_strlen(s) + 2) * sizeof(char));
 	index = 0;
 	while (s[index])
+	{
+		tmp[index] = s[index];
 		index ++;
-	s[index] = '\n';
+	}
+	tmp[index] = '\n';
 	index ++;
-	s[index] = 0;
+	tmp[index] = 0;
+	s = tmp;
 	write(fd, s, ft_strlen(s));
 	return ;
 }

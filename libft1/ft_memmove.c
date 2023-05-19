@@ -19,7 +19,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	size_t		index;
 
 	index = 0;
-	tmp_dest = NULL;
+	tmp_dest = dest;
 	tmp_src = (unsigned char *)src;
 	while (index < n)
 	{

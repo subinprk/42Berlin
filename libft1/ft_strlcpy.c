@@ -20,15 +20,15 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 
 	index = 0;
 	length = ft_strlen(src);
-	if (length < size)
-		copysize = length;
-	else
+	if (length > size)
 		copysize = size;
+	else
+		copysize = length;
 	while (index < copysize - 1)
 	{
 		dst[index] = src[index];
 		index ++;
 	}
 	dst[index] = 0;
-	return (size);
+	return (copysize);
 }

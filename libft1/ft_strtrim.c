@@ -13,55 +13,48 @@
 #include <stdlib.h>
 #include "libft.h"
 
-int	tool4count(char const *s1, char const *set)
+int	tool4count(const char *s1, const char *set)
 {
 	int	count;
+	int	setlen;
 	int	i1;
-	int	i2;
 
-	i1 = 0;
+	setlen = ft_strlen(set);
 	count = 0;
-	while (s1[i1])
+	i1 = 0;
+	while (s1[i1] != 0)
 	{
-		i2 = 0;
-		while (set[i2])
+		if (ft_strncmp(s1 + i1, set, setlen))
+			i1 = i1 + setlen;
+		else
 		{
-			if (s1[i1] == set[i2])
-				break ;
-			i2 ++;
-		}
-		if (!set[i2])
 			count ++;
-		i1 ++;
+			i1 ++;
+		}
 	}
 	return (count);
 }
 
-char	*tool4write(char const *s1, char const *set, char *str)
+char	*tool4write(const char *s1, const char *set, char *str)
 {
-	int	count;
+	int	index;
+	int	setlen;
 	int	i1;
-	int	i2;
 
+	setlen = ft_strlen(set);
+	index = 0;
 	i1 = 0;
-	count = 0;
 	while (s1[i1])
 	{
-		i2 = 0;
-		while (set[i2])
+		if (ft_strncmp(s1 + i1, set, setlen))
+			i1 = i1 + strlen;
+		else
 		{
-			if (s1[i1] == set[i2])
-				break ;
-			i2 ++;
+			str[index] = s1[i1];
+			i1 ++;
+			index ++;
 		}
-		if (!set[i2])
-		{
-			str[count] = s1[i1];
-			count ++;
-		}
-		i1 ++;
 	}
-	str[count] = 0;
 	return (str);
 }
 
@@ -72,10 +65,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	str = (char *) malloc(tool4count(s1, set) * sizeof(char) + 1);
 	return (tool4write(s1, set, str));
 }
-/*
+
 #include <stdio.h>
 int main()
 {
-	printf("%s", ft_strtrim("is it working?"," ?"));
+	printf("%s", ft_strtrim("is it working?"," g?"));
 	return(0);
-}*/
+}

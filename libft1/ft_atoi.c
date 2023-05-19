@@ -48,7 +48,7 @@ int	ft_atoi(const char *nptr)
 		else if (nptr[index] == '-' && index == 0)
 			sign = (-1) * sign;
 		else if (nptr[index] < '0' || nptr[index] > '9')
-			return (0);
+			return (sign * num);
 		else if (10 * num + (nptr[index] - '0') < num)
 			return (0);
 		else

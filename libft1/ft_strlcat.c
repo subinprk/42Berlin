@@ -14,25 +14,27 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int	lengdst;
-	int	index;
-	size_t	length;
-	int	copysize;
+	size_t	index;
+	size_t	eod;
+	size_t	dest_len;
+	size_t	src_len;
 
+	dest_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
 	index = 0;
-	lengdst = ft_strlen(dst);
-	length = ft_strlen(src);
-	if (length < size)
-		copysize = length;
-	else
-		copysize = size;
-	while (index < copysize - 1)
+	while(dst[index] != 0 && index < size - 1)
+		index ++;
+	eod = index;
+	while(index < size - 1)
 	{
-		dst[lengdst - 1 + index] = src[index];
+		dst[index] = src[index - eod];
 		index ++;
 	}
 	dst[index] = 0;
-	return (size);
+	if (dest_len < size)
+		return src_len + dest_len;
+	else
+		return src_len + size;
 }
 
 /*function that try to add 'size' bytes of src to the dst
