@@ -13,24 +13,40 @@
 #include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
-{
-	size_t	start;
-	size_t	end;
-	char	*result;
+int is_set_start(char c, const char *set) {
+    while (*set) {
+        if (c == *set)
+            return 1;
+        set++;
+    }
+    return 0;
+}
 
-	if(!s1)
-		return (NULL);
-	if (!set)
-		return (ft_strdup(s1));
-	start = 0;
-	end = ft_strlen(s1);
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start ++;
-	while (s1[end] && ft_strchr(set, s1[end - 1]))
-		end --;
-	if (start > end)
-		return (ft_strdup(""));
-	result = ft_substr(s1, start, end - start);
-	return (result);
+int is_set_end(char c, const char *set) {
+    return is_set_start(c, set);
+}
+
+char *ft_strtrim(char const *s1, char const *set) {
+    if (s1 == NULL || set == NULL)
+        return NULL;
+
+    const char *start = s1;
+    const char *end = s1 + ft_strlen(s1) - 1;
+
+    while (*start && is_set_start(*start, set))
+        start++;
+
+    while (end > start && is_set_end(*end, set))
+        end--;
+
+    size_t trimmed_length = end - start + 1;
+    char *trimmed_str = (char *)malloc(trimmed_length + 1);
+
+    if (trimmed_str == NULL)
+        return NULL;
+
+    ft_strlcpy(trimmed_str, start, trimmed_length);
+    trimmed_str[trimmed_length] = '\0';
+
+    return trimmed_str;
 }

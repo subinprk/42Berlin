@@ -18,6 +18,8 @@ void	ft_putendl_fd(char *s, int fd)
 	int	index;
 	char	*tmp;
 
+	if (fd < 0)
+		return ;
 	tmp = (char *)malloc((ft_strlen(s) + 2) * sizeof(char));
 	index = 0;
 	while (s[index])

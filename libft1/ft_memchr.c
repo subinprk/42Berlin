@@ -15,18 +15,16 @@
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t	index;
-	char	*target;
 	char	*tmp;
 
-	index = 0;
+	index = n - 1;
 	tmp = (char *)s;
-	target = NULL;
-	while (index < n)
+	while (index >= 0)
 	{
 		if (tmp[index] == c)
-			*target = tmp[index];
-		index ++;
+			return (&tmp[index]);
+		index --;
 	}
-	return (target);
+	return (NULL);
 }
 /*Function that return the pointer appears last 'c' in s*/

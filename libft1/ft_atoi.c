@@ -37,16 +37,22 @@ int	ft_atoi(const char *nptr)
 	int	num;
 	int	index;
 	int	sign;
+	int	countsign;
 
 	sign = 1;
 	num = 0;
 	index = 0;
+	countsign = 0;
 	while (nptr[index] != 0)
 	{
 		if (!ft_memcmp(nptr, "-2147483648", 11))
 			return (-2147483648);
-		else if (nptr[index] == '-' && index == 0)
+		else if (nptr[index] == '\t' || nptr[index] == '\n' ||
+				nptr[index] == ' ' || nptr[index] == '\r' ||
+				nptr[index] == '\v' || nptr[index] == '\f') ;
+		else if (nptr[index] == '-' && countsign ++ == 0)
 			sign = (-1) * sign;
+		else if (nptr[index] == '+' && countsign ++ == 0) ;
 		else if (nptr[index] < '0' || nptr[index] > '9')
 			return (sign * num);
 		else if (10 * num + (nptr[index] - '0') < num)
