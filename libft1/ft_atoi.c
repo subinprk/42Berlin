@@ -47,9 +47,10 @@ int	ft_atoi(const char *nptr)
 	{
 		if (!ft_memcmp(nptr, "-2147483648", 11))
 			return (-2147483648);
-		else if (nptr[index] == '\t' || nptr[index] == '\n' ||
-				nptr[index] == ' ' || nptr[index] == '\r' ||
-				nptr[index] == '\v' || nptr[index] == '\f') ;
+		else if (!ft_isdigit(nptr[index - 1]) && (nptr[index] == '\t' 
+			|| nptr[index] == '\n' || nptr[index] == ' ' ||
+			nptr[index] == '\r'|| nptr[index] == '\v' ||
+			nptr[index] == '\f')) ;
 		else if (nptr[index] == '-' && countsign ++ == 0)
 			sign = (-1) * sign;
 		else if (nptr[index] == '+' && countsign ++ == 0) ;

@@ -12,31 +12,37 @@
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t		ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	index;
-	size_t	eod;
-	size_t	dest_len;
-	size_t	src_len;
+	size_t		i;
+	size_t		t1;
+	size_t		t2;
 
-	dest_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	index = 0;
-	while(dst[index] != 0 && index < size - 1)
-		index ++;
-	eod = index;
-	while(index < size - 1)
+	i = 0;
+	t1 = ft_strlen(dst);
+	t2 = ft_strlen(src);
+	if (size <= t1)
+		return (size + t2);
+	while (dst[i] && i < size - 1)
+		i ++;
+	while (src[i - t1] && i < size - 1)
 	{
-		dst[index] = src[index - eod];
-		index ++;
+		dst[i] = src[i - t1];
+		i ++;
 	}
-	dst[index] = 0;
-	if (dest_len < size)
-		return src_len + dest_len;
-	else
-		return src_len + size;
+	dst[i] = 0;
+	return (t1 + t2);
 }
+/*
+#include <stdio.h>
 
+int main()
+{
+	char *strb[20] = "Why?"
+	char *str = ft_strlcat(strb, "why", 7);
+	printf("%s", 
+	return 0;
+}*/
 /*function that try to add 'size' bytes of src to the dst
 If dst is shorter than the targeted string(part of src),
 just do it till it works. But it should be ended with null byte.

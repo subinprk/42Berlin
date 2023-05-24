@@ -17,14 +17,14 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	size_t	index;
 	char	*tmp;
 
-	index = n - 1;
+	index = 0;
 	tmp = (char *)s;
-	while (index >= 0)
+	while (index < n)
 	{
 		if (tmp[index] == c)
 			return (&tmp[index]);
-		index --;
+		index ++;
 	}
 	return (NULL);
 }
-/*Function that return the pointer appears last 'c' in s*/
+/*Function that return the pointer appears 'c' in s*/

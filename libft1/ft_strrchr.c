@@ -22,8 +22,10 @@ char	*ft_strrchr(const char *s, int c)
 	while (s[index] != 0)
 	{
 		if (s[index] == c)
-			*place = *(s + index);
+			place = (char *)&s[index];
 		index ++;
 	}
+	if (c == 0)
+		return ((char *)&s[index]);
 	return (place);
 }

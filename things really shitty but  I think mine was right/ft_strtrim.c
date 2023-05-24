@@ -11,39 +11,69 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 
-int		ft_setcheck(char c, char const *set)
+int	ft_strlen(const char *s)
 {
 	int	i;
+
 	i = 0;
-	while (set[i])
-	{
-		if (set[i++] == c)
-			return (1);
-	}
-	return (0);
+	while (s[i] != 0)
+		i ++;
+	return (i);
 }
+
+int	check_set(char const *s1, char const *set)
+{
+	int	i;
+	int	j;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (s1[i] != 0)
+	{
+		j = 0;
+		while (s1[i + j] == set[j] && set[j] != 0)
+			j ++;
+		if (set[j] == 0)
+			count = count + 1;
+		i ++;
+	}
+	return (count);
+}
+
+char *write_trim_str(char const *s1, char const *set, char *str)
+{
+	int	i;
+	int	j;
+	int	tmp;
+
+	tmp = 0;
+	i = 0;
+	while (s1[i] != 0)
+	{
+		j = 0;
+		while (s1[i + j] == set[j] && set[j] != 0)
+			j ++;
+		if (set[j] == 0)
+			i = i + ft_strlen(set);
+		else
+		{
+			str[tmp] = s1[i];
+			tmp = tmp + 1;
+			i = i + 1;
+		}
+	}
+	str[tmp] = 0;
+	return (str);
+}
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*str;
-	int		start;
-	int		end;
-	int		i;
-	i = 0;
-	start = 0;
-	if (s1 == 0 || set == 0)
-		return (NULL);
-	end = (int)ft_strlen(s1);
-	while (s1[start] && ft_setcheck(s1[start], set))
-		start++;
-	while (end > start && ft_setcheck(s1[end - 1], set))
-		end--;
-	if (!(str = (char *)malloc(sizeof(char) * (end - start + 1))))
-		return (NULL);
-	while (start < end)
-		str[i++] = s1[start++];
-	str[i] = '\0';
+
+	str = (char *)malloc(ft_strlen(s1) - check_set(s1, set) + 1);
+	str = write_trim_str(s1, set, str);
 	return (str);
 }
 /*
