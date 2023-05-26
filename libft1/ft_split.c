@@ -130,7 +130,7 @@ char	**ft_split(char const *s, char c)
 	writestr(s, str, c);
 	return (str);
 }
-/*
+
 #include <stdio.h>
 int main()
 {
@@ -146,4 +146,4 @@ int main()
 	}
 	free(str);
 	return 0;
-}*/
+}
