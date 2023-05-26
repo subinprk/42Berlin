@@ -26,15 +26,15 @@ int	ft_atoi(const char *nptr)
 	int	num;
 	int	index;
 	int	sign;
+	int	countsign;
 
 	sign = 1;
 	num = 0;
 	index = 0;
-	
-	while ((nptr[index] != 0 && spc(nptr[index]) == 1))
-		index ++;
-	if (!ft_memcmp(&nptr[index], "-2147483648", 11))
+	if (!ft_memcmp(nptr, "-2147483648", 11))
 			return (-2147483648);
+	while ((nptr[index] != 0 && spc(nptr[index]) == 1)
+		index ++;
 	if (nptr[index] == '-')
 		sign = -1;
 	if (nptr[index] == '+' || nptr[index] == '-')
@@ -55,6 +55,6 @@ int	ft_atoi(const char *nptr)
 #include <stdio.h>
 void main()
 {
-	printf("%d \n", atoi("  -2147483648wrf"));
-	printf("%d", ft_atoi("  -2147483648wrf"));
+	printf("%d \n", atoi("-21474e83648wrf"));
+	printf("%d", ft_atoi("-2147483648wrf"));
 }*/

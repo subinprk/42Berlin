@@ -21,5 +21,13 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	if (!ptr)
 		return (NULL);
 	ft_bzero(ptr, (size * nmemb));
-	return (ptr);
+	return ((void *)ptr);
 }
+/*
+int main(){
+	int *str;
+	str = ft_calloc(2147483647, 2147483647);
+	printf("%d", str[20]);
+	free(str);
+	return 0;
+}*/

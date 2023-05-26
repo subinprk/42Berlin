@@ -15,17 +15,18 @@
 char	*ft_strrchr(const char *s, int c)
 {
 	int		index;
-	char	*place;
 
-	index = 0;
-	place = NULL;
-	while (s[index] != 0)
+	index = ft_strlen(s) - 1;
+	if (c < 0 || c > 127)
+		return ((char *)s);
+	if (c == 0)
+		return ((char *)(s + ft_strlen(s)));
+	while (index >= 0)
 	{
 		if (s[index] == c)
-			place = (char *)&s[index];
-		index ++;
+			return((char *)&s[index]);
+		index --;
 	}
-	if (c == 0)
-		return ((char *)&s[index]);
-	return (place);
+	return (NULL);
 }
+/*function that find the last appearance of c*/

@@ -24,7 +24,7 @@ int tool4size(int n, int count)
 	else if (n < 10 && n > 0)
 		return (count);
 	else if (n == 0)
-		return (count + 1);
+		return (count);
 	else
 	return tool4size(n / 10, count + 1);
 }
@@ -53,16 +53,6 @@ char *ft_itoa(int n)
 	}
 	else if (n == 0)
 		str[0] = '0';
-	/*
-	else if (n == 0)
-	{
-		str = (char *)malloc(2 * sizeof(char)); // Allocate memory for "0" and null terminator
-		if (!str)
-			return (NULL);
-		str[0] = '0';
-		str[1] = '\0';
-		return str;
-	}*/
 	while (n > 0)
 	{
 		str[length - index - 1] = n % 10 + '0';
@@ -75,8 +65,8 @@ char *ft_itoa(int n)
 void main()
 {
 	char	*str;
-	//printf("%d\n", tool4size(0, 1));
-	str = ft_itoa(-8124);
+	printf("%d\n", tool4size(0, 0));
+	str = ft_itoa(0);
 	printf("%s", str);
 	free(str);
 }*/

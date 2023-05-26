@@ -15,22 +15,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	int	index;
-	char	*tmp;
-
-	if (fd < 0)
-		return ;
-	tmp = (char *)malloc((ft_strlen(s) + 2) * sizeof(char));
-	index = 0;
-	while (s[index])
-	{
-		tmp[index] = s[index];
-		index ++;
-	}
-	tmp[index] = '\n';
-	index ++;
-	tmp[index] = 0;
-	s = tmp;
-	write(fd, s, ft_strlen(s));
-	return ;
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

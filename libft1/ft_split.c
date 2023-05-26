@@ -13,14 +13,15 @@
 #include <stdlib.h>
 #include "libft.h"
 
-int	countrow(char const *s, char c)
+int	countcolumn(char const *s, char c)
 {
 	int	tmp;
 	int	index;
-	int	row;
+	int	column;
 
 	index = 0;
-	row = 0;
+	column = 0;
+	tmp = 0;
 	while (s[index])
 	{
 		if (s[index] != c)
@@ -28,81 +29,79 @@ int	countrow(char const *s, char c)
 			tmp ++;
 			if (s[index + 1] == 0 || s[index + 1] == c)
 			{
-				if (tmp > row)
-					row = tmp;
+				if (tmp > column)
+					column = tmp;
 				tmp = 0;
 			}
 		}
 		index ++;
 	}
-	return (row);
+	return (column);
 }
 
-int	countcolumn(char const *s, char c)
+int	countrow(char const *s, char c)
 {
 	int	index;
-	int	column;
+	int	row;
+	char	prvc;
 
-	column = 0;
+	row = 0;
 	index = 0;
+	prvc = 0;
 
 	if (s[index] != c)
-		column ++;
+		row ++;
 	while (s[index])
 	{
-		if (s[index] == c && s[index - 1] != c && s[index + 1] != 0)
-			column ++;
+		if (prvc == c && s[index] != c)
+			row ++;
+		prvc = s[index];
 		index ++;
 	}
-	return (column);
+	return (row);
 }
 
 char	**writestr(char const *s, char **str, char c)
 {
 	int	index;
-	int	irow;
 	int	icol;
+	int	irow;
 
 	index = 0;
-	irow = 0;
 	icol = 0;
+	irow = 0;
 	while (s[index])
 	{
 		if (s[index] != c)
 		{
-			str[icol][irow] = s[index];
-			irow ++;
+			str[irow][icol] = s[index];
+			icol ++;
 			if (s[index + 1] == '\0' || s[index + 1] == c)
 			{
-				str[icol][irow] = 0;
-				icol ++;
-				irow = 0;
+				str[irow][icol] = 0;
+				irow ++;
+				icol = 0;
 			}
 		}
 		index ++;
 	}
-	str[icol] = 0;
+	str[irow] = 0;
 	return (str);
 }
 
-char	**ft_split(char const *s, char c)
+char	**allocate(int row, int column)
 {
+	int	t;
+	int	tmp;
 	char	**str;
-	int		row;
-	int		column;
-	int		tmp;
-	int		t;
 
-	row = countrow(s, c);
-	column = countcolumn(s, c);
-	str = (char **) malloc((column + 1) * sizeof(char *));
+	str = (char **) malloc((row + 1) * sizeof(char *));
 	if (str == NULL)
 		return (NULL);
 	tmp = 0;
-	while (tmp < column)
+	while (tmp < row)
 	{
-		str[tmp] = (char *) malloc((row + 1) * sizeof(char));
-		tmp ++;
+		str[tmp] = (char *) malloc((column + 1) * sizeof(char));
 		if (str[tmp] == NULL)
 		{
 			t = 0;
@@ -114,7 +113,20 @@ char	**ft_split(char const *s, char c)
 			free(str);
 			return (NULL);
 		}
+		ft_bzero(str[tmp], row);
+		tmp ++;
 	}
+	return (str);
+}
+char	**ft_split(char const *s, char c)
+{
+	char	**str;
+	int		row;
+	int		column;
+
+	column = countcolumn(s, c);
+	row = countrow(s, c);
+	str = allocate(row, column);
 	writestr(s, str, c);
 	return (str);
 }
@@ -122,12 +134,13 @@ char	**ft_split(char const *s, char c)
 #include <stdio.h>
 int main()
 {
-	int row = countrow("hello world I'm Subin", ' ');
-	int column = countcolumn("hello world I'm Subin", ' ');
-	char **str = ft_split("hello world I'm Subin", ' ');
-	for(int i = 0; i < column; i++)
+	int row = countrow("  tripouille  42  ", ' ');
+	int column = countcolumn("  tripouille  42  ", ' ');
+	char **str = ft_split("  tripouille  42  ", ' ');
+	printf("%d, %d\n", row, column);
+	for(int i = 0; i < row; i++)
 		printf("%s\n", str[i]);
-	for(int i = 0; i < column; i++)
+	for(int i = 0; i < row; i++)
 	{
 		free(str[i]);
 	}
