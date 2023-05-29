@@ -15,12 +15,21 @@
 
 int	spc(char c)
 {
-	if (c == '\t' || c == '\n' || c == ' ' || c == '\r'|| c == '\v'
+	if (c == '\t' || c == '\n' || c == ' ' || c == '\r' || c == '\v'
 		||c == '\f')
 		return (1);
 	else
 		return (0);
 }
+
+void	signs(const char *nptr, int *index, int *sign)
+{
+	if (nptr[*index] == '-')
+		*sign = -1;
+	if (nptr[*index] == '+' || nptr[*index] == '-')
+		(*index)++;
+}
+
 int	ft_atoi(const char *nptr)
 {
 	int	num;
@@ -30,15 +39,11 @@ int	ft_atoi(const char *nptr)
 	sign = 1;
 	num = 0;
 	index = 0;
-	
 	while ((nptr[index] != 0 && spc(nptr[index]) == 1))
 		index ++;
 	if (!ft_memcmp(&nptr[index], "-2147483648", 11))
-			return (-2147483648);
-	if (nptr[index] == '-')
-		sign = -1;
-	if (nptr[index] == '+' || nptr[index] == '-')
-		index ++;
+		return (-2147483648);
+	signs(nptr, &index, &sign);
 	while (nptr[index] != 0)
 	{
 		if (nptr[index] < '0' || nptr[index] > '9')
@@ -55,6 +60,7 @@ int	ft_atoi(const char *nptr)
 #include <stdio.h>
 void main()
 {
-	printf("%d \n", atoi("  -2147483648wrf"));
-	printf("%d", ft_atoi("  -2147483648wrf"));
-}*/
+	printf("%d \n", atoi("  -2147648wrf"));
+	printf("%d", ft_atoi("  -2147648wrf"));
+}
+*/

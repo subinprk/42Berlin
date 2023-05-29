@@ -15,14 +15,13 @@
 
 int	countrow(char const *s, char c)
 {
-	int	index;
-	int	row;
 	char	prvc;
+	int		index;
+	int		row;
 
 	row = 0;
 	index = 0;
 	prvc = 0;
-
 	if (s[index] != c && s[index] != 0)
 		row ++;
 	while (s[index])
@@ -52,7 +51,7 @@ char	**writestr(char const *s, char **str, char c)
 			icol ++;
 			if (s[index + 1] == '\0' || s[index + 1] == c)
 			{
-				str[irow][icol] = 0;
+				str[irow][icol] = '\0';
 				irow ++;
 				icol = 0;
 			}
@@ -62,13 +61,23 @@ char	**writestr(char const *s, char **str, char c)
 	return (str);
 }
 
-char	**allocate(int row, char const *s, int c)
+char	**free4error(char **str, int tmp)
 {
 	int	t;
-	int	i;
-	int	tmp;
-	int	j;
+
+	t = 0;
+	while (t < tmp)
+		free(str[t ++]);
+	free(str);
+	return (NULL);
+}
+
+char	**allocate(int row, char const *s, int c)
+{
 	char	**str;
+	int		i;
+	int		tmp;
+	int		j;
 
 	str = (char **) malloc((row + 1) * sizeof(char *));
 	if (str == NULL)
@@ -86,20 +95,19 @@ char	**allocate(int row, char const *s, int c)
 		{
 			str[tmp] = (char *) malloc((j + 1) * sizeof(char));
 			ft_bzero(str[tmp], j + 1);
+			i = i + j;
 		}
 		if (j != 0 && str[tmp] == NULL)
 		{
-			t = 0;
-			while (t < tmp)
-				free(str[t ++]);
-			free(str);
+			free4error(str, tmp);
 			return (NULL);
 		}
 		tmp ++;
 	}
-	str[tmp] = 0;
+	str[tmp] = NULL;
 	return (str);
 }
+
 char	**ft_split(char const *s, char c)
 {
 	char	**str;
@@ -107,6 +115,8 @@ char	**ft_split(char const *s, char c)
 
 	row = countrow(s, c);
 	str = allocate(row, s, c);
+	if (!str)
+		return (NULL);
 	writestr(s, str, c);
 	return (str);
 }
@@ -115,15 +125,20 @@ char	**ft_split(char const *s, char c)
 #include <stdio.h>
 int main()
 {
-	int row = countrow("", ' ');
+	//int row = countrow("", ' ');
 	//int column = countcolumn("", ' ');
-	char **str = ft_split("", ' ');
-	printf("%d\n", row);
-	for(int i = 0; i < row; i++)
+	int	i;
+	char **str = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+	Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, 
+	ultricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, 
+	varius a, semper congue, euismod non, mi.", '\0');
+	//printf("%d\n", row);
+	for(i = 0; str[i] != NULL; i++)
 		printf("%s\n", str[i]);
 	//mcheck(str[1]);
-	for(int i = 0; str[i] != 0; i++)
+	for(i = 0; str[i] != NULL; i++)
 		free(str[i]);
+	free(str[i]);
 	free(str);
 	return 0;
 }*/

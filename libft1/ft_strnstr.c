@@ -19,18 +19,21 @@ char	*ft_strnstr(const char *big, const char *small, size_t len)
 	size_t		j;
 
 	i = 0;
-	if (*small == '\0' || big == NULL)
-		return ((char*)big);
+	if (*small == '\0')
+		return ((char *)big);
 	while (big[i] != '\0' && i < len)
 	{
 		j = 0;
-		while (small[j] == big[i + j] && i + j < len)
+		if (big[i + j] == small[j])
 		{
-			if (small[j + 1] == '\0')
+			while (big[i + j] && small[j])
 			{
-				return ((char*)big + i);
+				if (big[i + j] != small[j] || i + j >= len)
+					break ;
+				j++;
 			}
-			j++;
+			if (small[j] == '\0')
+				return (((char *)&big[i]));
 		}
 		i++;
 	}

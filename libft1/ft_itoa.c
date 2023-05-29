@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-int tool4size(int n, int count)
+int	tool4size(int n, int count)
 {
 	if (n == -2147483648)
 		return (11);
@@ -26,20 +26,33 @@ int tool4size(int n, int count)
 	else if (n == 0)
 		return (count);
 	else
-	return tool4size(n / 10, count + 1);
+		return (tool4size(n / 10, count + 1));
 }
 
-char *ft_itoa(int n)
+void	fillstring(char *str, int n, int length)
+{
+	int	index;
+	
+	index = 0;
+	while (n > 0)
+	{
+		str[length - index - 1] = n % 10 + '0';
+		n = n / 10;
+		index++;
+	}
+}
+
+char	*ft_itoa(int n)
 {
 	char	*str;
-	int	index;
-    	int	length;
+	int		index;
+	int		length;
 
 	length = tool4size(n, 1);
 	str = (char *)malloc((length + 1) * sizeof(char));
-	ft_bzero(str, length + 1);
 	if (!str)
-		return NULL;
+		return (NULL);
+	ft_bzero(str, length + 1);
 	index = 0;
 	if (n == -2147483648)
 	{
@@ -53,12 +66,7 @@ char *ft_itoa(int n)
 	}
 	else if (n == 0)
 		str[0] = '0';
-	while (n > 0)
-	{
-		str[length - index - 1] = n % 10 + '0';
-		n = n / 10;
-		index++;
-	}
+	fillstring(str, n, length);
 	return (str);
 }
 /*
@@ -66,7 +74,8 @@ void main()
 {
 	char	*str;
 	printf("%d\n", tool4size(0, 0));
-	str = ft_itoa(0);
+	str = ft_itoa(-567);
 	printf("%s", str);
 	free(str);
-}*/
+}
+*/

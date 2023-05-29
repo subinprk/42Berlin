@@ -13,9 +13,10 @@
 #include <stdlib.h>
 #include "libft.h"
 
-int		ft_setcheck(char c, char const *set)
+int	ft_setcheck(char c, char const *set)
 {
 	int	i;
+
 	i = 0;
 	while (set[i])
 	{
@@ -24,12 +25,14 @@ int		ft_setcheck(char c, char const *set)
 	}
 	return (0);
 }
+
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*str;
 	int		start;
 	int		end;
 	int		i;
+
 	i = 0;
 	start = 0;
 	if (s1 == 0 || set == 0)
@@ -39,7 +42,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 		start++;
 	while (end > start && ft_setcheck(s1[end - 1], set))
 		end--;
-	if (!(str = (char *)malloc(sizeof(char) * (end - start + 1))))
+	str = (char *)malloc(sizeof(char) * (end - start + 1));
+	if (!str)
 		return (NULL);
 	while (start < end)
 		str[i++] = s1[start++];
