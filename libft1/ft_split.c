@@ -13,32 +13,6 @@
 #include <stdlib.h>
 #include "libft.h"
 
-int	countcolumn(char const *s, char c)
-{
-	int	tmp;
-	int	index;
-	int	column;
-
-	index = 0;
-	column = 0;
-	tmp = 0;
-	while (s[index])
-	{
-		if (s[index] != c)
-		{
-			tmp ++;
-			if (s[index + 1] == 0 || s[index + 1] == c)
-			{
-				if (tmp > column)
-					column = tmp;
-				tmp = 0;
-			}
-		}
-		index ++;
-	}
-	return (column);
-}
-
 int	countrow(char const *s, char c)
 {
 	int	index;
@@ -49,7 +23,7 @@ int	countrow(char const *s, char c)
 	index = 0;
 	prvc = 0;
 
-	if (s[index] != c)
+	if (s[index] != c && s[index] != 0)
 		row ++;
 	while (s[index])
 	{
@@ -85,65 +59,71 @@ char	**writestr(char const *s, char **str, char c)
 		}
 		index ++;
 	}
-	str[irow] = 0;
 	return (str);
 }
 
-char	**allocate(int row, int column)
+char	**allocate(int row, char const *s, int c)
 {
 	int	t;
+	int	i;
 	int	tmp;
+	int	j;
 	char	**str;
 
 	str = (char **) malloc((row + 1) * sizeof(char *));
 	if (str == NULL)
 		return (NULL);
 	tmp = 0;
+	i = 0;
 	while (tmp < row)
 	{
-		str[tmp] = (char *) malloc((column + 1) * sizeof(char));
-		if (str[tmp] == NULL)
+		j = 0;
+		while (s[i] == c && s[i] != 0)
+			i ++;
+		while (s [i + j] != c && s[i + j] != 0)
+			j ++;
+		if (j != 0)
+		{
+			str[tmp] = (char *) malloc((j + 1) * sizeof(char));
+			ft_bzero(str[tmp], j + 1);
+		}
+		if (j != 0 && str[tmp] == NULL)
 		{
 			t = 0;
 			while (t < tmp)
-			{
-				free(str[t]);
-				t ++;
-			}
+				free(str[t ++]);
 			free(str);
 			return (NULL);
 		}
-		ft_bzero(str[tmp], row);
 		tmp ++;
 	}
+	str[tmp] = 0;
 	return (str);
 }
 char	**ft_split(char const *s, char c)
 {
 	char	**str;
 	int		row;
-	int		column;
 
-	column = countcolumn(s, c);
 	row = countrow(s, c);
-	str = allocate(row, column);
+	str = allocate(row, s, c);
 	writestr(s, str, c);
 	return (str);
 }
-
+/*
+#include <mcheck.h>
 #include <stdio.h>
 int main()
 {
-	int row = countrow("  tripouille  42  ", ' ');
-	int column = countcolumn("  tripouille  42  ", ' ');
-	char **str = ft_split("  tripouille  42  ", ' ');
-	printf("%d, %d\n", row, column);
+	int row = countrow("", ' ');
+	//int column = countcolumn("", ' ');
+	char **str = ft_split("", ' ');
+	printf("%d\n", row);
 	for(int i = 0; i < row; i++)
 		printf("%s\n", str[i]);
-	for(int i = 0; i < row; i++)
-	{
+	//mcheck(str[1]);
+	for(int i = 0; str[i] != 0; i++)
 		free(str[i]);
-	}
 	free(str);
 	return 0;
-}
+}*/
