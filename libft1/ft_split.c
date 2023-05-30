@@ -31,80 +31,47 @@ int	countrow(char const *s, char c)
 		prvc = s[index];
 		index ++;
 	}
+	if (c == 0)
+		row = row - 1;
 	return (row);
 }
 
-char	**writestr(char const *s, char **str, char c)
+int	tool4free(char **str, int i4str)
+{
+	if (str[i4str] == NULL)
+	{
+		while (i4str >= 0)
+			free(str[i4str --]);
+		free(str);
+		return (-1);
+	}
+	return (1);
+}
+
+char	**linebyline(char **str, char const *s, char c)
 {
 	int	index;
-	int	icol;
-	int	irow;
+	int	i4str;
+	int	start;
 
 	index = 0;
-	icol = 0;
-	irow = 0;
+	i4str = 0;
 	while (s[index])
 	{
 		if (s[index] != c)
 		{
-			str[irow][icol] = s[index];
-			icol ++;
-			if (s[index + 1] == '\0' || s[index + 1] == c)
-			{
-				str[irow][icol] = '\0';
-				irow ++;
-				icol = 0;
-			}
+			start = index;
+			while (s[index] != c && s[index])
+				index ++;
+			str[i4str] = ft_substr(s, start, index - start);
+			if (tool4free(str, i4str) < 0)
+				return (NULL);
+			i4str ++;
 		}
-		index ++;
+		else
+			index ++;
 	}
-	return (str);
-}
-
-char	**free4error(char **str, int tmp)
-{
-	int	t;
-
-	t = 0;
-	while (t < tmp)
-		free(str[t ++]);
-	free(str);
-	return (NULL);
-}
-
-char	**allocate(int row, char const *s, int c)
-{
-	char	**str;
-	int		i;
-	int		tmp;
-	int		j;
-
-	str = (char **) malloc((row + 1) * sizeof(char *));
-	if (str == NULL)
-		return (NULL);
-	tmp = 0;
-	i = 0;
-	while (tmp < row)
-	{
-		j = 0;
-		while (s[i] == c && s[i] != 0)
-			i ++;
-		while (s [i + j] != c && s[i + j] != 0)
-			j ++;
-		if (j != 0)
-		{
-			str[tmp] = (char *) malloc((j + 1) * sizeof(char));
-			ft_bzero(str[tmp], j + 1);
-			i = i + j;
-		}
-		if (j != 0 && str[tmp] == NULL)
-		{
-			free4error(str, tmp);
-			return (NULL);
-		}
-		tmp ++;
-	}
-	str[tmp] = NULL;
+	str[i4str] = NULL;
 	return (str);
 }
 
@@ -114,10 +81,10 @@ char	**ft_split(char const *s, char c)
 	int		row;
 
 	row = countrow(s, c);
-	str = allocate(row, s, c);
-	if (!str)
+	str = (char **)malloc((row + 1) * sizeof(char *));
+	if (!str || !s)
 		return (NULL);
-	writestr(s, str, c);
+	str = linebyline(str, s, c);
 	return (str);
 }
 /*
@@ -125,20 +92,20 @@ char	**ft_split(char const *s, char c)
 #include <stdio.h>
 int main()
 {
-	//int row = countrow("", ' ');
+	int row = countrow("nonempty", 0);
 	//int column = countcolumn("", ' ');
 	int	i;
-	char **str = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-	Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, 
-	ultricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, 
-	varius a, semper congue, euismod non, mi.", '\0');
-	//printf("%d\n", row);
-	for(i = 0; str[i] != NULL; i++)
-		printf("%s\n", str[i]);
+	char **str = ft_split("nonempty", 0);
+	printf("%d\n", row);
+	for(i = 0; i <= row; i++)
+		printf("%d 번째 열 %s\n", i, str[i]);
 	//mcheck(str[1]);
-	for(i = 0; str[i] != NULL; i++)
+	for(i = 0; i <= row; i++)
+	{
 		free(str[i]);
-	free(str[i]);
+		printf("free %d\n", i);
+	}
 	free(str);
+	printf("final free \n");
 	return 0;
 }*/

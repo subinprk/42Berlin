@@ -32,7 +32,7 @@ int	tool4size(int n, int count)
 void	fillstring(char *str, int n, int length)
 {
 	int	index;
-	
+
 	index = 0;
 	while (n > 0)
 	{
@@ -45,7 +45,6 @@ void	fillstring(char *str, int n, int length)
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		index;
 	int		length;
 
 	length = tool4size(n, 1);
@@ -53,7 +52,6 @@ char	*ft_itoa(int n)
 	if (!str)
 		return (NULL);
 	ft_bzero(str, length + 1);
-	index = 0;
 	if (n == -2147483648)
 	{
 		ft_strlcpy(str, "-2147483648", 12);
