@@ -1,38 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 11:17:38 by subpark           #+#    #+#             */
-/*   Updated: 2023/05/31 16:26:28 by subpark          ###   ########.fr       */
+/*   Created: 2023/06/01 11:03:56 by subpark           #+#    #+#             */
+/*   Updated: 2023/06/01 12:15:43 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    ft_lstadd_front(t_list **lst, t_list *new)
+t_list  *ft_lstlast(t_list *lst)
 {
-    if (lst == NULL || new == NULL)
-        return ;
-    new -> next =  *lst;
+    if (lst == NULL)
+        return (NULL);
+    t_list  *curr;
+
+    curr = lst;
+    while (curr->next != NULL)
+        curr = curr->next;
+    return (curr);
 }
 /*
 #include <stdio.h>
 int main()
 {
-    t_list *lst = ft_lstnew((const char *)"hello");
-    t_list *new = ft_lstnew((const char *)"what happened ");
+    t_list *lst1 = ft_lstnew((const char *)"hello");
+    t_list *lst2 = ft_lstnew((const char *)"what happened ");
+    t_list *lst3 = ft_lstnew((const char *)"Nothing ");
     t_list *curr;
-    ft_lstadd_front(&lst, new);
-    curr = new;
+    (*lst1).next = lst2;
+    (*lst2).next = lst3;
+    curr = lst1;
     while (curr != NULL)
     {
         printf("%s \n", curr->content);
         curr = curr->next;
     }
-    free (lst);
-    free (new);
+    printf("%d\n",ft_lstsize(lst1));
+    printf("%p\n",ft_lstlast(NULL));
+    printf("%p\n", lst3);
+    free (lst1);
+    free (lst2);
+    free (lst3);
     return (0);
-}*/
+}
+*/

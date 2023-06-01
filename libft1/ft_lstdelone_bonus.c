@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 16:22:27 by subpark           #+#    #+#             */
-/*   Updated: 2023/05/31 16:40:54 by subpark          ###   ########.fr       */
+/*   Created: 2023/06/01 12:48:16 by subpark           #+#    #+#             */
+/*   Updated: 2023/06/01 15:27:46 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_lstsize(t_list *lst)
+void    ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-    t_list  *curr;
-    int     index;
-
-    curr = lst;
-    index = 0;
-    if (lst == NULL)
-        return (0);
-    while (curr->next != NULL)
-    {
-        index ++;
-        curr = curr->next;
-    }
-    return (index + 1);
+    if (!lst || del == NULL)
+        return ;
+    del(lst->content);
+    free(lst);
 }
 /*
+void    tmpdel(void *content)
+{
+    printf("deleted\n");
+    return ;
+}
+
 #include <stdio.h>
 int main()
 {
@@ -44,9 +41,11 @@ int main()
         printf("%s \n", curr->content);
         curr = curr->next;
     }
-    printf("%d",ft_lstsize(lst1));
+    printf("%d\n",ft_lstsize(lst1));
+    printf("%p\n",ft_lstlast(lst1));
+    printf("%p\n", lst3);
+    ft_lstdelone(ft_lstlast(lst1), tmpdel);
     free (lst1);
     free (lst2);
-    free (lst3);
     return (0);
 }*/
