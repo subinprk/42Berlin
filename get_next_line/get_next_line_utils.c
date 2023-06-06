@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:20:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/05 17:37:31 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/06 17:05:48 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,138 @@
 
 #include <stdio.h>
 
-char    *put_in_buffer(int fd)
+char	*ft_strdup(const char *s)
 {
-	char	*buffer;
+	char	*str;
+	int		index;
+
+	index = 0;
+	str = (char *) malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		return (NULL);
+	while (s[index] != 0)
+	{
+		str[index] = s[index];
+		index ++;
+	}
+	str[index] = 0;
+	return (str);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t		i;
+	size_t		t1;
+	size_t		t2;
+
+	i = 0;
+	t1 = ft_strlen(dst);
+	t2 = ft_strlen(src);
+	if (size <= t1)
+		return (size + t2);
+	while (dst[i] && i < size - 1)
+		i ++;
+	while (src[i - t1] && i < size - 1)
+	{
+		dst[i] = src[i - t1];
+		i ++;
+	}
+	dst[i] = 0;
+	return (t1 + t2);
+}
+
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != 0)
+		i ++;
+	return (i);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*str;
+	size_t			index;
+
+	str = s;
+	index = 0;
+	while (index < n)
+	{
+		*(str + index) = 0;
+		index ++;
+	}
+	return ;
+}
+
+char    *put_in_buffer(int fd, char *buffer)
+{
 	int		count;
 
 	count = 0;
-	buffer = malloc (BUFFER_SIZE * sizeof (char));
-	if (!buffer)
-		return (0);
 	read(fd, buffer, BUFFER_SIZE - 1);
 	buffer[BUFFER_SIZE - 1] = '\0';
 	return (buffer);
 }
 
-char    *make_line(int fd)
+int	savewithprv(char *((*buff)[3]), int index, int fd)
 {
-	char	*buffer;
-	static int	index;
-	int		count;
-	int		prvsize;
-	char	*prvbuff[2];
-
-	buffer = put_in_buffer(fd);
-	if (!buffer)
-		return (NULL);
-	count = 0;
-	prvsize = 0;
-	while (buffer > 0)
+	if (*(buff[1]) == NULL)
 	{
-		index = 0;
-		while (buffer[index] != '\0' && buffer[index] != '\n')
-		{
-			index ++;
-			count ++;
-		}
-		if (buffer[index] =='\0')
-		{
-			prvsize ++;
-			if(prvbuff[1])
-			{
-				prvbuff[0] = malloc(sizeof(prvbuff[1]) * sizeof(char));
-				prvbuff[0] = prvbuff[1];
-				free(prvbuff[1]);
-			}
-			prvbuff[1] = (char *)malloc(sizeof(char) * sizeof(buffer));
-			prvbuff[1] = buffer;
-			buffer = put_in_buffer(fd);
-		}
+		*(buff[1])= ft_strdup(*(buff[0]));
+		if (!*(buff[1]))
+				return (0);
 	}
-	
-
-
+	else
+	{
+		*(buff[2])= ft_strdup(*(buff[1]));
+		if (!*(buff[2]))
+			return (0);
+		ft_bzero(buff[1], ft_strlen(*(buff[1])));
+		free(*(buff[1]));
+		*(buff[1]) = (char *)malloc(ft_strlen(*(buff[2])) + index + 1);
+		if (!*(buff[1]))
+		{
+			free(*(buff[2]));
+			return (0);
+		}
+		ft_bzero(buff[1], ft_strlen(*(buff[2])) + index + 1);
+		ft_strlcat(*(buff[1]), *(buff[2]), ft_strlen(*buff[2]) + 1);
+		ft_strlcat(*(buff[1]), *(buff[0]), index + 1);
+		ft_bzero(*buff[2], ft_strlen(*(buff[2])));
+		free(*(buff[2]));
+		put_in_buffer(fd, *(buff[0]));
+		printf("times ");
+		return (1);
+	}
+	return (1);
 }
+
+/*if (*buff[1] != NULL)
+	{
+		(*buff)[2] = ft_strdup((*buff)[2]);
+		if(!*((*buff)[2]))
+			return (0);
+		free((*buff)[1]);
+		(*buff)[1] = (char *)malloc(ft_strlen((*buff)[2])
+								+ index + 1);
+		if(!*((*buff)[1]))
+		{
+			free((*buff)[2]);
+			return (0);
+		}
+		(*buff)[1][0] = '\0';
+		ft_strlcat((*buff)[1], (*buff)[2], ft_strlen((*buff)[2]) + 1);
+		ft_strlcat((*buff)[1], (*buff)[0], ft_strlen((*buff)[0])
+								+ index + 1);
+		free((*buff)[2]);
+	}
+	else
+	{
+		(*buff)[1] = ft_strdup((*buff)[0]);
+		if(!*((*buff)[1]))
+			return (0);
+	}
+	(*buff)[0] = put_in_buffer(fd, (*buff)[0]);
+	return (1);*/
