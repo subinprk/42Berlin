@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 10:36:10 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/02 11:01:31 by subpark          ###   ########.fr       */
+/*   Created: 2023/06/05 12:27:15 by subpark           #+#    #+#             */
+/*   Updated: 2023/06/06 17:02:44 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+#define GET_NEXT_LINE_H
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*newnode;
-
-	newnode = (t_list *)malloc(sizeof(t_list));
-	if (!newnode)
-		return (NULL);
-	newnode -> content = content;
-	newnode -> next = NULL;
-	return (newnode);
-}
-/*
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
-int main(){
-	t_list *tester = ft_lstnew((char *)"Hello");
-	printf("%s", tester->content);
-	free (tester);
-	return (0);
-}*/
+
+char    *get_next_line(int fd);
+char    *put_in_buffer(int fd, char *buffer);
+char	*ft_strdup(const char *s);
+int 	savewithprv(char *((*buff)[3]), int index, int fd);
+int	    ft_strlen(const char *s);
+void	ft_bzero(void *s, size_t n);
+
+#endif
