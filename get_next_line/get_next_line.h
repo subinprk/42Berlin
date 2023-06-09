@@ -22,6 +22,7 @@ char    *put_in_buffer(int fd, char *buffer);
 char	*ft_strdup(const char *s);
 int 	savewithprv(char *((*buff)[3]), int index, int fd);
 int	    ft_strlen(const char *s);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
 void	ft_bzero(void *s, size_t n);
 
 #endif

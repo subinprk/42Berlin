@@ -11,45 +11,59 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char    *make_line(int fd)
+int	copybuff(char *buff, char **str, int index)
 {
-	static int	index;
-	int		prvsize;
-	char	*buff[3];
+	*str = malloc(index + 2);
+	if (!str)
+		return (0);
+	ft_strlcat(*str, buff, index);
+	*str[index] = '\n';
+	*str[index + 1] = '\0';
+}
 
-	buff[0] = malloc (BUFFER_SIZE * sizeof (char));
-		if (!buff[0])
-			return (NULL);
-	buff[0] = put_in_buffer(fd, buff[0]);
-	buff[1] = NULL;
-	buff[2] = NULL;
-	if (!buff[0])
-		return (NULL);
-	prvsize = 0;
-	while (buff[0] != NULL)
+int	merging(char *buff, char **str, int index)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (*str == NULL)
 	{
-		index = 0;
-		while (buff[0][index] != '\0' && buff[0][index] != '\n')
-			index ++;
-		if(!savewithprv(&buff, index, fd))
-			return (NULL);
-		if (buff[0][index] == '\0' || buff[0][index] == '\n')
-		{
-			free(buff[0]);
-			return (buff[1]);
-		}
+		copybuff(buff, str, index);
+		if (!(*str))
+			return (0);
 	}
-	return (NULL);
+	else
+		tmp = ft_strdup(*str);
+		if(!tmp)
+			return (0);
+		free (*str);
+		*str = malloc(ft_strlen(tmp) + )
 }
 
 char	*get_next_line(int fd)
 {
-	int		count;
+	char	*buff;
+	char	*str;
+	int		tmp;
+	int		index;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
-	return (make_line(fd));
+	str = NULL;
+	buff = (char *)malloc(BUFFER_SIZE);
+	tmp = read(fd, buff, BUFFER_SIZE - 1);
+	buff[BUFFER_SIZE -1] = '\0';
+	while (tmp > 0)
+	{
+		index = 0;
+		while (buff[index] != '\0' && buff[index] != '\n')
+			index ++;
+		merging(buff, &str, index);
+		if (index != BUFFER_SIZE - 1)
+			return (str);
+		tmp = read(fd, buff, BUFFER_SIZE - 1);
+		if (tmp < 0)
+			return (str);
+		buff[BUFFER_SIZE -1] = '\0';
+	}
 }
 
 #include <fcntl.h>
