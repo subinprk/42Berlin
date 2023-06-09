@@ -6,64 +6,81 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:28:33 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/06 17:02:45 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/09 15:47:43 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-int	copybuff(char *buff, char **str, int index)
-{
-	*str = malloc(index + 2);
-	if (!str)
-		return (0);
-	ft_strlcat(*str, buff, index);
-	*str[index] = '\n';
-	*str[index + 1] = '\0';
-}
 
-int	merging(char *buff, char **str, int index)
+struct buf
+	{
+		char	buff[BUFFER_SIZE];
+		int		index;
+	};
+
+int	merging(char *buff, char **str, int start, int index)
 {
 	char	*tmp;
 
-	tmp = NULL;
-	if (*str == NULL)
+	if (*str)
 	{
-		copybuff(buff, str, index);
-		if (!(*str))
-			return (0);
+		tmp = ft_strdup(*str, start);
+		free(*str);
+		*str = malloc(ft_strlen(tmp) + index - start + 1);
+		ft_strlcat(*str, tmp + start, ft_strlen(tmp) + 1);
+		ft_strlcat(*str, buff + start, ft_strlen(tmp) + index - start + 1);
+		free(tmp);
 	}
 	else
-		tmp = ft_strdup(*str);
-		if(!tmp)
-			return (0);
-		free (*str);
-		*str = malloc(ft_strlen(tmp) + )
+		*str = ft_strdup(buff, start);
+	return (0);
+}
+
+char	*add_newline(char **str)
+{
+	char	*tmp;
+
+	tmp = malloc(ft_strlen(*str) + 2);
+	if (!tmp)
+		return (NULL);
+	tmp[0] = '\0';
+	ft_strlcat(tmp, *str, ft_strlen(*str) + 1);
+	tmp[ft_strlen(*str)] = '\n';
+	tmp[ft_strlen(*str) + 1] = '\0';
+	free (*str);
+	return (tmp);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*buff;
+	static struct buf buf;
 	char	*str;
+	int		start;
 	int		tmp;
-	int		index;
 
-	str = NULL;
-	buff = (char *)malloc(BUFFER_SIZE);
-	tmp = read(fd, buff, BUFFER_SIZE - 1);
-	buff[BUFFER_SIZE -1] = '\0';
+	tmp = 0;
+	start = 0;
+	if (buf.buff[0] == '\0')
+	{
+		tmp = read(fd, buf.buff, BUFFER_SIZE - 1);
+		buf.buff[BUFFER_SIZE - 1] = 0;
+	}
+	else
+		start = buf.index;
 	while (tmp > 0)
 	{
-		index = 0;
-		while (buff[index] != '\0' && buff[index] != '\n')
-			index ++;
-		merging(buff, &str, index);
-		if (index != BUFFER_SIZE - 1)
-			return (str);
-		tmp = read(fd, buff, BUFFER_SIZE - 1);
-		if (tmp < 0)
-			return (str);
-		buff[BUFFER_SIZE -1] = '\0';
+		while (buf.buff[buf.index] != '\0' && buf.buff[buf.index] != '\n')
+			buf.index ++;
+		if (buf.index != BUFFER_SIZE - 1)
+		{
+			merging(buf.buff, &str, start, buf.index);
+			break;
+		}
+		tmp = read(fd, buf.buff, BUFFER_SIZE - 1);
+		merging(buf.buff, &str, start, buf.index);
+		start = 0;
 	}
+	return (add_newline(&str));
 }
 
 #include <fcntl.h>
@@ -78,8 +95,10 @@ int main()
 //	printf("length of line %d\n", length_of_line(fd));
 	str = get_next_line(fd);
 	printf("Contents of the First line : %s", str);
+	free(str);
 	str = get_next_line(fd);
 	printf("Contents of the Second line : %s", str);
+	free(str);
 	str = get_next_line(fd);
 	printf("Contents of the Third line : %s", str);
 	free(str);

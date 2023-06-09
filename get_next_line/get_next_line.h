@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:27:15 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/06 17:02:44 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/09 15:11:34 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 char    *get_next_line(int fd);
 char    *put_in_buffer(int fd, char *buffer);
-char	*ft_strdup(const char *s);
-int 	savewithprv(char *((*buff)[3]), int index, int fd);
+char	*ft_strdup(const char *s, int start);
+int 	merging(char *buff, char **str, int start, int index);
 int	    ft_strlen(const char *s);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 void	ft_bzero(void *s, size_t n);

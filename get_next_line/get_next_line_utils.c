@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:20:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/06 17:05:48 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/09 15:49:08 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 #include <stdio.h>
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *s, int start)
 {
 	char	*str;
 	int		index;
 
 	index = 0;
-	str = (char *) malloc(sizeof(char) * ft_strlen(s) + 1);
+	str = (char *) malloc(sizeof(char) * ft_strlen(s) - start + 1);
 	if (!str)
 		return (NULL);
-	while (s[index] != 0)
+	while (s[index + start] != 0)
 	{
-		str[index] = s[index];
+		str[index] = s[index + start];
 		index ++;
 	}
 	str[index] = 0;
@@ -78,7 +78,7 @@ void	ft_bzero(void *s, size_t n)
 	}
 	return ;
 }
-
+/*
 char    *put_in_buffer(int fd, char *buffer)
 {
 	int		count;
@@ -121,7 +121,7 @@ int	savewithprv(char *((*buff)[3]), int index, int fd)
 	}
 	return (1);
 }
-
+*/
 /*if (*buff[1] != NULL)
 	{
 		(*buff)[2] = ft_strdup((*buff)[2]);
