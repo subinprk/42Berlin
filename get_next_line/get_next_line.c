@@ -16,6 +16,7 @@ struct buf
 	{
 		char	buff[BUFFER_SIZE];
 		int		index;
+		int		tmp;
 	};
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
@@ -75,38 +76,35 @@ char	*get_next_line(int fd)
 	static struct buf buf;
 	char	*str;
 	int		start;
-	int		tmp;
 
-	tmp = 0;
 	str = NULL;
 	if (buf.buff[0] == '\0')
-		tmp = read(fd, buf.buff, BUFFER_SIZE - 1);
-	else
-		start = buf.index;
-	while (tmp > 0)
+		buf.tmp = read(fd, buf.buff, BUFFER_SIZE);
+	printf("previous string: %s\nvalue of tmp: %d",buf.buff, buf.tmp);
+	while (buf.tmp > 0)
 	{
 		start = buf.index;
 		printf("index of the starting point %d\n", start);
-		while (buf.index < tmp && buf.buff[buf.index] != '\n' && buf.buff[buf.index] != '\0')
+		while (buf.index < buf.tmp && buf.buff[buf.index] != '\n' && buf.buff[buf.index] != '\0')
 			buf.index ++;
 		printf("start character of buffer: %c end of buf: %c\n", buf.buff[start], buf.buff[buf.index]);
 		merging(buf.buff, &str, start, buf.index);
 		printf("index points of the merging point %d\n", buf.index);
-		if (buf.index < tmp)
+		if (buf.index < buf.tmp)
 		{
 			buf.index ++;
 			break;
 		}
-		else if (buf.index == tmp)
+		else if (buf.index == buf.tmp)
 		{
-			ft_bzero(buf.buff, tmp);
-			tmp = read(fd, buf.buff, BUFFER_SIZE - 1);
+			ft_bzero(buf.buff, buf.tmp);
+			buf.tmp = read(fd, buf.buff, BUFFER_SIZE);
 			buf.index = 0;
 		}
 		else
 			buf.index ++;
 	}
-	printf("%s \n", str);
+	printf("%s, the last readed size in buffer %d\nlocation of index %d\n", str, buf.tmp, buf.index);
 	if(!add_newline(&str))
 		return (NULL);
 	return (str);
