@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 15:20:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/09 15:49:08 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/12 18:26:20 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,30 @@
 
 #include <stdio.h>
 
-char	*ft_strdup(const char *s, int start)
+int	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i ++;
+	return (i);
+}
+
+char	*ft_strdup(const char *s)
 {
 	char	*str;
 	int		index;
 
+	if (s == NULL)
+		return (NULL);
 	index = 0;
-	str = (char *) malloc(sizeof(char) * ft_strlen(s) - start + 1);
+	str = (char *) malloc(ft_strlen(s) + 1);
 	if (!str)
 		return (NULL);
-	while (s[index + start] != 0)
+	while (s[index] != '\0')
 	{
-		str[index] = s[index + start];
+		str[index] = s[index];
 		index ++;
 	}
 	str[index] = 0;
@@ -52,16 +64,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	}
 	dst[i] = 0;
 	return (t1 + t2);
-}
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != 0)
-		i ++;
-	return (i);
 }
 
 void	ft_bzero(void *s, size_t n)
