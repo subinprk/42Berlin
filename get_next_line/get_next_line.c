@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:28:33 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/13 12:52:52 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/13 17:57:06 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_next_line(int fd)
 	while (buf.tmp > 0)
 	{
 		start = buf.index;
-		while (buf.index < buf.tmp && buf.buff[buf.index] != '\n' && buf.buff[buf.index] != '\0')
+		while (buf.index < buf.tmp /*& buf.buff[buf.index] != '\n'*/ && buf.buff[buf.index] != '\0')
 			buf.index ++;
 		merging(buf.buff, &str, start, buf.index);
 		if (buf.index < buf.tmp)
@@ -84,15 +84,15 @@ char	*get_next_line(int fd)
 		}
 		else if (buf.index == buf.tmp)
 		{
-			ft_bzero(buf.buff, buf.tmp);
 			buf.tmp = read(fd, buf.buff, BUFFER_SIZE);
 			buf.index = 0;
 		}
 		else
 			buf.index ++;
 	}
-	if(!add_newline(&str))
+	if (buf.tmp < 0)
 		return (NULL);
+	//add_newline(&str);
 	return (str);
 }
 /*
@@ -105,12 +105,15 @@ int main()
 	int fd = open(filename, O_RDONLY);
 	if (fd < 3)
 		return 0;
-	
-	str = get_next_line(fd);
-	printf("first line : %s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("second line : %s", str);
-	free(str);
+
+	char *line;
+
+	line = get_next_line(fd);
+	while (line) {
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
 	return 0;
 }*/
