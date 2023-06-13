@@ -6,34 +6,18 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 12:28:33 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/12 18:34:33 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/13 12:52:52 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-struct buf
-	{
-		char	buff[BUFFER_SIZE];
-		int		index;
-		int		tmp;
-	};
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+struct s_buf
 {
-	size_t	index;
-
-	index = 0;
-	if (size <= 0)
-		return (ft_strlen(src));
-	while (index < size - 1 && src[index] != 0)
-	{
-		dst[index] = src[index];
-		index ++;
-	}
-	dst[index] = 0;
-	return (ft_strlen(src));
-}
+	char	buff[BUFFER_SIZE];
+	int		index;
+	int		tmp;
+};
 
 int	merging(char *buff, char **str, int start, int index)
 {
@@ -51,7 +35,13 @@ int	merging(char *buff, char **str, int start, int index)
 		free(tmp);
 	}
 	else
-		*str = ft_strdup(buff + start);
+	{
+		*str = malloc(index - start + 1);
+		if (!(*str))
+			return (0);
+		(*str)[0] = '\0';
+		ft_strlcat(*str, buff + start, index - start + 1);
+	}
 	return (0);
 }
 
@@ -64,7 +54,8 @@ int	add_newline(char **str)
 		return (0);
 	free (*str);
 	*str = malloc(ft_strlen(tmp) + 2);
-	ft_strlcpy(*str, tmp, ft_strlen(tmp) + 1);
+	(*str)[0] = '\0';
+	ft_strlcat(*str, tmp, ft_strlen(tmp) + 1);
 	(*str)[ft_strlen(tmp)] = '\n';
 	(*str)[ft_strlen(tmp) + 1] = '\0';
 	free(tmp);
@@ -73,23 +64,19 @@ int	add_newline(char **str)
 
 char	*get_next_line(int fd)
 {
-	static struct buf buf;
+	static struct s_buf	buf;
 	char	*str;
 	int		start;
 
 	str = NULL;
 	if (buf.buff[0] == '\0')
 		buf.tmp = read(fd, buf.buff, BUFFER_SIZE);
-	printf("previous string: %s\nvalue of tmp: %d",buf.buff, buf.tmp);
 	while (buf.tmp > 0)
 	{
 		start = buf.index;
-		printf("index of the starting point %d\n", start);
 		while (buf.index < buf.tmp && buf.buff[buf.index] != '\n' && buf.buff[buf.index] != '\0')
 			buf.index ++;
-		printf("start character of buffer: %c end of buf: %c\n", buf.buff[start], buf.buff[buf.index]);
 		merging(buf.buff, &str, start, buf.index);
-		printf("index points of the merging point %d\n", buf.index);
 		if (buf.index < buf.tmp)
 		{
 			buf.index ++;
@@ -104,12 +91,11 @@ char	*get_next_line(int fd)
 		else
 			buf.index ++;
 	}
-	printf("%s, the last readed size in buffer %d\nlocation of index %d\n", str, buf.tmp, buf.index);
 	if(!add_newline(&str))
 		return (NULL);
 	return (str);
 }
-
+/*
 #include <fcntl.h>
 #include <stdio.h>
 int main()
@@ -127,4 +113,4 @@ int main()
 	printf("second line : %s", str);
 	free(str);
 	return 0;
-}
+}*/
