@@ -80,6 +80,17 @@ void	ft_bzero(void *s, size_t n)
 	}
 	return ;
 }
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	char	*ptr;
+
+	ptr = (char *) malloc (size * nmemb);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, (size * nmemb));
+	return ((void *)ptr);
+}
 /*
 char    *put_in_buffer(int fd, char *buffer)
 {
