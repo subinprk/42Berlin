@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prints2i.c                                         :+:      :+:    :+:   */
+/*   4pointer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 01:25:18 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/17 02:13:05 by subpark          ###   ########.fr       */
+/*   Created: 2023/06/19 14:50:25 by subpark           #+#    #+#             */
+/*   Updated: 2023/06/19 17:51:09 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int write4s(char* str)
+char    *makepointer(void *pointer, char *tmp, int i)
 {
-	int t;
+	char    *str;
+	char	*tmpstr;
 
-	t = 0;
-	while(str)
-	{
-		write(1, str[t], 1);
-		t ++;
-	}
-	return (t);
+	str = makeposhexa((long)pointer, tmp, i);
+	str = add1front('x', str, 1);
+	str = add1front('0', str, 1);
+	return (str);
 }
-
-int	write4p(int pointer)
-{
-	
-}
-
-int	write4d(int digit)
-{
-	if (digit < 10)
-	{
-		t ++;
-		return ();
-	}
-}
+/*
+int main(){
+	int tmp;
+	char *str = makepointer(&tmp, "", 0);
+	printf("main %x\n", &tmp);
+	printf("main %p\n", &tmp);
+	printf("main %d\n", &tmp);
+	printf("result %s", str);
+	free(str);
+	return 0;
+}*/

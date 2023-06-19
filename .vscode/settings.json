@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "variant": "c",
-        "chrono": "c"
+        "chrono": "c",
+        "stdio.h": "c"
     }
 }

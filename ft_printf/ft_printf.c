@@ -6,13 +6,13 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:01:55 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/18 23:18:28 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/19 17:52:22 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int printp(char c, va_list ap, int *count)
+int printp(char c, va_list ap)
 {
 	int	t;
 
@@ -21,20 +21,19 @@ int printp(char c, va_list ap, int *count)
 	else if (c == 's')
 		t = write4s(ap);
 	else if (c == 'p')
-		va_arg(ap, int);
+		t = write4p(ap);
 	else if (c == 'd')
-		va_arg(ap, int);
+		t = write4d(ap);
 	else if (c == 'i')
-		va_arg(ap, int);
+		t = write4d(ap);
 	else if (c == 'u')
-		va_arg(ap, unsigned int);
+		t = write4u(ap);
 	else if (c == 'x')
-		va_arg(ap, unsigned int);
+		t = write4lhex(ap);
 	else if (c == 'X')
-		va_arg(ap, unsigned int);
+		t = write4uhex(ap);
 	else
 		return (0);
-	*count = *count + t;//for the return value of printf(total length)
 	return (t);
 }
 
@@ -60,6 +59,7 @@ int afterp(char c, va_list ap)
 		return (0);
 	return (1);
 }
+
 int ft_printf(const char *format, ...)
 {
 	int		i;
@@ -69,24 +69,23 @@ int ft_printf(const char *format, ...)
 	count = 0;
 	va_start(ap, format);
 	i = 0;
-	while (format[i] && format[i] != '%')
+	while (format[i])
 	{
 		count = count + write(1, &format[i ++], 1);
-		if (format[i] == '%' && format[(i ++) + 1])
+		if (format[i] == '%')
 		{
-			if (format[i] == '%')
-				count = count + write(1, "%", 1);
-			else//anyway, run the function.
-			{
-				if(printp(format[i], ap, &count) <= 0 || afterp(format[i], ap))
-					return (-1);//printp와 afterp 순서대로 실행, 에러 발생 시 종료
-
-			}
-				return (-1);//error of non listed c, return negative number
+			printf("hi\n");
+			i ++;
+			count = count + printp(format[i], ap);
+				if(!afterp(format[i], ap))
+					return (-1);
 		}
 	}
-
-	
 	va_end(ap);
-	return (i + );
+	return (count);
+}
+
+int main(){
+	ft_printf("hello %d", 10);
+	return 0;
 }

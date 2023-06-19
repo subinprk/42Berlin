@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   basetool.c                                         :+:      :+:    :+:   */
+/*   low16.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:36:32 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 01:09:31 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/19 15:48:09 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,7 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
-{
-	char	*str;
-	int		index;
-
-	index = 0;
-	str = (char *) malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!str)
-		return (NULL);
-	while (s[index] != 0)
-	{
-		str[index] = s[index];
-		index ++;
-	}
-	str[index] = 0;
-	return (str);
-}
-
-char	*add1front(char c, char *str)
+char	*add1front(char c, char *str, int j)
 {
 	char	*tmp;
 	int		i;
@@ -52,30 +34,30 @@ char	*add1front(char c, char *str)
 		return (NULL);
 	tmp[0] = c;
 	i = 0;
-	while (tmp[i])
+	while (str[i])
 	{
 		tmp[1 + i] = str[i];
 		i ++;
 	}
 	tmp[ft_strlen(str) + 1] = '\0';
+	if (j > 0)
+		free(str);
 	return (tmp);
 }
-char	*makehexa(long num, char *tmp, int i)//tmp should be eof, not null when I have to call it. and i should be 0
+
+char	*makeposhexa(long num, char *tmp, int i)
 {
 	char	c;
 
 	if (tmp == NULL)
 		return (NULL);
-	if (num < 0)
-		makehexa(-num, add1front('-', tmp), i + 1);
-	else if (num < 16)
+	if (num < 16)
 	{
 		if (num < 10)
 			c = num + '0';
 		else
 			c = num + 'a' - 10;
-		//printf("final return was here");
-		return (add1front(c, tmp));
+		return (add1front(c, tmp, i));
 	}
 	else
 	{
@@ -83,19 +65,30 @@ char	*makehexa(long num, char *tmp, int i)//tmp should be eof, not null when I h
 			c = num % 16 + '0';
 		else
 			c = num % 16 + 'a' - 10;
-		makehexa(num / 16, add1front(c, tmp), i + 1);
+		return (makeposhexa(num / 16, add1front(c, tmp, i), i + 1));
 	}
-	printf("%d\n", i);
-	if (i != 0)
-		free(tmp);
 }
 
+char	*makehexa(long num, char *tmp, int i)
+{
+	char	*ttmp;
+
+	if (num < 0)
+		return (add1front('-', makeposhexa(-num, tmp, i), i + 1));
+	else
+		return (makeposhexa(num, tmp, i));
+}
+/*
 int main(){
-	char *numstr= makehexa(31, "", 0);
+	char *numstr;
+	numstr = makehexa(257, "", 0);
+	printf("%s\n", numstr);
+	free(numstr);
+	numstr = makehexa(-31, "", 0);
 	printf("%s\n", numstr);
 	free(numstr);
 	return 0;
-}
+}*/
 /*
 char	*makebinary(long num, int i)
 {
