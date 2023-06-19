@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 14:19:14 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 14:49:31 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 00:04:33 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*positivdeci(long num, char *tmp, int i)
 	else
 	{
 		c = num % 10 + '0';
-		return (positivdeci(num / 16, add1front(c, tmp, i), i + 1));
+		return (positivdeci(num / 10, add1front(c, tmp, i), i + 1));
 	}
 }
 
@@ -45,3 +45,7 @@ char	*signeddeci(long num, char *tmp, int i)
 	else
 		return (positivdeci(num, tmp, i));
 }
+/*
+int main(){
+	printf("%s\n", makedecimal(10, "", 0));
+}*/

@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:54:58 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 17:58:56 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 00:14:29 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ char	*positivdeci(long num, char *tmp, int i);
 int		write4s(char* str);
 int 	write4uhex(long num);
 int		write4lhex(long num);
-int 	write4p(void *pointer);
-int	    write4d(int deci);
-int     write4u(int	digit);
-int     printp(char c, va_list ap);
-int     afterp(char c, va_list ap);
+int		write4p(void *pointer);
+int		write4d(int deci);
+int		write4u(long digit);
+int		printp(char c, va_list ap);
 
 #endif

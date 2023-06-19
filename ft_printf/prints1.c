@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:25:18 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 17:59:08 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 00:10:52 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int write4s(char* str)
 	int t;
 
 	t = 0;
-	while(str)
+	while(str[t])
 	{
 		write(1, &str[t], 1);
 		t ++;
@@ -47,7 +47,7 @@ int	write4d(int deci)
 	return (t);
 }
 
-int write4u(int	digit)
+int write4u(long digit)
 {
 	char	*num;
 	int		t;

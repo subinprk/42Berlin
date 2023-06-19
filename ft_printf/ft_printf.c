@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:01:55 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 17:52:22 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 00:15:05 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,30 @@
 int printp(char c, va_list ap)
 {
 	int	t;
+	char	tmp;
 
 	if (c == 'c')
-		t = write(1, ap, 1);
+	{
+		tmp = va_arg(ap, int);
+		t = write(1, &tmp, 1);
+	}
 	else if (c == 's')
-		t = write4s(ap);
+		t = write4s(va_arg(ap, char*));
 	else if (c == 'p')
-		t = write4p(ap);
+		t = write4p(va_arg(ap, void*));
 	else if (c == 'd')
-		t = write4d(ap);
+		t = write4d(va_arg(ap, int));
 	else if (c == 'i')
-		t = write4d(ap);
+		t = write4d(va_arg(ap, int));
 	else if (c == 'u')
-		t = write4u(ap);
+		t = write4u(va_arg(ap, unsigned int));
 	else if (c == 'x')
-		t = write4lhex(ap);
+		t = write4lhex(va_arg(ap, int));
 	else if (c == 'X')
-		t = write4uhex(ap);
+		t = write4uhex(va_arg(ap, int));
 	else
 		return (0);
 	return (t);
-}
-
-int afterp(char c, va_list ap)
-{
-	if (c == 'c')
-		va_arg(ap, char);
-	else if (c == 's')
-		va_arg(ap, char*);
-	else if (c == 'p')
-		va_arg(ap, int);
-	else if (c == 'd')
-		va_arg(ap, int);
-	else if (c == 'i')
-		va_arg(ap, int);
-	else if (c == 'u')
-		va_arg(ap, unsigned int);
-	else if (c == 'x')
-		va_arg(ap, unsigned int);
-	else if (c == 'X')
-		va_arg(ap, unsigned int);
-	else
-		return (0);
-	return (1);
 }
 
 int ft_printf(const char *format, ...)
@@ -74,11 +55,9 @@ int ft_printf(const char *format, ...)
 		count = count + write(1, &format[i ++], 1);
 		if (format[i] == '%')
 		{
-			printf("hi\n");
 			i ++;
 			count = count + printp(format[i], ap);
-				if(!afterp(format[i], ap))
-					return (-1);
+			i ++;
 		}
 	}
 	va_end(ap);
@@ -86,6 +65,7 @@ int ft_printf(const char *format, ...)
 }
 
 int main(){
-	ft_printf("hello %d", 10);
+	int tmp = 10;
+	ft_printf("hello %d world %c %s\n", tmp, '!', "I'm subin");
 	return 0;
 }
