@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:01:55 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/20 14:55:55 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:41:28 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int printp(char c, va_list ap)
 		t = write4lhex(va_arg(ap, int));
 	else if (c == 'X')
 		t = write4uhex(va_arg(ap, int));
-	else
-		return (0);
+	else if (c == '%')
+		t = write(1, &c, 1);
 	return (t);
 }
 
@@ -52,22 +52,25 @@ int ft_printf(const char *format, ...)
 	i = 0;
 	while (format[i])
 	{
-		count = count + write(1, &format[i ++], 1);
 		if (format[i] == '%')
 		{
-			if (format[++ i] == '%')
-				write (1, "%%", 1);
-			else
-				count = count + printp(format[i ++], ap);
+			i ++;
+			count = count + printp(format[i], ap);
+			i ++;
+		}
+		else
+		{
+			count = count + write(1, &format[i], 1);
+			i ++;
 		}
 	}
 	va_end(ap);
 	return (count);
 }
-
+/*
 int main(){
 	int tmp = -10;
 	ft_printf("hello %X%%world %c %s\n", tmp, '!', "I'm subin");
 	printf("%X%% world\n", tmp);
 	return 0;
-}
+}*/
