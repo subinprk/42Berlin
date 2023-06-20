@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:54:58 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/20 00:14:29 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 14:02:55 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		write4p(void *pointer);
 int		write4d(int deci);
 int		write4u(long digit);
 int		printp(char c, va_list ap);
+int		ft_printf(const char *format, ...);
 
 #endif

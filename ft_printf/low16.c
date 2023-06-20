@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:36:32 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 15:48:09 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 14:30:59 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,8 @@ char	*makeposhexa(long num, char *tmp, int i)
 
 char	*makehexa(long num, char *tmp, int i)
 {
-	char	*ttmp;
-
 	if (num < 0)
-		return (add1front('-', makeposhexa(-num, tmp, i), i + 1));
+		return (makeposhexa(0xffffffff + num + 1, tmp, i));
 	else
 		return (makeposhexa(num, tmp, i));
 }

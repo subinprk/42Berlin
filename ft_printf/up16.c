@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:28:47 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/19 17:21:06 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 14:44:58 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*makepuphexa(long num, char *tmp, int i)
 char	*makeuphexa(long num, char *tmp, int i)
 {
 	if (num < 0)
-		return (add1front('-', makepuphexa(-num, tmp, i), i + 1));
+		return (makepuphexa(0xffffffff + num + 1, tmp, i));
 	else
 		return (makepuphexa(num, tmp, i));
 }
@@ -75,5 +75,6 @@ int main(){
 	numstr = makeuphexa(-31, "", 0);
 	printf("%s\n", numstr);
 	free(numstr);
+	printf("%X", -31);
 	return 0;
 }*/

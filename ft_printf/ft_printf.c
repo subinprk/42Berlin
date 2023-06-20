@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:01:55 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/20 00:15:05 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/20 14:55:55 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int ft_printf(const char *format, ...)
 		count = count + write(1, &format[i ++], 1);
 		if (format[i] == '%')
 		{
-			i ++;
-			count = count + printp(format[i], ap);
-			i ++;
+			if (format[++ i] == '%')
+				write (1, "%%", 1);
+			else
+				count = count + printp(format[i ++], ap);
 		}
 	}
 	va_end(ap);
@@ -65,7 +66,8 @@ int ft_printf(const char *format, ...)
 }
 
 int main(){
-	int tmp = 10;
-	ft_printf("hello %d world %c %s\n", tmp, '!', "I'm subin");
+	int tmp = -10;
+	ft_printf("hello %X%%world %c %s\n", tmp, '!', "I'm subin");
+	printf("%X%% world\n", tmp);
 	return 0;
 }
