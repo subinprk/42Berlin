@@ -6,15 +6,15 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 18:01:55 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/20 23:41:28 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/21 16:43:06 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int printp(char c, va_list ap)
+int	printp(char c, va_list ap)
 {
-	int	t;
+	int		t;
 	char	tmp;
 
 	if (c == 'c')
@@ -23,9 +23,9 @@ int printp(char c, va_list ap)
 		t = write(1, &tmp, 1);
 	}
 	else if (c == 's')
-		t = write4s(va_arg(ap, char*));
+		t = write4s(va_arg(ap, char *));
 	else if (c == 'p')
-		t = write4p(va_arg(ap, void*));
+		t = write4p(va_arg(ap, void *));
 	else if (c == 'd')
 		t = write4d(va_arg(ap, int));
 	else if (c == 'i')
@@ -36,16 +36,16 @@ int printp(char c, va_list ap)
 		t = write4lhex(va_arg(ap, int));
 	else if (c == 'X')
 		t = write4uhex(va_arg(ap, int));
-	else if (c == '%')
+	else
 		t = write(1, &c, 1);
 	return (t);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	int		i;
 	int		count;
-	va_list ap;
+	va_list	ap;
 
 	count = 0;
 	va_start(ap, format);
@@ -69,8 +69,9 @@ int ft_printf(const char *format, ...)
 }
 /*
 int main(){
-	int tmp = -10;
-	ft_printf("hello %X%%world %c %s\n", tmp, '!', "I'm subin");
-	printf("%X%% world\n", tmp);
+	int tmp = 0;
+	char *str = NULL;
+	ft_printf("hello %X %dworld %c %s %p\n", tmp,tmp, '!', str, str);
+	printf("%X %d world  %s %p\n", tmp, tmp, str, str);
 	return 0;
 }*/

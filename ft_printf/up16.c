@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 13:28:47 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/20 14:44:58 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/21 16:43:24 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*makeuphexa(long num, char *tmp, int i)
 		return (makepuphexa(num, tmp, i));
 }
 
-int write4uhex(long num)
+int	write4uhex(long num)
 {
 	char	*uhex;
 	int		t;
@@ -55,7 +55,7 @@ int write4uhex(long num)
 	return (t);
 }
 
-int write4lhex(long num)
+int	write4lhex(long num)
 {
 	char	*uhex;
 	int		t;
