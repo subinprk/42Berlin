@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:48:16 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/22 22:19:57 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:45:54 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	del(lst->content);
 	free(lst);
 }
-/*
+
 void    tmpdel(void *content)
 {
-	printf("deleted\n");
+	printf("-----deleted %p-----\n", content);
 	return ;
 }
-
+/*
 #include <stdio.h>
 int main()
 {

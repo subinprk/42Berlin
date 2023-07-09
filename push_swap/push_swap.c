@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:34:51 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/29 00:29:02 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/10 00:16:13 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,24 @@ t_list  *choicepivot(t_list *stack)
 		return (mid3);
 }
 
-void    push_swap()
+void    main(int argc, char **argv)
+{
+	int		 i;
+	int		tmp;
+	t_list	*a;
+
+	i = 0;
+	while (argv[i] != 0)
+	{
+		tmp = ft_atoi(argv[i]);
+		ft_lstadd_front(&a, ft_lstnew(&tmp));
+		i ++;
+	}
+	t_list	*curr = a;
+	while (curr != NULL)
+	{
+		printf("%s \n", curr->content);
+		curr = curr->next;
+	}
+	ft_lstclear(a, tmpdel);
+}
