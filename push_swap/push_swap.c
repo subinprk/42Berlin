@@ -6,11 +6,12 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:34:51 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/10 00:16:13 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/14 14:42:25 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "tmp.a"
 
 t_list  *point_list(t_list *stack, int num)
 {
