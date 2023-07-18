@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/17 16:03:52 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/18 15:39:20 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@
 
 int	count_lines(int fd)
 {
-	int	lines;
+	int		lines;
+	char	*tmp;
 
 	lines = 0;
-	while (get_next_line(fd) > 0)
+	tmp = get_next_line(fd);
+	while (tmp > 0)
+	{
+		free(tmp);
 		lines ++;
+		tmp = get_next_line(fd);
+	}
 	return (lines);
 }
 
@@ -31,13 +37,14 @@ char	**load_map1(const char *path)
 	int 	fd;
 	int		i;
 
+	map1 = NULL;
 	fd = open(path, O_RDONLY);
 	lines = count_lines(fd);
 	close(fd);
 	*map1 = ft_calloc(sizeof(char *), lines);
 	fd = open(path, O_RDONLY);
 	i = 0;
-	while (i < count_lines)
+	while (i < lines)
 	{
 		map1[i] = get_next_line(fd);
 		i ++;
@@ -52,6 +59,7 @@ char	***load_map2(char **map1)
 	int		row;
 	int		i;
 
+	map2 = NULL;
 	row = sizeof(map1) / sizeof(map1[0]);
 	**map2 = ft_calloc(sizeof(char **), row);
 	//Possible error point. i Don't know about eof, null pointer in the last line
@@ -59,6 +67,8 @@ char	***load_map2(char **map1)
 	while (i < row)
 	{
 		map2[i] = ft_split(map1[i], ' ');
+		free(map1[i]);
+		//also not sure bout this point, bcuzof the deapth of pointer map1
 		i ++;
 	}
 	return (map2);

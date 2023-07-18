@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/17 15:04:09 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/18 16:50:23 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_H
 
 # include "get_next_line/get_next_line.h"
+# include "minilibx-linux/mlx.h"
 # include "libft.a"
-# include "libmlx.a"
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
@@ -40,6 +40,11 @@
 	projectxy = {{1, 0, 0}, {0, 1, 0}, {0, 0, 0}};*/
  }					t_matrix ;
 
- 
+int		count_lines(int fd);
+char	**load_map1(const char *path);
+char	***load_map2(char **map1);
+float	**alloc_array(char ***map);
+float	**put_data(float **array, char	***map);
+
 
 #endif
