@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 14:46:17 by subpark           #+#    #+#             */
-/*   Updated: 2023/05/11 15:07:25 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/24 18:17:40 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,12 @@ char	**ft_split(char const *s, char c)
 #include <stdio.h>
 int main()
 {
-	int row = countrow("nonempty", 0);
-	//int column = countcolumn("", ' ');
+	int row = countrow("0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0", ' ');
 	int	i;
-	char **str = ft_split("nonempty", 0);
+	char **str = ft_split("0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0", ' ');
 	printf("%d\n", row);
 	for(i = 0; i <= row; i++)
 		printf("%d 번째 열 %s\n", i, str[i]);
-	//mcheck(str[1]);
 	for(i = 0; i <= row; i++)
 	{
 		free(str[i]);

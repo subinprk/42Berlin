@@ -6,20 +6,24 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/23 21:54:00 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/24 16:14:36 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
-# include "../get_next_line/get_next_line.h"
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
  typedef struct	matrixes
  {
@@ -40,8 +44,12 @@
 	projectxy = {{1, 0, 0}, {0, 1, 0}, {0, 0, 0}};*/
  }					t_matrix ;
 
+char	*get_next_line(int fd);
+char	*ft_strdup(const char *s);
+int		merging(char *buff, char **str, int start, int index);
 int		count_lines(int fd);
 char	**load_map1(const char *path);
+int		count_rows(char **map);
 char	***load_map2(char **map1);
 float	**alloc_array(char ***map);
 float	**put_data(float **array, char	***map);

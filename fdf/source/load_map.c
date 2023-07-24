@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/18 15:39:20 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/24 18:15:04 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**load_map1(const char *path)
 	fd = open(path, O_RDONLY);
 	lines = count_lines(fd);
 	close(fd);
-	*map1 = ft_calloc(sizeof(char *), lines);
+	map1 = (char **)ft_calloc(sizeof(char *), lines + 1);
 	fd = open(path, O_RDONLY);
 	i = 0;
 	while (i < lines)
@@ -53,6 +53,16 @@ char	**load_map1(const char *path)
 	return (map1);
 }
 
+int		count_rows(char **map)
+{
+	int	row;
+
+	row = 0;
+	while (map[row] != NULL)
+		row ++;
+	return (row);
+}
+
 char	***load_map2(char **map1)
 {
 	char	***map2;
@@ -60,8 +70,8 @@ char	***load_map2(char **map1)
 	int		i;
 
 	map2 = NULL;
-	row = sizeof(map1) / sizeof(map1[0]);
-	**map2 = ft_calloc(sizeof(char **), row);
+	row = count_rows(map1);
+	map2 = (char ***)malloc(sizeof(char **)*(row + 1));
 	//Possible error point. i Don't know about eof, null pointer in the last line
 	i = 0;
 	while (i < row)
@@ -71,5 +81,7 @@ char	***load_map2(char **map1)
 		//also not sure bout this point, bcuzof the deapth of pointer map1
 		i ++;
 	}
+	map2[row] = NULL;
+	free(map1);
 	return (map2);
 }

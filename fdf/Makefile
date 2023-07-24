@@ -6,12 +6,12 @@
 #    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/07/23 21:59:53 by subpark          ###   ########.fr        #
+#    Updated: 2023/07/24 15:00:50 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
+CCFLAGS		= -Wall -Werror -Wextra
 
 RM			= rm
 
@@ -21,16 +21,16 @@ LIBFT		= libft.a
 LIBFT_DIR	= libft
 LIBFT_PATH	= $(LIBFT_DIR)/$(LIBFT)
 
-MLX		= libmlx_Linux.a
-MLX_DIR	= minilibx-linux
+MLX			= libmlx.a
+MLX_DIR		= minilibx-linux
 MLX_PATH	= $(MLX_DIR)/$(MLX)
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS	= -lmlx -framework OpenGL -framework AppKit
 
 HEADERS		= -I $(SOURCE_DIR) -I $(LIBFT_I_DIR) -I $(MLX_I_DIR)
 LINUX_LINK	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME 		= fdf
-SRC_NAME 	= source/alloc_array.c source/load_map.c
+SRC_NAME 	= source/alloc_array.c source/load_map.c source/get_next_line.c
 OBJ_NAME 	= $(SRC_NAME:.c=.o)
 
 # Main Command
@@ -61,18 +61,20 @@ re: fclean all
 # Sub Command
 
 %.o: %.c
-		@$(CC) $(CFLAGS) -Imlx -c -o $@ $< $(HEADERS)
+		@$(CC) -Imlx -c -o $@ $< $(HEADERS)
+#		@$(CC) $(CCFLAGS) -Imlx -c -o $@ $< $(HEADERS)
 
 $(LIBFT):
 		@make -C $(LIBFT_DIR)
-		@mv $(LIBFT_DIR) ./
+		@mv $(LIBFT_DIR)/$(LIBFT) .
 
 $(MLX):
 		@make -C $(MLX_DIR)
-		@mv $(MLX_DIR) ./
+		@mv $(MLX_DIR)/$(MLX) .
 
 $(NAME): $(OBJ_NAME) $(LIBFT) $(MLX)
-		@$(CC) $(CCFLAGS) -o $@ $^ $(HEADERS) $(LINUX_LINK)
+		@$(CC) -o $@ $^
+#		@$(CC) $(CCFLAGS) -o $@ $^
 
 # Phony target
 
