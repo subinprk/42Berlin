@@ -6,16 +6,16 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/18 16:50:23 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/23 21:54:00 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "get_next_line/get_next_line.h"
-# include "minilibx-linux/mlx.h"
-# include "libft.a"
+# include "../get_next_line/get_next_line.h"
+# include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
