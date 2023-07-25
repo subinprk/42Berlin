@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
+#    By: siun <siun@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/07/24 15:00:50 by subpark          ###   ########.fr        #
+#    Updated: 2023/07/25 23:54:58 by siun             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ all: $(NAME)
 
 clean:
 		@make clean -C $(LIBFT_DIR)
-		@$(RM) -f $(OBJ_NAME)
-		@$(RM) -f $(OBJ_NAME_B)
+		@make clean -C $(MLX_DIR)
+		@$(RM) -f $(SOURCE_DIR)/$(OBJ_NAME)
 		@$(RM) -rf $(MLX_DIR)/build
 
 fclean: clean
@@ -51,9 +51,7 @@ fclean: clean
 		@$(RM) -f $(LIBFT)
 		@$(RM) -f $(MLX)
 		@$(RM) -f $(OBJ_NAME)
-		@$(RM) -f $(OBJ_NAME_B)
 		@$(RM) -f $(NAME)
-		@$(RM) -f $(NAME_B)
 
 re: fclean all
 
@@ -74,8 +72,9 @@ $(MLX):
 
 $(NAME): $(OBJ_NAME) $(LIBFT) $(MLX)
 		@$(CC) -o $@ $^
+# -fsanitize=address -static-libasan -g
 #		@$(CC) $(CCFLAGS) -o $@ $^
 
 # Phony target
 
-.PHONY: all clean fclean re bonus 
+.PHONY: all clean fclean re

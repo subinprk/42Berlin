@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/24 18:15:04 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/25 22:56:02 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,11 @@ char	***load_map2(char **map1)
 	map2 = NULL;
 	row = count_rows(map1);
 	map2 = (char ***)malloc(sizeof(char **)*(row + 1));
-	//Possible error point. i Don't know about eof, null pointer in the last line
 	i = 0;
 	while (i < row)
 	{
 		map2[i] = ft_split(map1[i], ' ');
 		free(map1[i]);
-		//also not sure bout this point, bcuzof the deapth of pointer map1
 		i ++;
 	}
 	map2[row] = NULL;

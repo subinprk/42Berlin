@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:54:12 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/24 18:49:07 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/25 23:41:39 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,25 @@ float	**alloc_array(char ***map)
 	int		i;
 	int		j;
 
-	container = NULL;
-	//nodes = sizeof(map) / sizeof(char *);
 	i = 0;
 	nodes = 0;
 	while (map[i] != NULL)
 	{
 		j = 0;
-		while (map[j] != NULL)
+		while (map[i][j] != NULL)
 		{
 			nodes ++;
-			free(map[i][j]);
 			j ++;
 		}
-		free(map[i]);
 		i ++;
 	}
-	free(map);
-	*container = ft_calloc (sizeof(float *), nodes + 1);
+	container = (float **)ft_calloc (sizeof(float *), nodes + 1);
+	if (!container)
+		return (NULL);
 	i = 0;
 	while (i < nodes)
 	{
-		container = ft_calloc(sizeof(float), 3);
+		container[i] = ft_calloc(sizeof(float), 3);
 		i ++;
 	}
 	return (container);
@@ -66,13 +63,15 @@ float	**put_data(float **array, char	***map)
 			j ++;
 			count ++;
 		}
-		free(map[i]);//freeing, dimension of map could be problem.
+		free(map[i]);
 		i ++;
 	}
+	array[count] = NULL;
 	free(map);
 	return (array);
 }
 
+/*
 int main()
 {
 	int	i;
@@ -118,14 +117,17 @@ int main()
 	free(tmp);
 */
 
+//for checking check_data
+/*
 	tmp = load_map2(load_map1("42.fdf"));
+	//printf("%s", tmp[10][10]);
 	array = put_data(alloc_array(tmp), tmp);
 	i = 0;
 	j = 0;
-	while (tmp[i] != NULL)
+	while (array[i] != NULL)
 	{
 		j = 0;
-		while (tmp[i][j] != NULL)
+		while (j < 3)
 		{
 			printf("%f, ", array[i][j]);
 			j ++;
@@ -135,6 +137,7 @@ int main()
 		i ++;
 	}
 	free(array);
+	*/
 
-	return (0);
-}
+//	return (0);
+//}*/
