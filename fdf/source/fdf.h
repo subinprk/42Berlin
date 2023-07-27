@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/24 16:14:36 by subpark          ###   ########.fr       */
+/*   Updated: 2023/07/27 17:35:50 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ char	*ft_strdup(const char *s);
 int		merging(char *buff, char **str, int start, int index);
 int		count_lines(int fd);
 char	**load_map1(const char *path);
-int		count_rows(char **map);
+int		count_rows(void **map);
 char	***load_map2(char **map1);
 float	**alloc_array(char ***map);
 float	**put_data(float **array, char	***map);
-
+float	**angle(float a, float b, float c);
+void	rotate(float **angle, float ***array);
+float	**project(float   **array);
 
 #endif
