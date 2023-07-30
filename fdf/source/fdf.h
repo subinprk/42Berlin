@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/27 17:35:50 by siun             ###   ########.fr       */
+/*   Updated: 2023/07/30 23:24:16 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,14 @@
 # include <stdlib.h>
 # include <stdio.h>
 
- typedef struct	matrixes
- {
-	float	rotate[3][3];
-	float	projectxy[3][3];
-	float	a;
-	float	b;
-	float	c;
-/*
-	a = 1;
-	b = 1;
-	c = 1;
-	rotate = {
-				{cos(a) * cos(b), cos(a) * sin(b) * sin(c) - sin(a) * cos(c), cos(a) * sin(b) * cos(c) + sin(a) * sin(c)},
-				{sin(a) * cos(b), sin(a) * sin(b) * sin(c) + cos(a) * cos(c), sin(a) * sin(b) * cos(c) - cos(a) * sin(c)},
-				{-sin(b), cos(b) * sin(c), cos(b) * cos(c)}
-			};
-	projectxy = {{1, 0, 0}, {0, 1, 0}, {0, 0, 0}};*/
- }					t_matrix ;
+typedef	struct	s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s);
@@ -53,8 +43,9 @@ int		count_rows(void **map);
 char	***load_map2(char **map1);
 float	**alloc_array(char ***map);
 float	**put_data(float **array, char	***map);
-float	**angle(float a, float b, float c);
-void	rotate(float **angle, float ***array);
+void	make_angle(float a, float b, float c, float (*angle)[3][3]);
+void	rotate(float ***array);
+void	pro_vect(float	(*project)[3][3]);
 float	**project(float   **array);
 
 #endif
