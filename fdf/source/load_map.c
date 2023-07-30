@@ -6,11 +6,9 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/27 17:35:42 by siun             ###   ########.fr       */
+/*   Updated: 2023/07/30 23:38:03 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//I have to think about the free dynamically allocated arrays.........
 
 #include "fdf.h"
 

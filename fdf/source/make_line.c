@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/07/30 23:28:07 by siun             ###   ########.fr       */
+/*   Updated: 2023/07/30 23:51:59 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void    make_line(t_data *mlx, void *mlx_win, float *dot1, float *dot2)
 	}
 }
 
-void    print_out(float **map, t_data *mlx, void *mlx_win, int fd)
+void	print_out(float **map, t_data *mlx, void *mlx_win, const char *path)
 {
 	int		data_length;
 	int		standard_y;
@@ -41,7 +41,9 @@ void    print_out(float **map, t_data *mlx, void *mlx_win, int fd)
 	int		i;
 	int		j;
 
-	standard_y = count_lines(fd);
+	i = open(path, O_RDONLY);
+	standard_y = count_lines(i);
+	close(i);
 	data_length = count_rows(map);
 	movement_y = data_length / standard_y;
 	i = 0;
