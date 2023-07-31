@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/30 23:24:16 by siun             ###   ########.fr       */
+/*   Updated: 2023/07/31 16:39:36 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef	struct	s_data
 }				t_data;
 
 char	*get_next_line(int fd);
-char	*ft_strdup(const char *s);
 int		merging(char *buff, char **str, int start, int index);
 int		count_lines(int fd);
 char	**load_map1(const char *path);
@@ -47,5 +46,10 @@ void	make_angle(float a, float b, float c, float (*angle)[3][3]);
 void	rotate(float ***array);
 void	pro_vect(float	(*project)[3][3]);
 float	**project(float   **array);
+void	make_line(t_data image, float *dot1, float *dot2);
+void	print_out(float **map, t_data image, const char *path);
+float	**total_map(char *path);
+void	make_distanced(float ***array);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

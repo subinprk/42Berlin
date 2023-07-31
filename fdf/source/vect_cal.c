@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vect_cal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:56:20 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/30 23:29:10 by siun             ###   ########.fr       */
+/*   Updated: 2023/07/31 17:05:51 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ void	rotate(float ***array)
 	}
 }
 
+void	make_distanced(float ***array)
+{
+	int		row;
+	int		i;
+
+	row = count_rows((void **)*array);
+	i = 0;
+	while (i < row)
+	{
+		*array[i][0] = *array[i][0] * 1000;
+		*array[i][1] = *array[i][1] * 1000;
+		i ++;
+	}
+}
+
 void	pro_vect(float	(*project)[3][3])
 {
 	(*project)[0][0] = 1;
@@ -94,14 +109,10 @@ float	**project(float   **array)
 	}
 	newarr[i] = NULL;
 	free(array);
+	make_distanced(&newarr);
 	return (newarr);
 }
 
-void	make_bigger(float ***array)
-{
-
-	
-}
 /*
 int	main()
 {

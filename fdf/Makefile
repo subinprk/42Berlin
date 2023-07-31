@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: siun <siun@student.42.fr>                  +#+  +:+       +#+         #
+#    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/07/30 12:12:25 by siun             ###   ########.fr        #
+#    Updated: 2023/07/31 16:25:28 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LINUX_LINK	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME 		= fdf
 SRC_NAME 	= source/alloc_array.c source/load_map.c source/get_next_line.c\
-			source/vect_cal.c source/visualise.c
+			source/vect_cal.c source/make_line.c source/visualise.c
 OBJ_NAME 	= $(SRC_NAME:.c=.o)
 
 # Main Command
@@ -60,7 +60,7 @@ re: fclean all
 # Sub Command
 
 %.o: %.c
-		@$(CC) -Imlx -c -o $@ $< -lm -lXext -lX11
+		@$(CC) -Imlx -c -o $@ $<
 #		@$(CC) $(CCFLAGS) -Imlx -c -o $@ $< $(HEADERS)
 
 $(LIBFT):

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:54:12 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/25 23:41:39 by siun             ###   ########.fr       */
+/*   Updated: 2023/07/31 15:07:19 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int main()
 	float	**array;
 	char	***tmp;
 	char	**arr;
-
+*/
 //for check countline
 /*	fd = open("42.fdf", O_RDONLY);
 	i = count_lines(fd);
