@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vect_cal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:56:20 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/01 17:25:04 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/01 23:59:22 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	rotate(float ***array)
 	int		i;
 	int		j;
 
-	make_angle(1.5, 1.5, 1, &angle);
+	make_angle(-2, -3.14, 1, &angle);
 	i = 0;
 	while ((*array)[i] != NULL)
 	{
@@ -63,7 +63,7 @@ void	make_distanced(float ***array)
 	while (i < row)
 	{
 		(*array)[i][0] = (*array)[i][0] * 50 + 100;
-		(*array)[i][1] = (*array)[i][1] * 50 + 100;
+		(*array)[i][1] = (*array)[i][1] * 50 + 600;
 		i ++;
 	}
 }

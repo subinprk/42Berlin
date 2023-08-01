@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/01 17:24:10 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/01 23:47:47 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ void	make_line(t_data image, float *dot1, float *dot2)
 	deltaz = (dot2[2] - dot1[2]) / pixels;
 	while (pixels)
 	{
-		my_mlx_pixel_put(&image, dot1[0], dot1[1], 0xffffffff);
-		dot1[0] = dot1[0] + deltax;
-		dot1[1] = dot1[1] + deltay;
-		dot1[2] = dot1[2] + deltaz;
+		my_mlx_pixel_put(&image, dot1[0] + deltax * pixels,
+		 dot1[1] + deltay * pixels, 0xffffffff);
 		pixels --;
 	}
 }
