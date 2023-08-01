@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/31 16:39:36 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/01 16:40:09 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ float	**put_data(float **array, char	***map);
 void	make_angle(float a, float b, float c, float (*angle)[3][3]);
 void	rotate(float ***array);
 void	pro_vect(float	(*project)[3][3]);
-float	**project(float   **array);
+void	project(float   ***array);
 void	make_line(t_data image, float *dot1, float *dot2);
 void	print_out(float **map, t_data image, const char *path);
 float	**total_map(char *path);

@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:56:20 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/31 17:05:51 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/01 17:25:04 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	rotate(float ***array)
 	int		i;
 	int		j;
 
-	make_angle(1, 1, 1, &angle);
+	make_angle(1.5, 1.5, 1, &angle);
 	i = 0;
 	while ((*array)[i] != NULL)
 	{
 		j = 0;
-		while (j < 3)
+		while (j < 2)
 		{
 			tmp[j] = ((*array)[i][0]) * angle[0][j]
 					+ ((*array)[i][1]) * angle[1][j]
@@ -48,7 +48,6 @@ void	rotate(float ***array)
 		}
 		(*array)[i][0] = tmp[0];
 		(*array)[i][1] = tmp[1];
-		(*array)[i][2] = tmp[2];
 		i ++;
 	}
 }
@@ -59,11 +58,12 @@ void	make_distanced(float ***array)
 	int		i;
 
 	row = count_rows((void **)*array);
+	//printf("row :  %d\n", row);
 	i = 0;
 	while (i < row)
 	{
-		*array[i][0] = *array[i][0] * 1000;
-		*array[i][1] = *array[i][1] * 1000;
+		(*array)[i][0] = (*array)[i][0] * 50 + 100;
+		(*array)[i][1] = (*array)[i][1] * 50 + 100;
 		i ++;
 	}
 }
@@ -81,6 +81,32 @@ void	pro_vect(float	(*project)[3][3])
 	(*project)[2][2] = 0;
 }
 
+void	project(float   ***array)
+{
+	float   project[3][3];
+	float	tmp[2];
+	int		i;
+	int		j;
+
+	pro_vect(&project);
+	i = 0;
+	while ((*array)[i] != NULL)
+	{
+		j = 0;
+		while (j < 2)
+		{
+			tmp[j] = ((*array)[i][0]) * project[0][j]
+					+ ((*array)[i][1]) * project[1][j]
+					+ ((*array)[i][2]) * project[2][j];
+			j ++;
+		}
+		printf("%f ", (*array)[i][2]);
+		(*array)[i][0] = tmp[0];
+		(*array)[i][1] = tmp[1];
+		i ++;
+	}
+}
+/*
 float	**project(float   **array)
 {
 	float   project[3][3];
@@ -102,8 +128,10 @@ float	**project(float   **array)
 					+ (array[i][1]) * project[1][j]
 					+ (array[i][2]) * project[2][j];
 			newarr[i][j] = tmp[j];
+			//printf("%f ", newarr[i][j]);
 			j ++;
 		}
+		//printf("\n");
 		free(array[i]);
 		i ++;
 	}
@@ -112,7 +140,7 @@ float	**project(float   **array)
 	make_distanced(&newarr);
 	return (newarr);
 }
-
+*/
 /*
 int	main()
 {
