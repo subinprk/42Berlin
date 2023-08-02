@@ -6,7 +6,7 @@
 #    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/07/31 16:25:28 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/02 15:48:33 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HEADERS		= -I $(SOURCE_DIR) -I $(LIBFT_I_DIR) -I $(MLX_I_DIR)
 LINUX_LINK	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME 		= fdf
-SRC_NAME 	= source/alloc_array.c source/load_map.c source/get_next_line.c\
+SRC_NAME 	= source/load_map.c source/get_next_line.c source/alloc_array.c\
 			source/vect_cal.c source/make_line.c source/visualise.c
 OBJ_NAME 	= $(SRC_NAME:.c=.o)
 
@@ -51,7 +51,7 @@ fclean: clean
 		@make fclean -C $(LIBFT_DIR)
 		@$(RM) -f $(LIBFT)
 		@$(RM) -f $(MLX)
-		@$(RM) -f $(OBJ_NAME)
+		@$(RM) -f $(SOURCE_DIR)/$(OBJ_NAME)
 		@$(RM) -f $(NAME)
 
 re: fclean all

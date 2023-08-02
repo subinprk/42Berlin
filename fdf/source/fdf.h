@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/01 16:40:09 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/02 17:45:33 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define FDF_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
+#  define IMG_WIDTH 1000
+#  define IMG_HEIGHT 1000
 # endif
 
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
+# include <X11/keysym.h>
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
@@ -34,6 +37,12 @@ typedef	struct	s_data
 	int		endian;
 }				t_data;
 
+typedef struct	s_vars
+{
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
 char	*get_next_line(int fd);
 int		merging(char *buff, char **str, int start, int index);
 int		count_lines(int fd);
@@ -49,7 +58,7 @@ void	project(float   ***array);
 void	make_line(t_data image, float *dot1, float *dot2);
 void	print_out(float **map, t_data image, const char *path);
 float	**total_map(char *path);
-void	make_distanced(float ***array);
+void	make_distanced(float ***array, int x, int y, int size);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/01 23:47:47 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/02 14:44:39 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,23 @@ void	make_line(t_data image, float *dot1, float *dot2)
 	float	deltay;
 	float	deltaz;
 
-	//printf("make_line dots: %f, %f\n", dot1[0], dot1[1]);
 	if (dot1 == NULL || dot2 == NULL)
 		return ;
+	/*if (dot1[0] > IMG_WIDTH || dot2[0] > IMG_WIDTH)
+		return ;
+	if (dot1[1] > IMG_HEIGHT || dot2[1] > IMG_HEIGHT)
+		return ;*/
 	pixels = sqrt((dot1[0] - dot2[0]) * (dot1[0] - dot2[0])
 					+ (dot1[1] - dot2[1]) * (dot1[1] - dot2[1]));
-	//printf("make_line pixels: %d\n", pixels);
 	deltax = (dot2[0] - dot1[0]) / pixels;
 	deltay = (dot2[1] - dot1[1]) / pixels;
 	deltaz = (dot2[2] - dot1[2]) / pixels;
 	while (pixels)
 	{
-		my_mlx_pixel_put(&image, dot1[0] + deltax * pixels,
-		 dot1[1] + deltay * pixels, 0xffffffff);
+		if (dot1[0] + deltax * pixels <= IMG_WIDTH &&
+			dot1[1] + deltay * pixels <= IMG_HEIGHT)
+			my_mlx_pixel_put(&image, dot1[0] + deltax * pixels,
+		 	dot1[1] + deltay * pixels, 0xffffffff);
 		pixels --;
 	}
 }
@@ -58,15 +62,12 @@ void	print_out(float **map, t_data image, const char *path)
 	data_length = count_rows((void **)map);
 	movement_y = data_length / standard_y;
 	i = 0;
-	printf("\n%d\n", movement_y);
-	printf("%d\n", data_length);
 	while (i < data_length)
 	{
 		if (i + movement_y < data_length)
 			make_line (image, map[i], map[i + movement_y]);
 		if (i + 1 < data_length && (i + 1) % movement_y != 0)
 			make_line (image, map[i], map[i + 1]);
-		printf("%f %f\n", map[i][0], map[i][1]);
 		free(map[i]);
 		i ++;
 	}

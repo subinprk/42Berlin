@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vect_cal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:56:20 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/01 23:59:22 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/02 17:59:53 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,17 @@ void	rotate(float ***array)
 	}
 }
 
-void	make_distanced(float ***array)
+void	make_distanced(float ***array, int x, int y, int size)
 {
 	int		row;
 	int		i;
 
 	row = count_rows((void **)*array);
-	//printf("row :  %d\n", row);
 	i = 0;
 	while (i < row)
 	{
-		(*array)[i][0] = (*array)[i][0] * 50 + 100;
-		(*array)[i][1] = (*array)[i][1] * 50 + 600;
+		(*array)[i][0] = (*array)[i][0] * (25 + size) + 100 + x;
+		(*array)[i][1] = (*array)[i][1] * (25 + size) + 600 + y;
 		i ++;
 	}
 }
@@ -100,7 +99,6 @@ void	project(float   ***array)
 					+ ((*array)[i][2]) * project[2][j];
 			j ++;
 		}
-		printf("%f ", (*array)[i][2]);
 		(*array)[i][0] = tmp[0];
 		(*array)[i][1] = tmp[1];
 		i ++;
