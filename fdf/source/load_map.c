@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/30 23:38:03 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/03 14:32:36 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	**load_map1(const char *path)
 
 	map1 = NULL;
 	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
 	lines = count_lines(fd);
 	close(fd);
 	map1 = (char **)ft_calloc(sizeof(char *), lines + 1);

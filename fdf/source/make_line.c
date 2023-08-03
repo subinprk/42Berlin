@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/02 14:44:39 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/03 16:36:11 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,41 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	make_line(t_data image, float *dot1, float *dot2)
+int	newcolor(int pix)
+{
+	return (0xff000000 + 0x00000100 * (255 - pix) + pix);
+}
+
+int		max_z(float	**map)
+{
+	int	i;
+	int	max;
+	int	min;
+
+	i = 0;
+	max = 0;
+	min = 0;
+	while (map[i] != NULL)
+	{
+		if (max < map[i][2])
+			max = map[i][2];
+		if (min > map[i][2])
+			min = map[i][2];
+		i ++;
+	}
+	return (max - min);
+}
+
+void	make_line(t_data image, float **map, float *dot1, float *dot2, int max_z)
 {
 	int		pixels;
+	int		color;
 	float	deltax;
 	float	deltay;
 	float	deltaz;
 
 	if (dot1 == NULL || dot2 == NULL)
 		return ;
-	/*if (dot1[0] > IMG_WIDTH || dot2[0] > IMG_WIDTH)
-		return ;
-	if (dot1[1] > IMG_HEIGHT || dot2[1] > IMG_HEIGHT)
-		return ;*/
 	pixels = sqrt((dot1[0] - dot2[0]) * (dot1[0] - dot2[0])
 					+ (dot1[1] - dot2[1]) * (dot1[1] - dot2[1]));
 	deltax = (dot2[0] - dot1[0]) / pixels;
@@ -43,12 +65,13 @@ void	make_line(t_data image, float *dot1, float *dot2)
 		if (dot1[0] + deltax * pixels <= IMG_WIDTH &&
 			dot1[1] + deltay * pixels <= IMG_HEIGHT)
 			my_mlx_pixel_put(&image, dot1[0] + deltax * pixels,
-		 	dot1[1] + deltay * pixels, 0xffffffff);
+		 	dot1[1] + deltay * pixels, newcolor((dot1[2] + deltaz * pixels)
+					* 255 / max_z));
 		pixels --;
 	}
 }
 
-void	print_out(float **map, t_data image, const char *path)
+void	print_out(float **map, t_data image, const char *path, int max_z)
 {
 	int		data_length;
 	int		standard_y;
@@ -65,9 +88,9 @@ void	print_out(float **map, t_data image, const char *path)
 	while (i < data_length)
 	{
 		if (i + movement_y < data_length)
-			make_line (image, map[i], map[i + movement_y]);
+			make_line (image, map, map[i], map[i + movement_y], max_z);
 		if (i + 1 < data_length && (i + 1) % movement_y != 0)
-			make_line (image, map[i], map[i + 1]);
+			make_line (image, map, map[i], map[i + 1], max_z);
 		free(map[i]);
 		i ++;
 	}

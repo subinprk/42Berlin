@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/02 17:45:33 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/03 16:31:43 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ typedef struct	s_vars
 	void	*win;
 }				t_vars;
 
+typedef struct s_print
+{
+	int	x;
+	int	y;
+	int	size;
+}				t_print;
+
+
 char	*get_next_line(int fd);
 int		merging(char *buff, char **str, int start, int index);
 int		count_lines(int fd);
@@ -55,10 +63,11 @@ void	make_angle(float a, float b, float c, float (*angle)[3][3]);
 void	rotate(float ***array);
 void	pro_vect(float	(*project)[3][3]);
 void	project(float   ***array);
-void	make_line(t_data image, float *dot1, float *dot2);
-void	print_out(float **map, t_data image, const char *path);
+void	make_line(t_data image, float **map, float *dot1, float *dot2, int max_z);
+void	print_out(float **map, t_data image, const char *path, int max_z);
 float	**total_map(char *path);
 void	make_distanced(float ***array, int x, int y, int size);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		max_z(float	**map);
 
 #endif
