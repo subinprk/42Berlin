@@ -6,7 +6,7 @@
 #    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/08/02 15:48:33 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/07 16:05:54 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ LINUX_LINK	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 NAME 		= fdf
 SRC_NAME 	= source/load_map.c source/get_next_line.c source/alloc_array.c\
-			source/vect_cal.c source/make_line.c source/visualise.c
+			source/vect_cal.c source/make_line.c source/visualise.c\
+			source/modify_arr.c source/find_index.c
 OBJ_NAME 	= $(SRC_NAME:.c=.o)
 
 # Main Command
@@ -45,13 +46,15 @@ clean:
 		@make clean -C $(LIBFT_DIR)
 		@make clean -C $(MLX_DIR)
 		@$(RM) -f $(SOURCE_DIR)/$(OBJ_NAME)
-		@$(RM) -rf $(MLX_DIR)/build
+		@$(RM) -f source/load_map.o
+#		@$(RM) -rf $(MLX_DIR)/build
 
 fclean: clean
 		@make fclean -C $(LIBFT_DIR)
 		@$(RM) -f $(LIBFT)
 		@$(RM) -f $(MLX)
 		@$(RM) -f $(SOURCE_DIR)/$(OBJ_NAME)
+		@$(RM) -f source/load_map.o
 		@$(RM) -f $(NAME)
 
 re: fclean all

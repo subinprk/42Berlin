@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:56:20 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/03 16:38:13 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/07 15:37:34 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,24 @@ void	rotate(float ***array)
 	}
 }
 
-void	make_distanced(float ***array, int x, int y, int size)
+void	make_distanced(float ***array, int x, int y)
 {
 	int		row;
 	int		i;
+	float	size;
 
 	row = count_rows((void **)*array);
+	rotate(array);
+	project(array);
 	i = 0;
+	modify_x_min(array);
+	modify_y_min(array);
+	size = modify_distance(*array);
+	printf("%f\n", size);
 	while (i < row)
 	{
-		(*array)[i][0] = (*array)[i][0] * (25 + size) + 100 + x;
-		(*array)[i][1] = (*array)[i][1] * (25 + size) + 600 + y;
+		(*array)[i][0] = (*array)[i][0] * size + 50 + x;
+		(*array)[i][1] = (*array)[i][1] * size + 50 + y;
 		i ++;
 	}
 }

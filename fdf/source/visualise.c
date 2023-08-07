@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 23:18:50 by siun              #+#    #+#             */
-/*   Updated: 2023/08/03 16:35:07 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/07 15:22:53 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ float	**total_map(char *path)
 
 	tmp = load_map2(load_map1(path));
 	array = put_data(alloc_array(tmp), tmp);
-	rotate(&array);
-	project(&array);
+	//rotate(&array);
+	//project(&array);
 	return (array);
 }
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 	image.img = mlx_new_image(vars.mlx, IMG_WIDTH, IMG_HEIGHT);
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, 
 								&image.line_length, &image.endian);
-	make_distanced(&map, print.x, print.y, print.size);
+	make_distanced(&map, print.x, print.y);
 	height = max_z(map);
 	print_out(map, image, argv[1], height);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);

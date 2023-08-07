@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/03 16:31:43 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/07 15:15:32 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
-#  define IMG_WIDTH 1000
+#  define IMG_WIDTH 1500
 #  define IMG_HEIGHT 1000
 # endif
 
@@ -66,8 +66,15 @@ void	project(float   ***array);
 void	make_line(t_data image, float **map, float *dot1, float *dot2, int max_z);
 void	print_out(float **map, t_data image, const char *path, int max_z);
 float	**total_map(char *path);
-void	make_distanced(float ***array, int x, int y, int size);
+void	make_distanced(float ***array, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_z(float	**map);
+int		find_min_x(float **map);
+int		find_min_y(float **map);
+int		find_max_x(float **map);
+int		find_max_y(float **map);
+void	modify_x_min(float	***map);
+void	modify_y_min(float	***map);
+float	modify_distance(float	**map);
 
 #endif
