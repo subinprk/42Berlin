@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vect_cal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 23:56:20 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/07 15:37:34 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/07 20:12:02 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 void	make_angle(float a, float b, float c, float (*angle)[3][3])
 {
 	(*angle)[0][0] = cos(a) * cos(b);
-    (*angle)[0][1] = cos(a) * sin(b) * sin(c) - sin(a) * cos(c);
-    (*angle)[0][2] = cos(a) * sin(b) * cos(c) + sin(a) * sin(c);
-
-    (*angle)[1][0] = sin(a) * cos(b);
-    (*angle)[1][1] = sin(a) * sin(b) * sin(c) + cos(a) * cos(c);
-    (*angle)[1][2] = sin(a) * sin(b) * cos(c) - cos(a) * sin(c);
-
-    (*angle)[2][0] = -sin(b);
-    (*angle)[2][1] = cos(b) * sin(c);
-    (*angle)[2][2] = cos(b) * cos(c);
+	(*angle)[0][1] = cos(a) * sin(b) * sin(c) - sin(a) * cos(c);
+	(*angle)[0][2] = cos(a) * sin(b) * cos(c) + sin(a) * sin(c);
+ 	(*angle)[1][0] = sin(a) * cos(b);
+	(*angle)[1][1] = sin(a) * sin(b) * sin(c) + cos(a) * cos(c);
+	(*angle)[1][2] = sin(a) * sin(b) * cos(c) - cos(a) * sin(c);
+	(*angle)[2][0] = -sin(b);
+	(*angle)[2][1] = cos(b) * sin(c);
+	(*angle)[2][2] = cos(b) * cos(c);
 }
 
 void	rotate(float ***array)
@@ -42,8 +40,8 @@ void	rotate(float ***array)
 		while (j < 2)
 		{
 			tmp[j] = ((*array)[i][0]) * angle[0][j]
-					+ ((*array)[i][1]) * angle[1][j]
-					+ ((*array)[i][2]) * angle[2][j];
+				+ ((*array)[i][1]) * angle[1][j]
+				+ ((*array)[i][2]) * angle[2][j];
 			j ++;
 		}
 		(*array)[i][0] = tmp[0];
@@ -102,8 +100,8 @@ void	project(float   ***array)
 		while (j < 2)
 		{
 			tmp[j] = ((*array)[i][0]) * project[0][j]
-					+ ((*array)[i][1]) * project[1][j]
-					+ ((*array)[i][2]) * project[2][j];
+				+ ((*array)[i][1]) * project[1][j]
+				+ ((*array)[i][2]) * project[2][j];
 			j ++;
 		}
 		(*array)[i][0] = tmp[0];

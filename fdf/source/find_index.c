@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_index.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:14:53 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/07 13:27:19 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/07 20:07:27 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	find_min_x(float **map)
 {
-	int i;
-	int index;
-	float   tmp;
+	int		i;
+	int		index;
+	float	tmp;
 
 	i = 0;
 	tmp = map[0][0];
@@ -35,9 +35,9 @@ int	find_min_x(float **map)
 
 int	find_min_y(float **map)
 {
-	int i;
-	int index;
-	float   tmp;
+	int		i;
+	int		index;
+	float	tmp;
 
 	i = 0;
 	tmp = map[0][1];
@@ -56,9 +56,9 @@ int	find_min_y(float **map)
 
 int	find_max_x(float **map)
 {
-	int i;
-	int index;
-	float   tmp;
+	int		i;
+	int		index;
+	float	tmp;
 
 	i = 0;
 	tmp = map[0][0];
@@ -77,9 +77,9 @@ int	find_max_x(float **map)
 
 int	find_max_y(float **map)
 {
-	int i;
-	int index;
-	float   tmp;
+	int		i;
+	int		index;
+	float	tmp;
 
 	i = 0;
 	tmp = map[0][1];

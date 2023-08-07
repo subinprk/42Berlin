@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/03 14:32:36 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/07 19:48:20 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**load_map1(const char *path)
 {
 	char	**map1;
 	int		lines;
-	int 	fd;
+	int		fd;
 	int		i;
 
 	map1 = NULL;
@@ -53,7 +53,7 @@ char	**load_map1(const char *path)
 	return (map1);
 }
 
-int		count_rows(void **map)
+int	count_rows(void **map)
 {
 	int	row;
 
@@ -71,7 +71,7 @@ char	***load_map2(char **map1)
 
 	map2 = NULL;
 	row = count_rows((void **)map1);
-	map2 = (char ***)malloc(sizeof(char **)*(row + 1));
+	map2 = (char ***)malloc(sizeof(char **) * (row + 1));
 	i = 0;
 	while (i < row)
 	{
