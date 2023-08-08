@@ -87,23 +87,3 @@ char	**ft_split(char const *s, char c)
 	str = linebyline(str, s, c);
 	return (str);
 }
-/*
-#include <mcheck.h>
-#include <stdio.h>
-int main()
-{
-	int row = countrow("0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0", ' ');
-	int	i;
-	char **str = ft_split("0  0 10 10  0  0 10 10  0  0  0 10 10 10 10 10  0  0  0", ' ');
-	printf("%d\n", row);
-	for(i = 0; i <= row; i++)
-		printf("%d 번째 열 %s\n", i, str[i]);
-	for(i = 0; i <= row; i++)
-	{
-		free(str[i]);
-		printf("free %d\n", i);
-	}
-	free(str);
-	printf("final free \n");
-	return 0;
-}*/

@@ -6,7 +6,7 @@
 #    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/08/07 16:05:54 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/08 16:23:11 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ all: $(NAME)
 
 clean:
 		@make clean -C $(LIBFT_DIR)
-		@make clean -C $(MLX_DIR)
+#		@make clean -C $(MLX_DIR)
 		@$(RM) -f $(SOURCE_DIR)/$(OBJ_NAME)
 		@$(RM) -f source/load_map.o
 #		@$(RM) -rf $(MLX_DIR)/build

@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/07 15:15:32 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/08 15:55:59 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
+//# include <stdio.h>
 
-typedef	struct	s_data
+typedef struct s_data
 {
 	void	*img;
 	char	*addr;
@@ -37,7 +37,7 @@ typedef	struct	s_data
 	int		endian;
 }				t_data;
 
-typedef struct	s_vars
+typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
@@ -50,7 +50,6 @@ typedef struct s_print
 	int	size;
 }				t_print;
 
-
 char	*get_next_line(int fd);
 int		merging(char *buff, char **str, int start, int index);
 int		count_lines(int fd);
@@ -61,10 +60,10 @@ float	**alloc_array(char ***map);
 float	**put_data(float **array, char	***map);
 void	make_angle(float a, float b, float c, float (*angle)[3][3]);
 void	rotate(float ***array);
-void	pro_vect(float	(*project)[3][3]);
-void	project(float   ***array);
-void	make_line(t_data image, float **map, float *dot1, float *dot2, int max_z);
-void	print_out(float **map, t_data image, const char *path, int max_z);
+void	pro_vect(float (*project)[3][3]);
+void	project(float ***array);
+void	make_line(t_data image, float **map, float *dot1, float *dot2);
+void	print_out(float **map, t_data image, const char *path);
 float	**total_map(char *path);
 void	make_distanced(float ***array, int x, int y);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

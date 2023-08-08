@@ -36,10 +36,7 @@ float	**alloc_array(char ***map)
 		return (NULL);
 	i = 0;
 	while (i < nodes)
-	{
-		container[i] = ft_calloc(sizeof(float), 3);
-		i ++;
-	}
+		container[i ++] = ft_calloc(sizeof(float), 3);
 	return (container);
 }
 
