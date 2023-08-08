@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/07 19:57:02 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/07 15:39:29 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + y * data->line_length + x * (data->bits_per_pixel / 8);
-	*(unsigned int *)dst = color;
+	*(unsigned int*)dst = color;
 }
 
 int	newcolor(int pix)

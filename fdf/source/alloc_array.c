@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:54:12 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/07 20:16:46 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/07 16:50:25 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ float	**alloc_array(char ***map)
 		return (NULL);
 	i = 0;
 	while (i < nodes)
-		container[i ++] = ft_calloc(sizeof(float), 3);
+	{
+		container[i] = ft_calloc(sizeof(float), 3);
+		i ++;
+	}
 	return (container);
 }
 
