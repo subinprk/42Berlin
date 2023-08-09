@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/08 15:55:59 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/09 18:00:09 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #  define IMG_HEIGHT 1000
 # endif
 
-# include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
 # include <X11/keysym.h>
 # include <unistd.h>
@@ -26,6 +25,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <mlx.h>
 //# include <stdio.h>
 
 typedef struct s_data
@@ -62,7 +62,7 @@ void	make_angle(float a, float b, float c, float (*angle)[3][3]);
 void	rotate(float ***array);
 void	pro_vect(float (*project)[3][3]);
 void	project(float ***array);
-void	make_line(t_data image, float **map, float *dot1, float *dot2);
+void	make_line(t_data image, float *dot1, float *dot2, int height);
 void	print_out(float **map, t_data image, const char *path);
 float	**total_map(char *path);
 void	make_distanced(float ***array, int x, int y);
@@ -75,5 +75,7 @@ int		find_max_y(float **map);
 void	modify_x_min(float	***map);
 void	modify_y_min(float	***map);
 float	modify_distance(float	**map);
+int		is_num_space(int fd);
+int		is_val_map(const char *path);
 
 #endif

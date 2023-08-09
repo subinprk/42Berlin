@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/08 15:55:32 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/09 17:44:07 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	newcolor(int pix)
 	return (0xff000000 + 0x00000100 * (255 - pix) + pix);
 }
 
-int	max_z(float **map)
+int	max_z(float	**map)
 {
 	int	i;
 	int	max;
@@ -45,10 +45,9 @@ int	max_z(float **map)
 	return (max - min);
 }
 
-void	make_line(t_data image, float **map, float *dot1, float *dot2)
+void	make_line(t_data image, float *dot1, float *dot2, int height)
 {
 	int		pixels;
-	int		color;
 	float	deltax;
 	float	deltay;
 	float	deltaz;
@@ -67,7 +66,7 @@ void	make_line(t_data image, float **map, float *dot1, float *dot2)
 			my_mlx_pixel_put(&image, dot1[0] + deltax * pixels,
 				dot1[1] + deltay * pixels,
 				newcolor((dot1[2] + deltaz * pixels)
-					* 255 / max_z(map)));
+					* 255 / height));
 		pixels --;
 	}
 }
@@ -77,8 +76,8 @@ void	print_out(float **map, t_data image, const char *path)
 	int		data_length;
 	int		standard_y;
 	int		movement_y;
+	int		height;
 	int		i;
-	int		j;
 
 	i = open(path, O_RDONLY);
 	standard_y = count_lines(i);
@@ -86,12 +85,13 @@ void	print_out(float **map, t_data image, const char *path)
 	data_length = count_rows((void **)map);
 	movement_y = data_length / standard_y;
 	i = 0;
+	height = max_z(map);
 	while (i < data_length)
 	{
 		if (i + movement_y < data_length)
-			make_line (image, map, map[i], map[i + movement_y]);
+			make_line (image, map[i], map[i + movement_y], height);
 		if (i + 1 < data_length && (i + 1) % movement_y != 0)
-			make_line (image, map, map[i], map[i + 1]);
+			make_line (image, map[i], map[i + 1], height);
 		i ++;
 	}
 	i = 0;

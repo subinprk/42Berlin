@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:27:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/08 15:56:47 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/09 18:11:43 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ float	modify_distance(float	**map)
 	i = 0;
 	while (map[max_x][0] * size < IMG_WIDTH - 100 && map[max_y][1]
 		* size < IMG_HEIGHT - 100)
-		size = size * 2;
-	return (size / 2);
+		size = size * 1.5;
+	return (size / 1.5);
 }
