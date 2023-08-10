@@ -6,16 +6,22 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 17:57:32 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/09 18:05:56 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:11:57 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	close_free(int fd, char *tmp)
+{
+	free(tmp);
+	close(fd);
+}
+
 int	is_num_space(int fd)
 {
-	char	*tmp;
-	int		i;
+	char			*tmp;
+	static int		i;
 
 	tmp = get_next_line(fd);
 	while (tmp > 0)
@@ -23,11 +29,10 @@ int	is_num_space(int fd)
 		i = 0;
 		while (tmp[i] != 0)
 		{
-			if ((tmp[i] > '9' || tmp[i] < '0') && (tmp[i] != ' '
+			if ((tmp[i] > '9' | tmp[i] < '0') & (tmp[i] != ' ' & tmp[i] != 'x'
 					&& tmp[i] != '\t' && tmp[i] != '\n' && tmp[i] != '-'))
 			{
-				close(fd);
-				free(tmp);
+				close_free(fd, tmp);
 				return (0);
 			}
 			i ++;
@@ -35,8 +40,9 @@ int	is_num_space(int fd)
 		free(tmp);
 		tmp = get_next_line(fd);
 	}
-	free(tmp);
-	close(fd);
+	if (tmp <= 0 && i == 0)
+		return (0);
+	close_free(fd, tmp);
 	return (1);
 }
 

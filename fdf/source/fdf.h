@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/09 18:00:09 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/10 16:48:32 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <stdlib.h>
 # include <mlx.h>
 //# include <stdio.h>
-
+/*
 typedef struct s_data
 {
 	void	*img;
@@ -35,12 +35,17 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}				t_data;*/
 
 typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }				t_vars;
 
 typedef struct s_print
@@ -62,11 +67,11 @@ void	make_angle(float a, float b, float c, float (*angle)[3][3]);
 void	rotate(float ***array);
 void	pro_vect(float (*project)[3][3]);
 void	project(float ***array);
-void	make_line(t_data image, float *dot1, float *dot2, int height);
-void	print_out(float **map, t_data image, const char *path);
+void	make_line(t_vars image, float *dot1, float *dot2, int height);
+void	print_out(float **map, t_vars image, const char *path);
 float	**total_map(char *path);
 void	make_distanced(float ***array, int x, int y);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 int		max_z(float	**map);
 int		find_min_x(float **map);
 int		find_min_y(float **map);
@@ -77,5 +82,6 @@ void	modify_y_min(float	***map);
 float	modify_distance(float	**map);
 int		is_num_space(int fd);
 int		is_val_map(const char *path);
+char	**ft_2_split(char const *s, char c, char d);
 
 #endif

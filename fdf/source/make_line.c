@@ -6,13 +6,13 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/09 17:44:07 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/10 14:45:13 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -45,7 +45,7 @@ int	max_z(float	**map)
 	return (max - min);
 }
 
-void	make_line(t_data image, float *dot1, float *dot2, int height)
+void	make_line(t_vars image, float *dot1, float *dot2, int height)
 {
 	int		pixels;
 	float	deltax;
@@ -71,7 +71,7 @@ void	make_line(t_data image, float *dot1, float *dot2, int height)
 	}
 }
 
-void	print_out(float **map, t_data image, const char *path)
+void	print_out(float **map, t_vars image, const char *path)
 {
 	int		data_length;
 	int		standard_y;

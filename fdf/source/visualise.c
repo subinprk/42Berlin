@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 23:18:50 by siun              #+#    #+#             */
-/*   Updated: 2023/08/09 18:28:13 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/10 14:54:28 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	destroy_win(int key, t_vars *vars)
 {
 	if (key == XK_Escape)
 	{
+		mlx_destroy_image(vars->mlx, vars->img);
 		mlx_destroy_window(vars->mlx, vars->win);
+		free(vars->mlx);
 		exit(0);
 	}
 	return (0);
@@ -40,7 +42,9 @@ int	manage_key_hook(int key, t_vars *vars)
 
 int	exit_button(t_vars *vars)
 {
+	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
+	free(vars->mlx);
 	exit(0);
 	return (0);
 }
@@ -48,7 +52,6 @@ int	exit_button(t_vars *vars)
 int	main(int argc, char **argv)
 {
 	float			**map;
-	t_data			image;
 	t_vars			vars;
 	static t_print	print;
 	int				height;
@@ -56,18 +59,18 @@ int	main(int argc, char **argv)
 	if (argc != 2 || !is_val_map(argv[1]))
 		return (0);
 	map = total_map(argv[1]);
-	if (!map //|| map[0][0] == 0)
+	if (!map)
 		return (0);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, IMG_WIDTH, IMG_HEIGHT, "fdf");
-	image.img = mlx_new_image(vars.mlx, IMG_WIDTH, IMG_HEIGHT);
-	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel,
-			&image.line_length, &image.endian);
+	vars.img = mlx_new_image(vars.mlx, IMG_WIDTH, IMG_HEIGHT);
+	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel,
+			&vars.line_length, &vars.endian);
 	make_distanced(&map, print.x, print.y);
 	height = max_z(map);
-	print_out(map, image, argv[1]);
-	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L << 0, &manage_key_hook, &vars);
+	print_out(map, vars, argv[1]);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, 0, 0);
+	mlx_hook(vars.win, 2, 1, &manage_key_hook, &vars);
 	mlx_hook(vars.win, 17, 0, &exit_button, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
