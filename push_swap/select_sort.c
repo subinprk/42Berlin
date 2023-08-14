@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   select_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 23:01:09 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/13 23:57:34 by siun             ###   ########.fr       */
+/*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
+/*   Updated: 2023/08/14 00:26:41 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
-void	swap_a(t_list **a)
+void	select_sort(t_list **a, t_list **b)
 {
-	t_list *na;
+	int count;
 
-	na = (*a) -> next;
-	(*a) -> next = na -> next;
-	na -> next = (*a);
-	*a = na;
-	printf("sa\n");
-}
-
-void	swap_b(t_list **a)
-{
-	t_list *na;
-
-	na = (*a) -> next;
-	(*a) -> next = na -> next;
-	na -> next = (*a);
-	*a = na;
-	printf("sb\n");
-}
-
-void	sswap(t_list **a, t_list **b)
-{
-	swap_a(a);
-	swap_b(b);
+	if ((*b) == NULL)
+		return ;
+	count = 0;
+	while ((*a)->content < (*b)->content)
+	{
+		rerotate_a(a);
+		count ++;
+	}
+	push_a(a, b);
+	while (count > 0)
+	{
+		rotate_a(a);
+		count --;
+	}
+	return (select_sort(a, b));
 }

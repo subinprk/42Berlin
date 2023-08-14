@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 22:22:30 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/09 17:46:32 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/13 22:40:15 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	connect(t_list **a, t_list *new)
 	*a = new;
 }
 
-void	push(t_list **a, t_list **b)
+void	push_a(t_list **a, t_list **b)
 {
 	t_list	*tmp;
 	t_list	*t;
@@ -29,7 +29,23 @@ void	push(t_list **a, t_list **b)
 	t = *b;
 	*b = (*b)->next;
 	ft_lstdelone(t, tmpdel);
+	printf("pa\n");
 }
+
+void	push_b(t_list **a, t_list **b)
+{
+	t_list	*tmp;
+	t_list	*t;
+
+	tmp = ft_lstnew((*b)->content);
+	tmp->next = *a;
+	*a = tmp;
+	t = *b;
+	*b = (*b)->next;
+	ft_lstdelone(t, tmpdel);
+	printf("pb\n");
+}
+
 /*
 #include <stdio.h>
 int main()

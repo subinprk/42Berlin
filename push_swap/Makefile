@@ -3,38 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
+#    By: siun <siun@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 17:11:57 by subpark           #+#    #+#              #
-#    Updated: 2023/07/10 00:10:31 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/14 00:24:23 by siun             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CCFLAGS = -Wall -Werror -Wextra
 
-NAME = tmp.a
-SRC = list_tools/ft_lstadd_front.c list_tools/ft_lstclear.c \
-	list_tools/ft_lstdelone.c list_tools/ft_lstlast.c list_tools/ft_lstnew.c \
-	list_tools/ft_lstsize.c action_tools/push.c action_tools/rerotate.c \
-	action_tools/rotate.c action_tools/swap.c other_tools/ft_atoi.c \
+LIBFT		= libft.a
+LIBFT_DIR	= libft
+LIBFT_PATH	= $(LIBFT_DIR)/$(LIBFT)
+
+PRINTF		= libftprintf.a
+PRINTF_DIR	= ft_printf
+PRINTF_PARH = $(PRINTF_DIR)/$(PRINTF)
+
+NAME = tmp
+SRC = action_tools/push.c action_tools/rerotate.c \
+	action_tools/rotate.c action_tools/swap.c push_swap.c select_sort.c\
 
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-		@ar rcs $(NAME) $(OBJ)
-
-%.o: %.c push_swap.h
-	@$(CC) $(CCFLAGS) -c $< -o $@
-
 clean :
 		@rm -f $(OBJ)
+		@make clean -C $(LIBFT_DIR)
+		@make clean -C $(PRINTF_DIR)
 
 fclean: clean
 		@rm -f $(NAME)
+		@rm -f $(PRINTF)
+		@rm -f $(LIBFT)
 
 re: fclean all
 
-.PHONY: all clean fclea re
+%.o: %.c push_swap.h
+	@$(CC) -c $< -o $@
+#	@$(CC) $(CCFLAGS) -c $< -o $@
+
+$(LIBFT):
+	@make bonus -C $(LIBFT_DIR)
+	@mv $(LIBFT_DIR)/$(LIBFT) .
+
+$(PRINTF):
+	@make -C $(PRINTF_DIR)
+	@mv $(PRINTF_DIR)/$(PRINTF) .
+
+$(NAME): $(OBJ) $(LIBFT) $(PRINTF)
+		@$(CC) -o $@ $^
+#		@$(CC) $(CCFLAGS) -o $@ $^
+
+.PHONY: all clean fclean re

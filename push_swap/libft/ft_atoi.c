@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: subpark <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 13:12:19 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/10 00:09:51 by subpark          ###   ########.fr       */
+/*   Updated: 2023/05/10 13:30:55 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "libft.h"
+#include <stdio.h>
 
 int	spc(char c)
 {
@@ -27,25 +28,6 @@ void	signs(const char *nptr, int *index, int *sign)
 		*sign = -1;
 	if (nptr[*index] == '+' || nptr[*index] == '-')
 		(*index)++;
-}
-
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
-{
-	const unsigned char	*str1;
-	const unsigned char	*str2;
-	size_t				index;
-
-	str1 = s1;
-	str2 = s2;
-	index = 0;
-	while (index < n)
-	{
-		if (*(str1 + index) == *(str2 + index))
-			index ++;
-		else
-			return (str1[index] - str2[index]);
-	}
-	return (0);
 }
 
 int	ft_atoi(const char *nptr)

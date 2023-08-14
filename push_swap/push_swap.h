@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:04:02 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/10 00:08:51 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/14 00:25:38 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,25 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include "libft/libft.h"
+# include "ft_printf/ft_printf.h"
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}			t_list;
-
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstclear(t_list **lst, void (*del)(void*));
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstnew(void *content);
 void	tmpdel();
 int		ft_lstsize(t_list *lst);
 void	connect(t_list **a, t_list *new);
-void	push(t_list **a, t_list **b);
-void	swap(t_list **a);
+void	push_a(t_list **a, t_list **b);
+void	push_b(t_list **a, t_list **b);
+void	swap_a(t_list **a);
+void	swap_b(t_list **a);
 void	sswap(t_list **a, t_list **b);
-void	rotate(t_list **a);
+void	rotate_a(t_list **a);
+void	rotate_b(t_list **a);
 void	rotaterotate(t_list **a, t_list **b);
-void	rerotate(t_list **a);
+void	rerotate_a(t_list **a);
+void	rerotate_b(t_list **a);
 void	reroro(t_list **a, t_list **b);
 int		spc(char c);
 void	signs(const char *nptr, int *index, int *sign);
-int		ft_memcmp(const void *s1, const void *s2, size_t n);
-int		ft_atoi(const char *nptr);
-t_list  *point_list(t_list *stack, int num);
-t_list  *choicepivot(t_list *stack);
-void    push_swap(int argc, char **argv);
-
+void	select_sort(t_list **a, t_list **b);
 
 #endif

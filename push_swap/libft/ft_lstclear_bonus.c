@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 12:48:16 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/09 17:45:54 by subpark          ###   ########.fr       */
+/*   Created: 2023/06/01 14:38:55 by subpark           #+#    #+#             */
+/*   Updated: 2023/06/02 12:05:46 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	if (!lst || del == NULL)
-		return ;
-	del(lst->content);
-	free(lst);
-}
+	t_list	*tmp;
+	t_list	*tmpfree;
 
+	if (lst == NULL || *lst == NULL || del == NULL)
+		return ;
+	tmp = *lst;
+	while (tmp != NULL)
+	{
+		tmpfree = tmp;
+		tmp = tmp->next;
+		del(tmpfree->content);
+		free(tmpfree);
+	}
+	*lst = NULL;
+}
+/*
 void    tmpdel(void *content)
 {
-	printf("-----deleted %p-----\n", content);
+	printf("deleted\n");
 	return ;
-}
+}*/
 /*
 #include <stdio.h>
 int main()
@@ -44,8 +54,6 @@ int main()
 	printf("%d\n",ft_lstsize(lst1));
 	printf("%p\n",ft_lstlast(lst1));
 	printf("%p\n", lst3);
-	ft_lstdelone(ft_lstlast(lst1), tmpdel);
-	free (lst1);
-	free (lst2);
+	ft_lstclear(&lst1, tmpdel);
 	return (0);
 }*/

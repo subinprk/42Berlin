@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rerotate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:51:44 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/26 17:25:17 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/14 00:57:59 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	rerotate(t_list **a)
+void	rerotate_a(t_list **a)
 {
 	t_list	*tmp;
 	t_list	*curr;
@@ -22,12 +22,26 @@ void	rerotate(t_list **a)
 	curr = *a;
 	*a = (*a)->next;
 	ft_lstdelone(curr, tmpdel);
+	printf("rra\n");
+}
+
+void	rerotate_b(t_list **a)
+{
+	t_list	*tmp;
+	t_list	*curr;
+
+	tmp = ft_lstnew((*a)->content);
+	ft_lstlast(*a)->next = tmp;
+	curr = *a;
+	*a = (*a)->next;
+	ft_lstdelone(curr, tmpdel);
+	printf("rrb\n");
 }
 
 void	reroro(t_list **a, t_list **b)
 {
-	rerotate(a);
-	rerotate(b);
+	rerotate_a(a);
+	rerotate_b(b);
 }
 /*
 #include <stdio.h>
@@ -42,18 +56,16 @@ int main()
 	t_list *t1 = ft_lstnew((const char *)"what happened!");
 	t_list *b = ft_lstnew((const char *)"Nothing! ");
 
-	push(&a, tmp1);
-	push(&a, tmp2);
-	push(&b, t1);
-	push(&b, t2);
-	rerotate(&a);
+	ft_lstadd_front(&a, tmp1);
+	ft_lstadd_front(&a, tmp2);
+	rerotate_a(&a);
 	curr = a;
 	while (curr != NULL)
 	{
 		printf("%s \n", curr->content);
 		curr = curr->next;
 	}
-	curr = b;
+	/*curr = b;
 	while (curr != NULL)
 	{
 		printf("%s \n", curr->content);

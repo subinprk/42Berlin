@@ -3,65 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:34:51 by subpark           #+#    #+#             */
-/*   Updated: 2023/07/14 14:42:25 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/14 01:11:24 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "tmp.a"
 
-t_list  *point_list(t_list *stack, int num)
+void	tmpdel()
 {
-	while (num > 0)
-	{
-		stack = stack->next;
-		num --;
-	}
-	return (stack);
+	return ;
 }
 
-t_list  *choicepivot(t_list *stack)
+void	load_stack(char	*num, t_list **lst)
 {
-	int		midpoint;
-	t_list	*mid1;
-	t_list	*mid2;
-	t_list	*mid3;
+	t_list	*new;
+	int		number;
 
-	if (ft_lstsize(stack) < 3)
-		return (stack);
-	midpoint = ft_lstsize(stack) / 2;
-	mid1 = point_list(stack, midpoint - 1);
-	mid2 = point_list(stack, midpoint);
-	mid3 = point_list(stack, midpoint + 1);
-	if ((mid1 <= mid2) * !(mid3 < mid2) + !(mid1 < mid2) *(mid3 <= mid2))
-		return (mid2);
-	else if ((mid2 <= mid1) * !(mid3 < mid1) + !(mid2 < mid1) *(mid3 <= mid1))
-		return (mid1);
+	number = atoi(num);
+	new = ft_lstnew(number);
+	ft_lstadd_front(lst, new);
+}
+
+void	make_order_3(t_list **stack_a)
+{
+	t_list	*st;
+	t_list	*nd;
+	t_list	*rd;
+	st = *stack_a;
+	nd = (*stack_a)->next;
+	rd = ((*stack_a)->next)->next;
+	printf("1st a: %d\n", st->content);
+	printf("2nd a: %d\n", nd->content);
+	printf("3rd a: %d\n", rd->content);
+
+	if (st->content < nd->content && st->content < rd->content
+		&& rd->content > nd->content && rd->content > st->content)
+		return ;
+	else if (rd->content < nd->content && rd->content < st->content
+		&& nd->content > st->content && nd->content > rd->content)
+	{
+		rerotate_a(stack_a);
+		return (make_order_3(stack_a));
+	}
+	else if (nd->content < rd->content && nd->content < st->content
+		&& st->content > nd->content && st->content > rd->content)
+	{
+		rotate_a(stack_a);
+		return (make_order_3(stack_a));
+	}
 	else
-		return (mid3);
+	{
+		swap_a(stack_a);
+		return (make_order_3(stack_a));
+	}
 }
 
-void    main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int		 i;
-	int		tmp;
-	t_list	*a;
+	int		i;
+	int		j;
+	t_list	*stack_a;
+	t_list	*stack_b;
+	t_list	*curr;
+	t_list	*prv;
 
-	i = 0;
-	while (argv[i] != 0)
+	if (argc < 1)
+		return(0);
+	i = 1;
+	while (i < argc)
+		load_stack(argv[i ++], &stack_a);
+	j = 0;
+	while (j < i - 4)
 	{
-		tmp = ft_atoi(argv[i]);
-		ft_lstadd_front(&a, ft_lstnew(&tmp));
-		i ++;
+		push_b(&stack_b, &stack_a);
+		j ++;
 	}
-	t_list	*curr = a;
+	make_order_3(&stack_a);
+	select_sort(&stack_a, &stack_b);
+	curr = stack_a;
 	while (curr != NULL)
 	{
-		printf("%s \n", curr->content);
+		printf("%d \n", curr->content);
+		prv = curr;
 		curr = curr->next;
+		free(prv);
 	}
-	ft_lstclear(a, tmpdel);
+	free(curr);
 }

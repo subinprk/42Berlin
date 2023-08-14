@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 00:48:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/26 17:29:32 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/13 23:57:51 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	tmpdel()
-{
-	return ;
-}
-
-void	rotate(t_list **a)
+void	rotate_a(t_list **a)
 {
 	t_list	*tmp;
 	t_list	*last;
@@ -30,12 +25,29 @@ void	rotate(t_list **a)
 	(*a)->next = NULL;
 	ft_lstdelone(last, tmpdel);
 	*a = tmp;
+	printf ("ra\n");
+}
+
+void	rotate_b(t_list **a)
+{
+	t_list	*tmp;
+	t_list	*last;
+
+	last = ft_lstlast(*a);
+	tmp = ft_lstnew(last->content);
+	tmp->next = *(a);
+	while (((**a).next)->next != NULL)
+		*a = (*a)->next;
+	(*a)->next = NULL;
+	ft_lstdelone(last, tmpdel);
+	*a = tmp;
+	printf("rb\n");
 }
 
 void	rotaterotate(t_list **a, t_list **b)
 {
-	rotate(a);
-	rotate(b);
+	rotate_a(a);
+	rotate_b(b);
 }
 /*
 #include <stdio.h>
