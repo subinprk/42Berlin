@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rerotate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:51:44 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/14 00:57:59 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/14 17:13:58 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	rerotate_a(t_list **a)
 	t_list	*curr;
 
 	tmp = ft_lstnew((*a)->content);
-	ft_lstlast(*a)->next = tmp;
+	(ft_lstlast(*a))->next = tmp;
 	curr = *a;
 	*a = (*a)->next;
-	ft_lstdelone(curr, tmpdel);
+	ft_lstdelone(curr);
 	printf("rra\n");
 }
 
@@ -34,7 +34,7 @@ void	rerotate_b(t_list **a)
 	ft_lstlast(*a)->next = tmp;
 	curr = *a;
 	*a = (*a)->next;
-	ft_lstdelone(curr, tmpdel);
+	ft_lstdelone(curr);
 	printf("rrb\n");
 }
 

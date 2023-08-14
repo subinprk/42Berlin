@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:34:51 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/14 01:11:24 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/14 17:32:09 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	make_order_3(t_list **stack_a)
 	else if (rd->content < nd->content && rd->content < st->content
 		&& nd->content > st->content && nd->content > rd->content)
 	{
-		rerotate_a(stack_a);
+		rotate_a(stack_a);
 		return (make_order_3(stack_a));
 	}
 	else if (nd->content < rd->content && nd->content < st->content
 		&& st->content > nd->content && st->content > rd->content)
 	{
-		rotate_a(stack_a);
+		rerotate_a(stack_a);
 		return (make_order_3(stack_a));
 	}
 	else
@@ -82,7 +82,7 @@ int	main(int argc, char **argv)
 		j ++;
 	}
 	make_order_3(&stack_a);
-	select_sort(&stack_a, &stack_b);
+//	select_sort(&stack_a, &stack_b);
 	curr = stack_a;
 	while (curr != NULL)
 	{

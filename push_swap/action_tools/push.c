@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 22:22:30 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/13 22:40:15 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/14 17:14:31 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	push_a(t_list **a, t_list **b)
 	*a = tmp;
 	t = *b;
 	*b = (*b)->next;
-	ft_lstdelone(t, tmpdel);
+	ft_lstdelone(t);
 	printf("pa\n");
 }
 
@@ -42,7 +42,7 @@ void	push_b(t_list **a, t_list **b)
 	*a = tmp;
 	t = *b;
 	*b = (*b)->next;
-	ft_lstdelone(t, tmpdel);
+	ft_lstdelone(t);
 	printf("pb\n");
 }
 
