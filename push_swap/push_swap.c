@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:34:51 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/14 17:32:09 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/15 16:46:27 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@ void	tmpdel()
 void	load_stack(char	*num, t_list **lst)
 {
 	t_list	*new;
-	int		number;
+	int		*number;
 
-	number = atoi(num);
+	number = (int *)malloc(sizeof(int));
+	if (!number)
+		return ;
+	*number = ft_atoi(num);
+	printf("result atoi : %d\n", *number);
 	new = ft_lstnew(number);
 	ft_lstadd_front(lst, new);
 }
@@ -35,9 +39,9 @@ void	make_order_3(t_list **stack_a)
 	st = *stack_a;
 	nd = (*stack_a)->next;
 	rd = ((*stack_a)->next)->next;
-	printf("1st a: %d\n", st->content);
-	printf("2nd a: %d\n", nd->content);
-	printf("3rd a: %d\n", rd->content);
+	printf("1st a: %d\n", *(int *)(st->content));
+	printf("2nd a: %d\n", *(int *)(nd->content));
+	printf("3rd a: %d\n", *(int *)(rd->content));
 
 	if (st->content < nd->content && st->content < rd->content
 		&& rd->content > nd->content && rd->content > st->content)
@@ -75,21 +79,22 @@ int	main(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 		load_stack(argv[i ++], &stack_a);
+	
 	j = 0;
 	while (j < i - 4)
 	{
 		push_b(&stack_b, &stack_a);
 		j ++;
 	}
-	make_order_3(&stack_a);
-//	select_sort(&stack_a, &stack_b);
+	//make_order_3(&stack_a);
+	//select_sort(&stack_a, &stack_b);
 	curr = stack_a;
 	while (curr != NULL)
 	{
-		printf("%d \n", curr->content);
+		printf("%d \n", *(int *)(curr->content));
 		prv = curr;
 		curr = curr->next;
+		free(prv->content);
 		free(prv);
 	}
-	free(curr);
 }

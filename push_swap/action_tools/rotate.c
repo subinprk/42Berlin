@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 00:48:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/14 17:29:20 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/15 15:26:00 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ void	rotate_a(t_list **a)
 	t_list	*tmp;
 	t_list	*last;
 	t_list	*curr;
+	int		*last_val;
 
 	if (*a == NULL || (*a)->next == NULL)
 		return ;
-	last = ft_lstlast((*a));
-	tmp = ft_lstnew(last->content);
-	tmp->next = *(a);
-	curr = *(a);
+	curr = *a;
+	last = ft_lstlast(curr);
+	last_val = (int *)malloc(sizeof(int));
+	if (!last_val)
+		return ;
+	*last_val = *(int *)(last->content);
+	tmp = ft_lstnew(last_val);
+	tmp->next = *a;
+	curr = *a;
 	while (curr->next->next != NULL)
 		curr = curr->next;
 	curr->next = NULL;

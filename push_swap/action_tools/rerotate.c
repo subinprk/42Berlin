@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:51:44 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/14 17:13:58 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/15 15:21:57 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ void	rerotate_a(t_list **a)
 {
 	t_list	*tmp;
 	t_list	*curr;
+	int		*number;
 
-	tmp = ft_lstnew((*a)->content);
+	number = (int *)malloc(sizeof(int));
+	if (!number)
+		return ;
+	*number = *(int *)((*a)->content);
+	tmp = ft_lstnew(number);
 	(ft_lstlast(*a))->next = tmp;
 	curr = *a;
 	*a = (*a)->next;
