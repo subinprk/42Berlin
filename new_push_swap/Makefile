@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
+#    By: siun <siun@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 15:21:28 by subpark           #+#    #+#              #
-#    Updated: 2023/08/16 15:35:49 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/19 00:37:38 by siun             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ PRINTF_DIR	= ft_printf
 PRINTF_PATH	= $(PRINTF_DIR)/$(PRINTF)
 
 NAME	= tmp
-SRC		= source/push.cc
+SRC		= source/push.c source/rerotate.c
 
 OBJ		= $(SRC:.c=.o)
 
