@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/10 17:34:59 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:04:06 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char	***load_map2(char **map1)
 	int		row;
 	int		i;
 
+	if (map1 == NULL || (*map1) == NULL)
+		return (NULL);
 	map2 = NULL;
 	row = count_rows((void **)map1);
 	map2 = (char ***)malloc(sizeof(char **) * (row + 1));

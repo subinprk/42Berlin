@@ -6,7 +6,7 @@
 #    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 15:58:17 by subpark           #+#    #+#              #
-#    Updated: 2023/08/09 18:16:34 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/21 15:13:51 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LINUX_LINK	= -Lmlx -lmlx -framework OpenGL -framework AppKit
 NAME 		= fdf
 SRC_NAME 	= source/load_map.c source/get_next_line.c source/alloc_array.c\
 			source/vect_cal.c source/make_line.c source/visualise.c\
-			source/modify_arr.c source/find_index.c source/is_num_space.c
+			source/modify_arr.c source/find_index.c
 OBJ_NAME 	= $(SRC_NAME:.c=.o)
 
 # Main Command

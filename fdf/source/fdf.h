@@ -6,14 +6,14 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:20:21 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/10 16:48:32 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:26:44 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1000
 #  define IMG_WIDTH 1500
 #  define IMG_HEIGHT 1000
 # endif
@@ -80,8 +80,5 @@ int		find_max_y(float **map);
 void	modify_x_min(float	***map);
 void	modify_y_min(float	***map);
 float	modify_distance(float	**map);
-int		is_num_space(int fd);
-int		is_val_map(const char *path);
-char	**ft_2_split(char const *s, char c, char d);
 
 #endif

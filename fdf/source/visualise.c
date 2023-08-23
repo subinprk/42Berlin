@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 23:18:50 by siun              #+#    #+#             */
-/*   Updated: 2023/08/10 14:54:28 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:18:57 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ float	**total_map(char *path)
 	float	**array;
 
 	tmp = load_map2(load_map1(path));
+	if (!tmp)
+		return (NULL);
 	array = put_data(alloc_array(tmp), tmp);
 	return (array);
 }
@@ -28,6 +30,7 @@ int	destroy_win(int key, t_vars *vars)
 	{
 		mlx_destroy_image(vars->mlx, vars->img);
 		mlx_destroy_window(vars->mlx, vars->win);
+		mlx_destroy_display(vars->mlx);
 		free(vars->mlx);
 		exit(0);
 	}
@@ -44,6 +47,7 @@ int	exit_button(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img);
 	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	exit(0);
 	return (0);
@@ -56,10 +60,10 @@ int	main(int argc, char **argv)
 	static t_print	print;
 	int				height;
 
-	if (argc != 2 || !is_val_map(argv[1]))
+	if (argc != 2)
 		return (0);
 	map = total_map(argv[1]);
-	if (!map)
+	if (!map || !(*map))
 		return (0);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, IMG_WIDTH, IMG_HEIGHT, "fdf");

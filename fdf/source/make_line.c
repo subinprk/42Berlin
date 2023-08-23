@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 14:50:52 by siun              #+#    #+#             */
-/*   Updated: 2023/08/10 14:45:13 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/21 16:38:20 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	my_mlx_pixel_put(t_vars *data, int x, int y, int color)
 
 int	newcolor(int pix)
 {
-	return (0xff000000 + 0x00000100 * (255 - pix) + pix);
+	return (0xff000000 + 0x00010100 * (255 - pix) + pix);
 }
 
 int	max_z(float	**map)
