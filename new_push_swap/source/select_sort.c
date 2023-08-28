@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
-/*   Updated: 2023/08/27 14:42:13 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/28 13:49:21 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ void	select_sort(t_list **a, t_list **b)
 		return ;
 	count = 0;
 	curr = (*a);
-//	ft_printf("curr : %d\n", *(int*)curr->content);
-	while (*(int *)curr->content < *(int *)(*b)->content && curr != NULL)
+	//ft_printf("curr : %d\n", *(int*)curr->content);
+	while (curr != NULL && *(int *)curr->content < *(int *)(*b)->content)
 	{
+	//	ft_printf("I'm in this number now: %d\n", *(int*)curr->content);
 		curr = curr->next;
 		count ++;
 	}
-	
+	//ft_printf("count : %d\n", count);
 	tmp = 0;
 	while (tmp < count)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/27 15:02:38 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/28 14:03:30 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ void	make_order_3(t_list **stack_a)
 	st = *stack_a;
 	nd = (*stack_a)->next;
 	rd = ((*stack_a)->next)->next;
-//	printf("1st a: %d\n", *(int *)(st->content));
-//	printf("2nd a: %d\n", *(int *)(nd->content));
-//	printf("3rd a: %d\n", *(int *)(rd->content));
 
 	if (*(int *)(st->content) < *(int *)(nd->content) && *(int *)(st->content) < *(int *)(rd->content)
 		&& *(int *)(rd->content) > *(int *)(nd->content) && *(int *)(rd->content) > *(int *)(st->content))
@@ -88,12 +85,20 @@ int	main(int argc, char **argv)
 		j ++;
 	}
 	make_order_3(&stack_a);
-	select_sort(&stack_a, &stack_b);
-	curr = stack_a;
-	/*while (curr)
+	/*curr = stack_a;
+	while (curr)
 	{
-	//	ft_printf("stack a: %d\n", *(int *)curr->content);
-	//	ft_printf("current pointer: %p, next pointer: %p\n", curr, curr->next);
+		ft_printf("stack a: %d\n", *(int *)curr->content);
+		//ft_printf("current pointer: %p, next pointer: %p\n", curr, curr->next);
+		next = curr->next;
+		curr = next;
+	}*/
+	select_sort(&stack_a, &stack_b);
+	/*curr = stack_a;
+	while (curr)
+	{
+		ft_printf("stack a: %d\n", *(int *)curr->content);
+		//ft_printf("current pointer: %p, next pointer: %p\n", curr, curr->next);
 		next = curr->next;
 		curr = next;
 	}*/

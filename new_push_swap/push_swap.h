@@ -25,5 +25,6 @@ int	ra(t_list **stack_a);
 int	rb(t_list **stack_b);
 int	sa(t_list **stack_a);
 int	sb(t_list **stack_b);
+void	select_sort(t_list **a, t_list **b);
 
 #endif
