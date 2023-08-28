@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
+#    By: siun <siun@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 15:21:28 by subpark           #+#    #+#              #
-#    Updated: 2023/08/23 17:54:58 by subpark          ###   ########.fr        #
+#    Updated: 2023/08/27 13:01:30 by siun             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ PRINTF		= libftprintf.a
 PRINTF_DIR	= ft_printf
 PRINTF_PATH	= $(PRINTF_DIR)/$(PRINTF)
 
-NAME	= tmp
-SRC		= source/push.c source/rerotate.c source/rotate.c source/swap.c
+NAME	= push_swap
+SRC		= source/push.c source/rerotate.c source/rotate.c source/swap.c \
+		source/main.c source/select_sort.c
 
 OBJ		= $(SRC:.c=.o)
 

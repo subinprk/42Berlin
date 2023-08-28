@@ -1,39 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   select_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 11:17:38 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/26 22:21:54 by siun             ###   ########.fr       */
+/*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
+/*   Updated: 2023/08/27 14:42:13 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../push_swap.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	select_sort(t_list **a, t_list **b)
 {
-	if (lst == NULL || new == NULL)
+	int count;
+	int	tmp;
+	t_list	*curr;
+
+	if ((*b) == NULL || b == NULL)
 		return ;
-	new->next = *lst;
-	*lst = new;
-}
-/*
-#include <stdio.h>
-int main()
-{
-	t_list *lst = ft_lstnew((const char *)"hello");
-	t_list *new = ft_lstnew((const char *)"what happened ");
-	t_list *curr;
-	ft_lstadd_front(&lst, new);
-	curr = new;
-	while (curr != NULL)
+	count = 0;
+	curr = (*a);
+//	ft_printf("curr : %d\n", *(int*)curr->content);
+	while (*(int *)curr->content < *(int *)(*b)->content && curr != NULL)
 	{
-		printf("%s \n", curr->content);
 		curr = curr->next;
+		count ++;
 	}
-	free (lst);
-	free (new);
-	return (0);
-}*/
+	
+	tmp = 0;
+	while (tmp < count)
+	{
+		ra(a);
+		tmp ++;
+	}
+	pa(a, b);
+	while (count > 0)
+	{
+		rra(a);
+		count --;
+	}
+	return (select_sort(a, b));
+}

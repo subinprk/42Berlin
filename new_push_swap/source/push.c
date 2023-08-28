@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:36:00 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/19 00:23:31 by siun             ###   ########.fr       */
+/*   Updated: 2023/08/26 10:20:21 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	pa(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-int pb(t_list **stack_b, t_list **stack_a)
+int	pb(t_list **stack_b, t_list **stack_a)
 {
 	if(push(stack_a, stack_b))
 	{
