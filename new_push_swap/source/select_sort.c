@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
-/*   Updated: 2023/08/28 13:49:21 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/30 17:00:45 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	select_sort(t_list **a, t_list **b)
 {
-	int count;
+	static int count;
 	int	tmp;
 	t_list	*curr;
 
-	if ((*b) == NULL || b == NULL)
+	if (b == NULL)
 		return ;
-	count = 0;
 	curr = (*a);
-	//ft_printf("curr : %d\n", *(int*)curr->content);
+	/*//ft_printf("curr : %d\n", *(int*)curr->content);
+	if (*(int *)curr->content > *(int *)(*b)->content)
 	while (curr != NULL && *(int *)curr->content < *(int *)(*b)->content)
 	{
 	//	ft_printf("I'm in this number now: %d\n", *(int*)curr->content);
@@ -41,6 +41,16 @@ void	select_sort(t_list **a, t_list **b)
 	{
 		rra(a);
 		count --;
-	}
+	}*/
+	if ((*b) != NULL && *(int *)curr->content < *(int *)(*b)->content)//have to fix here, it doesn't cover the case b->content is biggist
+		ra(a);
+	else if ((*b) != NULL && *(int *)curr->content > *(int *)(*b)->content && *(int *)ft_lstlast(curr)->content > *(int *)(*b)->content)
+		rra(a);
+	else if ((*b) != NULL && *(int *)curr->content > *(int *)(*b)->content && *(int *)ft_lstlast(curr)->content < *(int *)(*b)->content)
+		pa(a, b);
+	else if ((*b) == NULL && *(int *)ft_lstlast(curr)->content < *(int *)curr->content)
+		rra(a);
+	else
+		return ;
 	return (select_sort(a, b));
 }

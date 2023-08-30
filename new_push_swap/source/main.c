@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/28 14:03:30 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/30 17:00:47 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,31 @@ void	load_stack(char	*num, t_list **lst)
 		*lst = new;
 	else
 		ft_lstadd_front(lst, new);
+}
+
+int	load_stack_one(char *str, t_list **lst)
+{
+	int *number;
+	int	i;
+	char	**splited;
+	t_list	*new;
+
+	splited = ft_split(str, ' ');
+	i = 0;
+	while (splited[i])
+	{
+		number = (int *)malloc(sizeof(int));
+		if (!number)
+			return (-1);
+		*number = ft_atoi(splited[i]);
+		new = ft_lstnew(number);
+		if (*lst == NULL)
+			*lst = new;
+		else
+			ft_lstadd_front(lst, new);
+		i ++;
+	}
+	return (i + 1);
 }
 
 void	make_order_3(t_list **stack_a)
@@ -72,44 +97,34 @@ int	main(int argc, char **argv)
 
 	if (argc <= 1)
 		return(0);
-	i = 1;
 	stack_a = NULL;
 	stack_b = NULL;
-	while (i < argc)
-		load_stack(argv[i ++], &stack_a);
-	
+	if (argc == 1 || (2 == argc && !argv[1][0]))
+		return (1);
+	else if (argc == 2)
+		argc = load_stack_one(argv[1], &stack_a);
+	else
+	{
+		i = 1;
+		while (i < argc)
+			load_stack(argv[i ++], &stack_a);
+	}
 	j = 0;
-	while (j < i - 4)
+	while (j < argc - 4)
 	{
 		pb(&stack_b, &stack_a);
 		j ++;
 	}
 	make_order_3(&stack_a);
-	/*curr = stack_a;
-	while (curr)
-	{
-		ft_printf("stack a: %d\n", *(int *)curr->content);
-		//ft_printf("current pointer: %p, next pointer: %p\n", curr, curr->next);
-		next = curr->next;
-		curr = next;
-	}*/
 	select_sort(&stack_a, &stack_b);
-	/*curr = stack_a;
+	curr = stack_a;
 	while (curr)
 	{
 		ft_printf("stack a: %d\n", *(int *)curr->content);
 		//ft_printf("current pointer: %p, next pointer: %p\n", curr, curr->next);
-		next = curr->next;
-		curr = next;
-	}*/
-	ft_lstclear(&stack_a, free);
-/*	curr = stack_b;
-	while (curr)
-	{
-		ft_printf("stack b : %d\n", *(int *)curr->content);
 		next = curr->next;
 		curr = next;
 	}
-	ft_lstclear(&stack_b, free);*/
+	ft_lstclear(&stack_a, free);
 	return (0);
 }

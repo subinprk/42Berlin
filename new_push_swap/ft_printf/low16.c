@@ -6,23 +6,12 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:36:32 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/20 14:30:59 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/30 15:07:58 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != 0)
-		i ++;
-	return (i);
-}
+#include "../libft/libft.h"
 
 char	*add1front(char c, char *str, int j)
 {
