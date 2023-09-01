@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/30 17:00:47 by subpark          ###   ########.fr       */
+/*   Updated: 2023/08/31 14:44:56 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-void	load_stack(char	*num, t_list **lst)
+int	load_stack(char	*num, t_list **lst)
 {
 	t_list	*new;
 	int		*number;
 
 	number = (int *)malloc(sizeof(int));
 	if (!number)
-		return ;
+		return (0);
 	*number = ft_atoi(num);
+	if ((*number) == 0)
+		return (0);
 	new = ft_lstnew(number);
 	if (*lst == NULL)
 		*lst = new;
 	else
 		ft_lstadd_front(lst, new);
+	return (1);
 }
 
 int	load_stack_one(char *str, t_list **lst)
@@ -43,6 +46,8 @@ int	load_stack_one(char *str, t_list **lst)
 		if (!number)
 			return (-1);
 		*number = ft_atoi(splited[i]);
+		if (!(*number))
+			return (0);
 		new = ft_lstnew(number);
 		if (*lst == NULL)
 			*lst = new;
@@ -102,12 +107,23 @@ int	main(int argc, char **argv)
 	if (argc == 1 || (2 == argc && !argv[1][0]))
 		return (1);
 	else if (argc == 2)
+	{
 		argc = load_stack_one(argv[1], &stack_a);
+		if (!argc)
+		{
+			ft_printf("Error\n");
+			return (1);
+		}
+	}
 	else
 	{
 		i = 1;
 		while (i < argc)
-			load_stack(argv[i ++], &stack_a);
+			if(!load_stack(argv[i ++], &stack_a))
+			{
+				ft_printf("Error\n");
+				return (1);
+			}
 	}
 	j = 0;
 	while (j < argc - 4)
