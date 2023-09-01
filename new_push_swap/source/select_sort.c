@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
-/*   Updated: 2023/09/01 11:52:34 by siun             ###   ########.fr       */
+/*   Updated: 2023/09/01 13:24:08 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	select_sort(t_list **a, t_list **b)
 
 	if (b == NULL)
 		return ;
-	curr = (*a);
+	//curr = (*a);
 	//start = (*a);
 	/*//ft_printf("curr : %d\n", *(int*)curr->content);
 	if (*(int *)curr->content > *(int *)(*b)->content)
@@ -92,10 +92,10 @@ void	select_sort(t_list **a, t_list **b)
 			ra(a);
 	else if ((*b) != NULL && *(int *)(*a)->content > *(int *)(*b)->content && *(int *)ft_lstlast((*a))->content > *(int *)(*b)->content)
 		rra(a);
-	else if ((*b) != NULL && *(int *)(*a)->content > *(int *)(*b)->content && *(int *)ft_lstlast((*a))->content < *(int *)(*b)->content)
+	else if (*b != NULL && *(int *)(*a)->content > *(int *)(*b)->content && *(int *)ft_lstlast((*a))->content < *(int *)(*b)->content)
 		pa(a, b);
-	else if ((*b) == NULL && *(int *)ft_lstlast((*a))->content < *(int *)curr->content)
-		rra(a);
+	else if (*b == NULL && *(int *)ft_lstlast((*a))->content < *(int *)(*a)->content)
+			rra(a);
 	else
 		return ;
 	return (select_sort(a, b));

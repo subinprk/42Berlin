@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/31 14:44:56 by siun             ###   ########.fr       */
+/*   Updated: 2023/09/01 13:23:51 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,57 +90,77 @@ void	make_order_3(t_list **stack_a)
 	}
 }
 
-
-int	main(int argc, char **argv)
+int loadStackFromArgs(int argc, char **argv, t_list **stack_a)
 {
-	int		i;
-	int		j;
-	t_list	*stack_a;
-	t_list	*stack_b;
-	t_list	*curr;
-	t_list	*next;
+	int i;
 
 	if (argc <= 1)
-		return(0);
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc == 1 || (2 == argc && !argv[1][0]))
-		return (1);
+		return 0;
+	*stack_a = NULL;
+	if (argc == 2 && !argv[1][0])
+		return 1;
 	else if (argc == 2)
 	{
-		argc = load_stack_one(argv[1], &stack_a);
-		if (!argc)
-		{
-			ft_printf("Error\n");
-			return (1);
-		}
+		return load_stack_one(argv[1], stack_a);
 	}
 	else
 	{
 		i = 1;
 		while (i < argc)
-			if(!load_stack(argv[i ++], &stack_a))
+		{
+			if (!load_stack(argv[i], stack_a))
 			{
 				ft_printf("Error\n");
-				return (1);
+				return 1;
 			}
+			i++;
+		}
+		return argc - 1; // Return the number of elements loaded into the stack
 	}
+}
+
+int main(int argc, char **argv)
+{
+	int i;
+	int j;
+	t_list *stack_a;
+	t_list *stack_b;
+	t_list *curr;
+	t_list *next;
+
+	int loadResult = loadStackFromArgs(argc, argv, &stack_a);
+	stack_b = NULL;
+	if (loadResult == 0)
+	{
+		return 0;
+	}
+	else if (loadResult == 1)
+	{
+		ft_printf("Error\n");
+		return 1;
+	}
+
 	j = 0;
-	while (j < argc - 4)
+	while (j < loadResult - 4)
 	{
 		pb(&stack_b, &stack_a);
-		j ++;
+		j++;
 	}
+
 	make_order_3(&stack_a);
 	select_sort(&stack_a, &stack_b);
+
 	curr = stack_a;
 	while (curr)
 	{
 		ft_printf("stack a: %d\n", *(int *)curr->content);
-		//ft_printf("current pointer: %p, next pointer: %p\n", curr, curr->next);
 		next = curr->next;
 		curr = next;
 	}
+
 	ft_lstclear(&stack_a, free);
-	return (0);
+	return 0;
 }
+
+
+
