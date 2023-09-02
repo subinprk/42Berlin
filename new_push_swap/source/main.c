@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/01 17:49:19 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/02 12:46:52 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,23 +127,42 @@ int loadStackFromArgs(int argc, char **argv, t_list **stack_a)
 	}
 }
 
+int	check_multiple(t_list *stack)
+{
+	t_list	*all;
+	t_list	*check;
+
+	check = stack;
+	while (check)
+	{
+		all = check->next;
+		while (all)
+		{
+			if (*(int *)all->content == *(int *)check->content)
+				return (0);
+			all = all->next;
+		}
+		check = check->next;
+	}
+	return (1);
+}
+
 int main(int argc, char **argv)
 {
-	int i;
-	int j;
-	t_list *stack_a;
-	t_list *stack_b;
-		t_list *curr;
-	t_list *next;
+	int 	i;
+	int		j;
+	int 	loadResult;
+	t_list	*stack_a;
+	t_list	*stack_b;
+	t_list	*curr;
+	t_list	*next;
 
 
-	int loadResult = loadStackFromArgs(argc, argv, &stack_a);
+	loadResult = loadStackFromArgs(argc, argv, &stack_a);
 	stack_b = NULL;
 	if (loadResult == 0)
-	{
 		return 0;
-	}
-	else if (loadResult == 1)
+	else if (loadResult && check_multiple(stack_a))
 	{
 		ft_printf("Error\n");
 		return 1;
