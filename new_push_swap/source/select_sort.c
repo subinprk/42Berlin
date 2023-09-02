@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   select_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
-/*   Updated: 2023/09/01 18:10:13 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/02 12:32:46 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	select_sort(t_list **a, t_list **b)
 			rra(a);
 		pa(a, b);
 	}
-	if ((*b) != NULL && *(int *)find_biggest(*a)->content < *(int *)(*b)->content)
+	else if ((*b) != NULL && *(int *)find_biggest(*a)->content < *(int *)(*b)->content)
 		rb(b);
 	else if ((*b) != NULL && *(int *)(find_biggest(*b))->content < *(int *)(find_smallest(*a))->content)
 	{
