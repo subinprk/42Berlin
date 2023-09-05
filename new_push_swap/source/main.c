@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/02 12:46:52 by siun             ###   ########.fr       */
+/*   Updated: 2023/09/05 15:01:48 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,23 @@ int	load_stack_one(char *str, t_list **lst)
 
 void	make_order_3(t_list **stack_a)
 {
-	t_list	*st;
-	t_list	*nd;
-	t_list	*rd;
+	t_list	*highest;
+	t_list	*curr;
 
-	st = *stack_a;
-	nd = (*stack_a)->next;
-	rd = ((*stack_a)->next)->next;
-
-	if (*(int *)(st->content) < *(int *)(nd->content) && *(int *)(st->content) < *(int *)(rd->content)
-		&& *(int *)(rd->content) > *(int *)(nd->content) && *(int *)(rd->content) > *(int *)(st->content))
-		return ;
-	else if (*(int *)(rd->content) < *(int *)(nd->content) && *(int *)(rd->content) < *(int *)(st->content)
-		&& *(int *)(nd->content) > *(int *)(st->content) && *(int *)(nd->content) > *(int *)(rd->content))
+	curr = *stack_a;
+	highest = *stack_a;
+	while (curr)
 	{
-		ra(stack_a);
-		return (make_order_3(stack_a));
+		if (*(int *)curr->content > *(int *)highest->content)
+		highest = curr;
+		curr = curr->next;
 	}
-	else if (*(int *)(nd->content) < *(int *)(rd->content) && *(int *)(nd->content) < *(int *)(st->content)
-		&& *(int *)(st->content) > *(int *)(nd->content) && *(int *)(st->content) > *(int *)(rd->content))
-	{
+	if (*stack_a == highest)
 		ra(stack_a);
-		return (make_order_3(stack_a));
-	}
-	else
-	{
+	else if ((*stack_a)->next == highest)
+		rra(stack_a);
+	if (*(int *)(*stack_a)->content > *(int *)(*stack_a)->next->content)
 		sa(stack_a);
-		return (make_order_3(stack_a));
-	}
 }
 
 int loadStackFromArgs(int argc, char **argv, t_list **stack_a)
@@ -162,7 +151,7 @@ int main(int argc, char **argv)
 	stack_b = NULL;
 	if (loadResult == 0)
 		return 0;
-	else if (loadResult && check_multiple(stack_a))
+	else if (loadResult && !check_multiple(stack_a))
 	{
 		ft_printf("Error\n");
 		return 1;
