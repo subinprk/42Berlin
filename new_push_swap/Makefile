@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: siun <siun@student.42.fr>                  +#+  +:+       +#+         #
+#    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 15:21:28 by subpark           #+#    #+#              #
-#    Updated: 2023/08/27 13:01:30 by siun             ###   ########.fr        #
+#    Updated: 2023/09/06 16:31:13 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ PRINTF_PATH	= $(PRINTF_DIR)/$(PRINTF)
 
 NAME	= push_swap
 SRC		= source/push.c source/rerotate.c source/rotate.c source/swap.c \
-		source/main.c source/select_sort.c
+		source/main.c source/select_sort.c source/stacking.c source/move.c \
+		source/node.c
 
 OBJ		= $(SRC:.c=.o)
 

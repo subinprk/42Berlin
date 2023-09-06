@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:36:10 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/26 22:10:12 by siun             ###   ########.fr       */
+/*   Updated: 2023/09/06 17:14:48 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ t_list	*ft_lstnew(void *content)
 	newnode = (t_list *)malloc(sizeof(t_list));
 	if (!newnode)
 		return (NULL);
-	newnode -> content = content;
-	newnode -> next = NULL;
+	newnode-> content = content;
+	newnode-> next = NULL;
+	newnode->alloc_node = NULL;
+	newnode->cost = 0;
 	return (newnode);
 }
 /*

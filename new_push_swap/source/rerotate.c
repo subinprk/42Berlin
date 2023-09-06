@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:23:49 by siun              #+#    #+#             */
-/*   Updated: 2023/08/23 16:47:44 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:28:15 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ int	rrb(t_list **stack_b)
 	if (!rerotate(stack_b))
 		return (0);
 	ft_printf("rrb\n");
+	return (1);
+}
+
+int	rrr(t_list **stack_a, t_list **stack_b)
+{
+	if (!rerotate(stack_a) || !rerotate(stack_b))
+		return (0);
+	ft_printf("rrr\n");
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:11:01 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/30 15:04:17 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/06 16:06:45 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 typedef struct s_list
 {
 	void			*content;
+	int				cost;
 	struct s_list	*next;
+	struct s_list	*alloc_node;
+
 }			t_list;
 
 int		ft_isdigit(int c);
