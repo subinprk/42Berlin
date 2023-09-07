@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:03:58 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/06 17:47:24 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/07 15:49:10 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	alloc_flag_node(t_list *stack_a, t_list **stack_b)
 			b->alloc_node = smallest;
 		else
 		{
-			prv = stack_a;
-			curr = prv->next;
+			prv = ft_lstlast(stack_a);
+			curr = stack_a;
 			while (curr && !(*(int *)prv->content < *(int *)b->content
 					&& *(int *)curr->content > *(int *)b->content))
 				{
