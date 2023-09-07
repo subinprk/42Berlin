@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:09:04 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/06 17:33:35 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/07 16:57:25 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ int main(int argc, char **argv)
 	t_list	*curr;
 	t_list	*next;
 
-
 	loadResult = loadStackFromArgs(argc, argv, &stack_a);
 	stack_b = NULL;
-	if (loadResult == 0)
-		return (0);
-	else if (loadResult && !check_multiple(stack_a))
+	if (!loadResult || !check_multiple(stack_a))
 	{
 		ft_printf("Error\n");
 		return (1);

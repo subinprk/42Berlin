@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/06 14:04:23 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/07 17:19:33 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,17 @@ int	load_stack(char	*num, t_list **lst)
 
 	number = (int *)malloc(sizeof(int));
 	if (!number)
+	{
+		ft_lstclear(lst, free);
 		return (0);
+	}
 	*number = ft_atoi(num);
 	if ((*number) == 0)
+	{
+		ft_lstclear(lst, free);
+		free(number);
 		return (0);
+	}
 	new = ft_lstnew(number);
 	if (*lst == NULL)
 		*lst = new;
@@ -31,13 +38,34 @@ int	load_stack(char	*num, t_list **lst)
 	return (1);
 }
 
+void	freeing_array(char **splited, int *number)
+{
+	int	i;
+
+	i = 0;
+	while (splited[i])
+		free(splited[i ++]);
+	free(splited);
+	if (number)
+		free(number);
+}
+
+void	generate_new_node(int *number, t_list **lst)
+{
+	t_list	*new;
+	new = ft_lstnew(number);
+	if (*lst == NULL)
+			*lst = new;
+	else
+		ft_lstadd_front(lst, new);
+}
+
 int	load_stack_one(char *str, t_list **lst)
 {
 	int *number;
 	int	i;
 	int	j;
 	char	**splited;
-	t_list	*new;
 
 	splited = ft_split(str, ' ');
 	i = 0;
@@ -47,22 +75,17 @@ int	load_stack_one(char *str, t_list **lst)
 	while (0 < j)
 	{
 		number = (int *)malloc(sizeof(int));
-		if (!number)
-			return (-1);
 		*number = ft_atoi(splited[j - 1]);
-		if (!(*number))
+		if (!number | !(*number))
+		{
+			freeing_array(splited, number);
+			ft_lstclear(lst, free);
 			return (0);
-		new = ft_lstnew(number);
-		if (*lst == NULL)
-			*lst = new;
-		else
-			ft_lstadd_front(lst, new);
+		}
+		generate_new_node(number, lst);
 		j --;
 	}
-	j = 0;
-	while (splited[j])
-		free(splited[j ++]);
-	free(splited);
+	freeing_array(splited, NULL);
 	return (i + 1);
 }
 
@@ -90,28 +113,25 @@ void	make_order_3(t_list **stack_a)
 int loadStackFromArgs(int argc, char **argv, t_list **stack_a)
 {
 	int i;
+	int	tmp;
 
-	if (argc <= 1)
-		return 0;
+	if (argc <= 1 || (argc == 2 && !argv[1][0]))
+		return (0);
 	*stack_a = NULL;
-	if (argc == 2 && !argv[1][0])
-		return 1;
-	else if (argc == 2)
+	if (argc == 2)
 	{
-		return load_stack_one(argv[1], stack_a);
+		tmp = load_stack_one(argv[1], stack_a);
+		if (!tmp)
+			return (0);
+		else
+			return (tmp);
 	}
 	else
 	{
-		i = argc;
+		i = argc - 1;
 		while (0 < i)
-		{
-			if (!load_stack(argv[i], stack_a))
-			{
-				ft_printf("Error\n");
-				return 1;
-			}
-			i++;
-		}
+			if (!load_stack(argv[i --], stack_a))
+				return (0);
 		return (argc - 1);
 	}
 }
