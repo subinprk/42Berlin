@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:49:29 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/06 15:27:53 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 13:32:56 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	rotate(t_list **stack)
 {
-	t_list  *head;
-	t_list  *second;
-	t_list  *last;
+	t_list	*head;
+	t_list	*second;
+	t_list	*last;
 
 	if (stack == NULL || *stack == NULL)
 		return (0);

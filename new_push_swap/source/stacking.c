@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/07 17:19:33 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 13:51:07 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,19 @@ void	freeing_array(char **splited, int *number)
 void	generate_new_node(int *number, t_list **lst)
 {
 	t_list	*new;
+
 	new = ft_lstnew(number);
 	if (*lst == NULL)
-			*lst = new;
+		*lst = new;
 	else
 		ft_lstadd_front(lst, new);
 }
 
 int	load_stack_one(char *str, t_list **lst)
 {
-	int *number;
-	int	i;
-	int	j;
+	int		*number;
+	int		i;
+	int		j;
 	char	**splited;
 
 	splited = ft_split(str, ' ');
@@ -75,7 +76,7 @@ int	load_stack_one(char *str, t_list **lst)
 	while (0 < j)
 	{
 		number = (int *)malloc(sizeof(int));
-		*number = ft_atoi(splited[j - 1]);
+		*number = ft_atoi(splited[j-- - 1]);
 		if (!number | !(*number))
 		{
 			freeing_array(splited, number);
@@ -83,36 +84,14 @@ int	load_stack_one(char *str, t_list **lst)
 			return (0);
 		}
 		generate_new_node(number, lst);
-		j --;
 	}
 	freeing_array(splited, NULL);
 	return (i + 1);
 }
 
-void	make_order_3(t_list **stack_a)
+int	load_args(int argc, char **argv, t_list **stack_a)
 {
-	t_list	*highest;
-	t_list	*curr;
-
-	curr = *stack_a;
-	highest = *stack_a;
-	while (curr)
-	{
-		if (*(int *)curr->content > *(int *)highest->content)
-		highest = curr;
-		curr = curr->next;
-	}
-	if (*stack_a == highest)
-		ra(stack_a);
-	else if ((*stack_a)->next == highest)
-		rra(stack_a);
-	if (*(int *)(*stack_a)->content > *(int *)(*stack_a)->next->content)
-		sa(stack_a);
-}
-
-int loadStackFromArgs(int argc, char **argv, t_list **stack_a)
-{
-	int i;
+	int	i;
 	int	tmp;
 
 	if (argc <= 1 || (argc == 2 && !argv[1][0]))
@@ -134,26 +113,6 @@ int loadStackFromArgs(int argc, char **argv, t_list **stack_a)
 				return (0);
 		return (argc - 1);
 	}
-}
-
-int	check_multiple(t_list *stack)
-{
-	t_list	*all;
-	t_list	*check;
-
-	check = stack;
-	while (check)
-	{
-		all = check->next;
-		while (all)
-		{
-			if (*(int *)all->content == *(int *)check->content)
-				return (0);
-			all = all->next;
-		}
-		check = check->next;
-	}
-	return (1);
 }
 
 /*

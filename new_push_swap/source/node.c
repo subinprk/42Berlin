@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:03:58 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/07 15:49:10 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 14:48:16 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_list	*find_list(t_list *stack, int position)
 	}
 	if (!curr)
 		ft_printf("the order you've requested is out of list length\n");
-	//ft_printf("%d\n", position);
 	return (curr);
 }
 
@@ -52,6 +51,12 @@ void	count_cost(t_list **stack)
 	}
 }
 
+void	go_forth(t_list	**curr, t_list **prv)
+{
+	*prv = *curr;
+	*curr = (*curr)->next;
+}
+
 void	alloc_flag_node(t_list *stack_a, t_list **stack_b)
 {
 	t_list	*b;
@@ -74,10 +79,7 @@ void	alloc_flag_node(t_list *stack_a, t_list **stack_b)
 			curr = stack_a;
 			while (curr && !(*(int *)prv->content < *(int *)b->content
 					&& *(int *)curr->content > *(int *)b->content))
-				{
-					prv = curr;
-					curr = curr->next;
-				}
+				go_forth(&curr, &prv);
 			b->alloc_node = curr;
 		}
 		b = b->next;

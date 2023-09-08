@@ -6,29 +6,11 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:14:38 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/06 17:25:17 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 14:43:50 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-int		order_in_stack(t_list *stack, t_list *target)
-{
-	int		i;
-	t_list	*curr;
-
-	curr = stack;
-	i = 0;
-	while(curr && curr != target)
-	{
-		i = i + 1;
-		curr = curr->next;
-	}
-	if (curr == target)
-		return (i);
-	else
-		return (-1);
-}
 
 int	number_case(t_list *stack_a, t_list *stack_b, t_list *target)
 {
@@ -58,37 +40,65 @@ int	number_case(t_list *stack_a, t_list *stack_b, t_list *target)
 	return (tmp);
 }
 
-void	case_move(t_list **stack_a, t_list **stack_b, t_list *target, int move_type)
+void	to_5(t_list **stack_a, t_list **stack_b, t_list *target, int type)
 {
-	if (move_type == 0)
+	if (type == 1)
+		rb(stack_b);
+	else if (type == 2)
+		rrb(stack_b);
+	else if (type == 3)
+		ra(stack_a);
+	else if (type == 4)
+	{
+		ra(stack_a);
+		rb(stack_b);
+	}
+	else if (type == 5)
+	{
+		ra(stack_a);
+		rrb(stack_b);
+	}
+	return ;
+}
+
+void	case_move(t_list **stack_a, t_list **stack_b, t_list *target, int type)
+{
+	if (type == 0)
 		return ;
-	else if (move_type == 1)
-		rb(stack_b);
-	else if (move_type == 2)
-		rrb(stack_b);
-	else if (move_type == 3)
-		ra(stack_a);
-	else if (move_type == 4)
-	{
-		ra(stack_a);
-		rb(stack_b);
-	}
-	else if (move_type == 5)
-	{
-		ra(stack_a);
-		rrb(stack_b);
-	}
-	else if (move_type == 6)
+	else if (type > 0 && type < 6)
+		to_5(stack_a, stack_b, target, type);
+	else if (type == 6)
 		rra(stack_a);
-	else if (move_type == 7)
+	else if (type == 7)
 	{
 		rra(stack_a);
 		rb(stack_b);
 	}
 	else
 		rrr(stack_a, stack_b);
-	move_type = number_case(*stack_a, *stack_b, target);
-	return (case_move(stack_a, stack_b, target, move_type));
+	type = number_case(*stack_a, *stack_b, target);
+	return (case_move(stack_a, stack_b, target, type));
+}
+
+void	make_order_3(t_list **stack_a)
+{
+	t_list	*highest;
+	t_list	*curr;
+
+	curr = *stack_a;
+	highest = *stack_a;
+	while (curr)
+	{
+		if (*(int *)curr->content > *(int *)highest->content)
+			highest = curr;
+		curr = curr->next;
+	}
+	if (*stack_a == highest)
+		ra(stack_a);
+	else if ((*stack_a)->next == highest)
+		rra(stack_a);
+	if (*(int *)(*stack_a)->content > *(int *)(*stack_a)->next->content)
+		sa(stack_a);
 }
 
 void	move(t_list **stack_a, t_list **stack_b)
@@ -101,7 +111,6 @@ void	move(t_list **stack_a, t_list **stack_b)
 	{
 		target = lowest_cost(*stack_a, *stack_b);
 		move_type = number_case(*stack_a, *stack_b, target);
-		//ft_printf("case is : %d\n", move_type);
 		case_move(stack_a, stack_b, target, move_type);
 		pa(stack_a, stack_b);
 	}

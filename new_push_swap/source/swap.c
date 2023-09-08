@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 17:10:00 by subpark           #+#    #+#             */
-/*   Updated: 2023/08/26 23:54:02 by siun             ###   ########.fr       */
+/*   Updated: 2023/09/08 13:43:47 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	swap(t_list **stack)
 
 int	sa(t_list **stack_a)
 {
-	if(!swap(stack_a))
+	if (!swap(stack_a))
 		return (0);
 	ft_printf("sa\n");
 	return (1);
@@ -37,7 +37,7 @@ int	sa(t_list **stack_a)
 
 int	sb(t_list **stack_b)
 {
-	if(!swap(stack_b))
+	if (!swap(stack_b))
 		return (0);
 	ft_printf("sb\n");
 	return (1);
