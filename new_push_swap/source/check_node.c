@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:12:30 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 14:44:25 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:15:35 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_sorted(t_list *stack)
 	prv = stack;
 	while (curr)
 	{
-		if (prv > curr)
+		if (*(int *)prv->content > *(int *)curr->content)
 			return (0);
 		prv = curr;
 		curr = curr->next;

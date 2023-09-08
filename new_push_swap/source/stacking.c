@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 13:51:07 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:53:23 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	load_stack(char	*num, t_list **lst)
 	if (!number)
 	{
 		ft_lstclear(lst, free);
-		return (0);
+		return (-2147483648);
 	}
 	*number = ft_atoi(num);
-	if ((*number) == 0)
+	if ((*number) == -2147483648)
 	{
 		ft_lstclear(lst, free);
 		free(number);
-		return (0);
+		return (-2147483648);
 	}
 	new = ft_lstnew(number);
 	if (*lst == NULL)
@@ -77,11 +77,11 @@ int	load_stack_one(char *str, t_list **lst)
 	{
 		number = (int *)malloc(sizeof(int));
 		*number = ft_atoi(splited[j-- - 1]);
-		if (!number | !(*number))
+		if (!number || (*number) == -2147483648)
 		{
 			freeing_array(splited, number);
 			ft_lstclear(lst, free);
-			return (0);
+			return (-2147483648);
 		}
 		generate_new_node(number, lst);
 	}
@@ -100,8 +100,8 @@ int	load_args(int argc, char **argv, t_list **stack_a)
 	if (argc == 2)
 	{
 		tmp = load_stack_one(argv[1], stack_a);
-		if (!tmp)
-			return (0);
+		if (tmp == -2147483648)
+			return (-2147483648);
 		else
 			return (tmp);
 	}
@@ -109,8 +109,8 @@ int	load_args(int argc, char **argv, t_list **stack_a)
 	{
 		i = argc - 1;
 		while (0 < i)
-			if (!load_stack(argv[i --], stack_a))
-				return (0);
+			if (load_stack(argv[i --], stack_a) == -2147483648)
+				return (-2147483648);
 		return (argc - 1);
 	}
 }

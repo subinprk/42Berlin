@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:09:04 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 13:54:37 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/08 16:14:45 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 
 	load_result = load_args(argc, argv, &stack_a);
 	stack_b = NULL;
-	if (!load_result || !check_multiple(stack_a))
+	if (load_result == -2147483648 || !check_multiple(stack_a))
 	{
 		ft_printf("Error\n");
 		return (1);
