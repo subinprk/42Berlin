@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:12:30 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 16:15:35 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/11 14:52:11 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	check_sorted(t_list *stack)
 
 int	having_2_case(t_list **stack_a)
 {
-	t_list	*curr;
-
 	if (ft_lstsize(*stack_a) == 2)
 	{
 		sa(stack_a);

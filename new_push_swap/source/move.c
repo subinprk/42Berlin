@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:14:38 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 14:43:50 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/11 14:52:50 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	number_case(t_list *stack_a, t_list *stack_b, t_list *target)
 	order_a = order_in_stack(stack_a, target->alloc_node);
 	order_b = order_in_stack(stack_b, target);
 	if (order_b == 0)
-		tmp = tmp;
+		;
 	else if (order_b < mid_b)
 		tmp = tmp + 1;
 	else
 		tmp = tmp + 2;
 	if (order_a == 0)
-		tmp = tmp;
+		;
 	else if (order_a < mid_a)
 		tmp = tmp + 1 * 3;
 	else
@@ -40,7 +40,7 @@ int	number_case(t_list *stack_a, t_list *stack_b, t_list *target)
 	return (tmp);
 }
 
-void	to_5(t_list **stack_a, t_list **stack_b, t_list *target, int type)
+void	to_5(t_list **stack_a, t_list **stack_b, int type)
 {
 	if (type == 1)
 		rb(stack_b);
@@ -66,7 +66,7 @@ void	case_move(t_list **stack_a, t_list **stack_b, t_list *target, int type)
 	if (type == 0)
 		return ;
 	else if (type > 0 && type < 6)
-		to_5(stack_a, stack_b, target, type);
+		to_5(stack_a, stack_b, type);
 	else if (type == 6)
 		rra(stack_a);
 	else if (type == 7)

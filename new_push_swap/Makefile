@@ -6,12 +6,12 @@
 #    By: subpark <subpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/16 15:21:28 by subpark           #+#    #+#              #
-#    Updated: 2023/09/08 13:27:27 by subpark          ###   ########.fr        #
+#    Updated: 2023/09/11 15:06:04 by subpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS = -Wall -Werror -Wextra -g
 
 LIBFT		= libft.a
 LIBFT_DIR	= libft
@@ -41,8 +41,7 @@ fclean: clean
 re: fclean all
 
 %.o: %.c push_swap.h
-			$(CC) -c $< -o $@
-#			$(CC) $(CCFLAGS) -c $< -o $@
+			$(CC) $(CCFLAGS) -c $< -o $@
 $(LIBFT):
 			make bonus -C $(LIBFT_DIR)
 			mv $(LIBFT_DIR)/$(LIBFT) .
@@ -50,6 +49,5 @@ $(PRINTF):
 			make -C $(PRINTF_DIR)
 			mv $(PRINTF_DIR)/$(PRINTF) .
 $(NAME): $(OBJ) $(LIBFT) $(PRINTF)
-			$(CC) -o $@ $^
-#			$(CC) $(CCFLAGS) -o $@ $^
+			$(CC) $(CCFLAGS) -o $@ $^
 .PHONY: all clean fclean re

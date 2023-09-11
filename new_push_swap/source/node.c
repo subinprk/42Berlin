@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:03:58 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 14:48:16 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/11 14:51:11 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_list	*find_list(t_list *stack, int position)
 void	count_cost(t_list **stack)
 {
 	int		count;
-	int		index;
 	t_list	*curr;
 
 	curr = *stack;
