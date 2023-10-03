@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:09:04 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/11 16:10:28 by subpark          ###   ########.fr       */
+/*   Updated: 2023/09/26 14:34:35 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ int	main(int argc, char **argv)
 
 	load_result = load_args(argc, argv, &stack_a);
 	stack_b = NULL;
-	if (argc == 1 || argv[1][0] == 0 || stack_a == NULL)
-		return (0);
-	if (!stack_checking(load_result, stack_a))
+	if (load_result == -2147483648 && ft_printf("Error"))
 		return (1);
-	if (check_sorted(stack_a) || having_2_case(&stack_a))
+	else if (argc == 1 || argv[1][0] == 0 || stack_a == NULL
+			|| !stack_checking(load_result, stack_a))
+		return (0);
+	else if (check_sorted(stack_a) || having_2_case(&stack_a))
 	{
 		ft_lstclear(&stack_a, free);
 		return (0);

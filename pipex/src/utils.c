@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   select_sort.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 00:02:35 by siun              #+#    #+#             */
-/*   Updated: 2023/08/14 15:01:56 by subpark          ###   ########.fr       */
+/*   Created: 2023/10/03 11:33:08 by subpark           #+#    #+#             */
+/*   Updated: 2023/10/03 17:51:13 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "pipex.h"
 
-void	select_sort(t_list **a, t_list **b)
+void	free_2d(char **arr)
 {
-	int count;
+	int	i;
 
-	if ((*b) == NULL)
-		return ;
-	count = 0;
-	while ((*a)->content < (*b)->content)
-	{
-		rerotate_a(a);
-		count ++;
-	}
-	push_a(a, b);
-	while (count > 0)
-	{
-		rotate_a(a);
-		count --;
-	}
-	return (select_sort(a, b));
+	i = 0;
+	while (arr[i] != NULL)
+		free(arr[i ++]);
+	free(arr);
 }
+/*
+void	close_4things(int fd1, int fd2, int fd3, int fd4)
+{
+	close (fd1);
+	close (fd2);
+	close (fd3);
+	close (fd4);
+}*/
+
