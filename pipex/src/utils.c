@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:33:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/03 17:51:13 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:54:19 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,38 @@ void	free_2d(char **arr)
 		free(arr[i ++]);
 	free(arr);
 }
+
+char **paths_array(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			return (ft_split(&envp[i][ft_strlen("PATH=")], ':'));
+		i ++;
+	}
+	return (NULL);
+}
+
+char	*path_pointer(char **env)
+{
+	char	**path;
+	int		i;
+
+	path = paths_array(env);
+	i = 0;
+	while (path[i] != NULL)
+	{
+		if (access(path[i], F_OK) == 0)
+			return (path[i]);
+		i ++;
+	}
+	return (NULL);
+}
+
+
 /*
 void	close_4things(int fd1, int fd2, int fd3, int fd4)
 {

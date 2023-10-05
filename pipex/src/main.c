@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/03 17:42:46 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/05 17:53:36 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	exec(char *cmd, char **env)
 	char	**command;
 
 	command = ft_split(cmd, ' ');
-	path
+	if (!path_pointer(env))
+		return (perror("command not existing\n"));
+	execve(cmd, paths_arry(env), env);
 }
 
 int	first_action(int *pip, int *pipefd, char *cmd, char **envp)
