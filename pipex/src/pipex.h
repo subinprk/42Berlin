@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:33:24 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/03 17:52:56 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/08 22:30:28 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <sys/wait.h>
 
 void	pipex(int *pip, char *cmd1, char *cmd2, char **envp);
-int 	first_action(int *pip, int *pipefd, char *cmd, char **envp);
-int 	second_action(int *pip, int *pipefd, char *cmd, char **envp);
+void	first_action(int *pip, int *pipefd, char *cmd, char **envp);
+void	second_action(int *pip, int *pipefd, char *cmd, char **envp);
 void	exec(char *cmd, char **env);
+void	free_2d(char **arr);
+char    **paths_array(char **envp);
+char	*path_pointer(char **env, char *command);
 
 #endif

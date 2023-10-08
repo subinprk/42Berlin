@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 17:54:58 by subpark           #+#    #+#             */
-/*   Updated: 2023/06/21 16:48:50 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/08 20:02:50 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "../libft/libft.h"
 
-int		ft_strlen(const char *s);
 char	*add1front(char c, char *str, int j);
 char	*makeposhexa(long num, char *tmp, int i);
 char	*makehexa(long num, char *tmp, int i);

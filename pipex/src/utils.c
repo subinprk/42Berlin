@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:33:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/05 17:54:19 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/09 00:12:42 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,26 @@ char **paths_array(char **envp)
 	return (NULL);
 }
 
-char	*path_pointer(char **env)
+char	*path_pointer(char **env, char *command)
 {
-	char	**path;
+	char	**path_array;
+	char	*path;
 	int		i;
 
-	path = paths_array(env);
+	path_array = paths_array(env);
 	i = 0;
-	while (path[i] != NULL)
+	while (path_array[i] != NULL)
 	{
-		if (access(path[i], F_OK) == 0)
-			return (path[i]);
+		if (access(path_array[i], 0) == 0)
+		{
+			path = ft_strdup(path_array[i]);
+			free_2d(path_array);
+			return (path);
+		}
 		i ++;
 	}
 	return (NULL);
 }
-
 
 /*
 void	close_4things(int fd1, int fd2, int fd3, int fd4)
