@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/09 00:12:42 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/10 00:15:55 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@ void	exec(char *cmd, char **env)
 	char	**command;
 	char	*path;
 
-//	printf("hello!");
 	command = ft_split(cmd, ' ');
-	path = ft_strjoin(path_pointer(env), "/");
-	path = ft_strjoin(path, command[0]);
-	printf("command path: %s", path);
+	path = path_pointer(env, command[0]);
 	if (!path)
 	{
 		free_2d(command);
-		return (perror("command not existing\n"));
+		free(path);
+		return (perror("Error"));
 	}
 	execve(path, command, env);
-	printf("\nHi\n");
+	if (path)
+		free(path);
 	free(command);
 }
 
@@ -36,43 +35,35 @@ void	first_action(int *pip, int *pipefd, char *cmd, char **envp)
 {
 	int	fd[2];
 
-	printf("first action\n");
 	fd[0] = dup2(pip[0], 0);
-	fd[1] = dup2(pipefd[0], 1);
+	fd[1] = dup2(pipefd[1], 1);
 	if (fd[0] == -1 || fd[1] == -1)
 	{
 		close(fd[0]);
 		close(fd[1]);
-		close(pipefd[1]);
-		perror("first action dup2");
+		close(pipefd[0]);
 		exit (1);
 	}
-	close(pipefd[1]);
+	close(pipefd[0]);
 	exec(cmd, envp);
 }
 
 void	second_action(int *pip, int *pipefd, char *cmd, char **envp)
 {
-	int fd[2];
-	int status;
-	printf("second action\n");
-//	printf("pipefd[1] : %d\n", pipefd[1]);
-//	printf("pip[0]: %d\n", pip[0]);
-	fd[1] = dup2(pip[1], 1);;
-//	perror("???\n");
-	fd[0] = dup2(pipefd[1], 0);
-//	ft_printf("pipefd[1] : %d\n", pipefd[1]);
+	int	fd[2];
+
+	if (pipefd[1] < 0)
+		exit(1);
+	fd[1] = dup2(pip[1], 1);
+	fd[0] = dup2(pipefd[0], 0);
 	if (fd[0] == -1 || fd[1] == -1)
 	{
 		close(fd[1]);
 		close(fd[0]);
-		close(pipefd[0]);
-		perror("second action dup2");
+		close(pipefd[1]);
 		exit (1);
 	}
-	close(pipefd[0]);
-//	perror("second, waitin first\n");
-	wait(&status);
+	close(pipefd[1]);
 	exec(cmd, envp);
 }
 
@@ -88,19 +79,30 @@ void	pipex(int *pip, char *cmd1, char *cmd2, char **envp)
 		return (perror("Fork: "));
 	else if (pid == 0)
 		first_action(pip, pipefd, cmd1, envp);
-	else
-		second_action(pip, pipefd, cmd2, envp);
+	waitpid(pid, NULL, 0);
+	second_action(pip, pipefd, cmd2, envp);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int pip[2];
+	int	pip[2];
 
+	if (argc != 5)
+	{
+		ft_printf("Error: Bad arguments\n");
+		exit(1);
+	}
 	pip[0] = open(argv[1], O_RDONLY);
 	pip[1] = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0000644);
-//	printf("pip[0]: %d\n", pip[0]);
 	if (pip[0] < 3 || pip[1] < 3)
-		return (-1);
+	{
+		if (pip[0] < 3)
+			ft_printf("Error: %s: ", argv[1]);
+		else
+			ft_printf("Error: %s: ", argv[argc - 1]);
+		perror("");
+		exit(1);
+	}
 	pipex(pip, argv[2], argv[3], envp);
 	return (0);
 }
