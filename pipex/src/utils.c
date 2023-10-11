@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:33:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/10 00:15:16 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/11 11:21:09 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,24 @@ char	*path_pointer(char **env, char *command)
 	}
 	free_2d(path_array);
 	return (NULL);
+}
+
+void	print_error_cmd(char **env, char *command)
+{
+	char	*path_buf;
+	char	**buf_command;
+
+	buf_command = ft_split(command, ' ');
+	path_buf = path_pointer(env, buf_command[0]);
+	if (!path_buf)
+	{
+		ft_printf("%s: ", buf_command[0]);
+		if (errno != 2)
+			perror("");
+		else
+			ft_printf("command not found\n");
+	}
+	free_2d(buf_command);
+	free(path_buf);
+	return ;
 }

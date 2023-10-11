@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:33:24 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/10 00:16:32 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/10 16:13:46 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 void	pipex(int *pip, char *cmd1, char *cmd2, char **envp);
 void	first_action(int *pip, int *pipefd, char *cmd, char **envp);
@@ -28,5 +29,6 @@ void	exec(char *cmd, char **env);
 void	free_2d(char **arr);
 char	**paths_array(char **envp);
 char	*path_pointer(char **env, char *command);
+void	print_error_cmd(char **env, char *command);
 
 #endif

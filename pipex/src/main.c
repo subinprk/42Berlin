@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/10 00:15:55 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/11 11:16:03 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	exec(char *cmd, char **env)
 	{
 		free_2d(command);
 		free(path);
-		return (perror("Error"));
+		return ;
 	}
 	execve(path, command, env);
 	if (path)
 		free(path);
-	free(command);
+	free_2d(command);
 }
 
 void	first_action(int *pip, int *pipefd, char *cmd, char **envp)
@@ -42,7 +42,8 @@ void	first_action(int *pip, int *pipefd, char *cmd, char **envp)
 		close(fd[0]);
 		close(fd[1]);
 		close(pipefd[0]);
-		exit (1);
+		exit (errno);
+		return ;
 	}
 	close(pipefd[0]);
 	exec(cmd, envp);
@@ -61,7 +62,7 @@ void	second_action(int *pip, int *pipefd, char *cmd, char **envp)
 		close(fd[1]);
 		close(fd[0]);
 		close(pipefd[1]);
-		exit (1);
+		exit (errno);
 	}
 	close(pipefd[1]);
 	exec(cmd, envp);
@@ -79,8 +80,9 @@ void	pipex(int *pip, char *cmd1, char *cmd2, char **envp)
 		return (perror("Fork: "));
 	else if (pid == 0)
 		first_action(pip, pipefd, cmd1, envp);
+	else
+		second_action(pip, pipefd, cmd2, envp);
 	waitpid(pid, NULL, 0);
-	second_action(pip, pipefd, cmd2, envp);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -94,14 +96,15 @@ int	main(int argc, char **argv, char **envp)
 	}
 	pip[0] = open(argv[1], O_RDONLY);
 	pip[1] = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0000644);
+	print_error_cmd(envp, argv[2]);
+	print_error_cmd(envp, argv[argc -2]);
 	if (pip[0] < 3 || pip[1] < 3)
 	{
-		if (pip[0] < 3)
-			ft_printf("Error: %s: ", argv[1]);
-		else
-			ft_printf("Error: %s: ", argv[argc - 1]);
+		if (pip[0] < 0)
+			ft_printf("bash: %s: ", argv[1]);
+		if (pip[1] < 0)
+			ft_printf("bash: %s: ", argv[argc - 1]);
 		perror("");
-		exit(1);
 	}
 	pipex(pip, argv[2], argv[3], envp);
 	return (0);
