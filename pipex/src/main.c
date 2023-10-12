@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/11 11:16:03 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/11 12:00:04 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	first_action(int *pip, int *pipefd, char *cmd, char **envp)
 	}
 	close(pipefd[0]);
 	exec(cmd, envp);
+	exit(2);
 }
 
 void	second_action(int *pip, int *pipefd, char *cmd, char **envp)
@@ -66,6 +67,7 @@ void	second_action(int *pip, int *pipefd, char *cmd, char **envp)
 	}
 	close(pipefd[1]);
 	exec(cmd, envp);
+	exit(2);
 }
 
 void	pipex(int *pip, char *cmd1, char *cmd2, char **envp)
