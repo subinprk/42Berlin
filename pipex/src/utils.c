@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:33:08 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/11 12:14:37 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/16 15:08:22 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,31 @@ char	**paths_array(char **envp)
 	return (NULL);
 }
 
+char	*command_path(char **path_array, int i, char *command)
+{
+	char	*part_path;
+	char	*path;
+
+	part_path = ft_strjoin(path_array[i], "/");
+	path = ft_strjoin(part_path, command);
+	free(part_path);
+	return (path);
+}
+
 char	*path_pointer(char **env, char *command)
 {
 	char	**path_array;
 	char	*path;
 	int		i;
-	char	*part_path;
 
 	path_array = paths_array(env);
 	i = 0;
 	while (path_array[i] != NULL)
 	{
 		if (command[0] != '/')
-		{
-			part_path = ft_strjoin(path_array[i], "/");
-			path = ft_strjoin(part_path, command);
-			free(part_path);
-		}
+			path = command_path(path_array, i, command);
 		else
-			path = command;
+			path = ft_strdup(command);
 		if (access(path, F_OK) == 0 && access(path, X_OK) == 0)
 		{
 			free_2d(path_array);

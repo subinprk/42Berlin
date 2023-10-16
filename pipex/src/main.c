@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/11 12:00:04 by siun             ###   ########.fr       */
+/*   Updated: 2023/10/16 15:12:22 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@ void	exec(char *cmd, char **env)
 	char	*path;
 
 	command = ft_split(cmd, ' ');
+	if (!command)
+		exit(errno);
 	path = path_pointer(env, command[0]);
 	if (!path)
 	{
 		free_2d(command);
 		free(path);
-		return ;
+		exit(2);
 	}
 	execve(path, command, env);
 	if (path)
 		free(path);
 	free_2d(command);
+	exit (errno);
 }
 
 void	first_action(int *pip, int *pipefd, char *cmd, char **envp)
@@ -83,8 +86,10 @@ void	pipex(int *pip, char *cmd1, char *cmd2, char **envp)
 	else if (pid == 0)
 		first_action(pip, pipefd, cmd1, envp);
 	else
+	{
+		waitpid(pid, NULL, WNOHANG);
 		second_action(pip, pipefd, cmd2, envp);
-	waitpid(pid, NULL, 0);
+	}
 }
 
 int	main(int argc, char **argv, char **envp)
