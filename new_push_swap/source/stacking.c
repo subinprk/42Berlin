@@ -6,29 +6,29 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:10:37 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/26 13:39:23 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/18 14:54:37 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	load_stack(char	*num, t_list **lst)
+long	load_stack(char	*num, t_list **lst)
 {
 	t_list	*new;
-	int		*number;
+	long		*number;
 
-	number = (int *)malloc(sizeof(int));
+	number = (int *)malloc(sizeof(long));
 	if (!number)
 	{
 		ft_lstclear(lst, free);
-		return (-2147483648);
+		return (LONG_MIN);
 	}
 	*number = ft_atoi(num);
-	if ((*number) == -2147483648)
+	if ((*number) == LONG_MIN)
 	{
 		ft_lstclear(lst, free);
 		free(number);
-		return (-2147483648);
+		return (LONG_MIN);
 	}
 	new = ft_lstnew(number);
 	if (*lst == NULL)
@@ -61,9 +61,9 @@ void	generate_new_node(int *number, t_list **lst)
 		ft_lstadd_front(lst, new);
 }
 
-int	load_stack_one(char *str, t_list **lst)
+long	load_stack_one(char *str, t_list **lst)
 {
-	int		*number;
+	long		*number;
 	int		i;
 	int		j;
 	char	**splited;
@@ -77,11 +77,11 @@ int	load_stack_one(char *str, t_list **lst)
 	{
 		number = (int *)malloc(sizeof(int));
 		*number = ft_atoi(splited[j-- - 1]);
-		if (!number || (*number) == -2147483648)
+		if (!number || (*number) == LONG_MIN)
 		{
 			freeing_array(splited, number);
 			ft_lstclear(lst, free);
-			return (-2147483648);
+			return (LONG_MIN);
 		}
 		generate_new_node(number, lst);
 	}
@@ -89,10 +89,10 @@ int	load_stack_one(char *str, t_list **lst)
 	return (i + 1);
 }
 
-int	load_args(int argc, char **argv, t_list **stack_a)
+long	load_args(int argc, char **argv, t_list **stack_a)
 {
-	int	i;
-	int	tmp;
+	int		i;
+	long	tmp;
 
 	if (argc <= 1 || (argc == 2 && !argv[1][0]))
 		return (0);
@@ -100,8 +100,8 @@ int	load_args(int argc, char **argv, t_list **stack_a)
 	if (argc == 2)
 	{
 		tmp = load_stack_one(argv[1], stack_a);
-		if (tmp == -2147483648)
-			return (-2147483648);
+		if (tmp == LONG_MIN)
+			return (LONG_MIN);
 		else
 			return (tmp);
 	}
@@ -109,8 +109,8 @@ int	load_args(int argc, char **argv, t_list **stack_a)
 	{
 		i = argc - 1;
 		while (0 < i)
-			if (load_stack(argv[i --], stack_a) == -2147483648)
-				return (-2147483648);
+			if (load_stack(argv[i --], stack_a) == LONG_MIN)
+				return (LONG_MIN);
 		return (argc - 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 10:36:10 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/08 13:42:05 by subpark          ###   ########.fr       */
+/*   Updated: 2023/06/02 11:01:31 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ t_list	*ft_lstnew(void *content)
 	newnode = (t_list *)malloc(sizeof(t_list));
 	if (!newnode)
 		return (NULL);
-	newnode->content = content;
-	newnode->next = NULL;
-	newnode->alloc_node = NULL;
-	newnode->cost = 0;
+	newnode -> content = content;
+	newnode -> next = NULL;
 	return (newnode);
 }
 /*

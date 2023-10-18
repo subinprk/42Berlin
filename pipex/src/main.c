@@ -103,8 +103,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	pip[0] = open(argv[1], O_RDONLY);
 	pip[1] = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0000644);
-	print_error_cmd(envp, argv[2]);
-	print_error_cmd(envp, argv[argc -2]);
 	if (pip[0] < 3 || pip[1] < 3)
 	{
 		if (pip[0] < 0)
@@ -113,6 +111,8 @@ int	main(int argc, char **argv, char **envp)
 			ft_printf("bash: %s: ", argv[argc - 1]);
 		perror("");
 	}
+	print_error_cmd(envp, argv[2]);
+	print_error_cmd(envp, argv[argc -2]);
 	pipex(pip, argv[2], argv[3], envp);
 	return (0);
 }

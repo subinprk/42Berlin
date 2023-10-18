@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: subpark <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 13:12:19 by subpark           #+#    #+#             */
-/*   Updated: 2023/05/10 13:30:55 by subpark          ###   ########.fr       */
+/*   Created: 2023/10/18 14:28:20 by subpark           #+#    #+#             */
+/*   Updated: 2023/10/18 14:41:03 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int	spc(char c)
-{
-	if (c == '\t' || c == '\n' || c == ' ' || c == '\r' || c == '\v'
-		||c == '\f')
-		return (1);
-	else
-		return (0);
-}
-
-void	signs(const char *nptr, int *index, int *sign)
-{
-	if (nptr[*index] == '-')
-		*sign = -1;
-	if (nptr[*index] == '+' || nptr[*index] == '-')
-		(*index)++;
-}
-
-int	ft_atoi(const char *nptr)
+long	ft_atoe(const char *nptr)
 {
 	int	num;
 	int	index;
@@ -47,20 +30,12 @@ int	ft_atoi(const char *nptr)
 	while (nptr[index] != 0)
 	{
 		if (nptr[index] < '0' || nptr[index] > '9')
-			return (sign * num);
+			return (LONG_MIN);
 		else if (10 * num + (nptr[index] - '0') < num)
-			return (0);
+			return (LONG_MIN);
 		else
 			num = 10 * num + (nptr[index] - '0');
 		index ++;
 	}
 	return (sign * num);
 }
-/*
-#include <stdio.h>
-void main()
-{
-	printf("%d \n", atoi("  -2147648wrf"));
-	printf("%d", ft_atoi("  -2147648wrf"));
-}
-*/

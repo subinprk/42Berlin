@@ -6,7 +6,7 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:11:01 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/06 16:06:45 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/18 14:40:19 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@
 typedef struct s_list
 {
 	void			*content;
-	int				cost;
 	struct s_list	*next;
-	struct s_list	*alloc_node;
-
 }			t_list;
 
 int		ft_isdigit(int c);
@@ -70,6 +67,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
-int		countrow(char const *s, char c);
-
+long	ft_atoe(const char *nptr);
 #endif

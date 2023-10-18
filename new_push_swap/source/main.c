@@ -6,15 +6,15 @@
 /*   By: subpark <subpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:09:04 by subpark           #+#    #+#             */
-/*   Updated: 2023/09/26 14:34:35 by subpark          ###   ########.fr       */
+/*   Updated: 2023/10/18 14:53:54 by subpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	stack_checking(int load_result, t_list *stack_a)
+int	stack_checking(long load_result, t_list *stack_a)
 {
-	if ((load_result == -2147483648 || !check_multiple(stack_a)))
+	if ((load_result == LONG_MIN || !check_multiple(stack_a)))
 	{
 		ft_printf("Error\n");
 		ft_lstclear(&stack_a, free);
@@ -26,8 +26,8 @@ int	stack_checking(int load_result, t_list *stack_a)
 
 int	main(int argc, char **argv)
 {
-	int		j;
-	int		load_result;
+	int			j;
+	long		load_result;
 	t_list	*stack_a;
 	t_list	*stack_b;
 
