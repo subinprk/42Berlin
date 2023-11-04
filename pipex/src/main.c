@@ -6,7 +6,7 @@
 /*   By: siun <siun@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:46:31 by subpark           #+#    #+#             */
-/*   Updated: 2023/10/16 15:12:22 by siun             ###   ########.fr       */
+/*   Updated: 2023/11/04 14:22:34 by siun             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	exec(char *cmd, char **env)
 	command = ft_split(cmd, ' ');
 	if (!command)
 		exit(errno);
+	if (!command[0])
+	{
+		free_2d(command);
+		exit(2);
+	}
 	path = path_pointer(env, command[0]);
 	if (!path)
 	{
@@ -103,10 +108,14 @@ int	main(int argc, char **argv, char **envp)
 	}
 	pip[0] = open(argv[1], O_RDONLY);
 	pip[1] = open(argv[argc - 1], O_TRUNC | O_CREAT | O_RDWR, 0000644);
-	if (pip[0] < 3 || pip[1] < 3)
+	if (pip[0] < 3)
 	{
 		if (pip[0] < 0)
 			ft_printf("bash: %s: ", argv[1]);
+		perror("");
+	}
+	if (pip[1] < 3)
+	{
 		if (pip[1] < 0)
 			ft_printf("bash: %s: ", argv[argc - 1]);
 		perror("");
