@@ -103,7 +103,7 @@ long	load_args(int argc, char **argv, t_list **stack_a)
 		if (tmp == LONG_MIN)
 			return (LONG_MIN);
 		else
-			return (tmp);
+			return (tmp - 1);
 	}
 	else
 	{
