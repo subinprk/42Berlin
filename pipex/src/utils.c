@@ -14,7 +14,8 @@
 
 void	free_2d(char **arr)
 {
-	int	i;
+	static int	pipefd[2] = {-1, -1};
+	int			i;
 
 	i = 0;
 	while (arr[i] != NULL)
